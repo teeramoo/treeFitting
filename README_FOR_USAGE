@@ -1,0 +1,23 @@
+Compilation needs PCL 1.7 or higher.
+
+This module is used to find possible cylinders within a range and show them on point cloud.
+Input needs scaled map and keyframe points from cloud_visualizer.
+Dev by Aayush.
+
+
+
+Usage:
+./treeFit Mode ScaledPointCloud ScaledKeyFrame radiusFromKeyframe
+
+# Mode : -r, -a, -v, -n (these modes are from cloud_visualizer. Use -a to see the cylinders on map points.)
+# ScaledPointCloud : Scaled point cloud of map points from cloud_visualizer
+# ScaledKeyFrame : Scaled point cloud of keyframe points from cloud_visualizer
+# radiusFromKeyFrame : Radius in Meters to search from keyframe location (Camera location). Currently 1.5m radius is used.
+
+
+Example use:
+
+./treeFit -a scaled_point_cloud.pcd scaled_keyframe.pcd 1.5
+
+
+STILL UNDER DEV, BUT FEEL FREE TO USE FOR DEBUG. PLEASE MESSAGE AAYUSH IF ANY ISSUES OCCUR

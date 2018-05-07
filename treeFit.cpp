@@ -1,0 +1,869 @@
+/* \author Geoffrey Biggs */
+
+
+//Boost libraries
+#include <boost/thread/thread.hpp>
+
+// PCL libraries
+
+#include <pcl/common/common_headers.h>
+#include <pcl/common/distances.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/console/parse.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/ModelCoefficients.h>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/filters/passthrough.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/sample_consensus/method_types.h>
+#include <pcl/sample_consensus/model_types.h>
+#include <pcl/segmentation/sac_segmentation.h>
+
+
+
+// cpp libraries
+#include <chrono>
+#include <ctime>
+#include <tuple>        
+#include <iostream>
+#include <string>
+#include <fstream>
+
+#include <PlaneSegment.h>
+#include <Viewer.h>
+#include <NormalEstimator.h>
+#include <CylinderSegment.h>
+
+class Tree
+{
+public:
+    pcl::ModelCoefficients::Ptr cylinderCoef;
+    pcl::PointIndices::Ptr cylinderPointcloud;
+    pcl::PointCloud<pcl::PointXYZRGB> treePoints;
+
+    int numPointcloud = 0;
+    double radius =0.0;
+    double perimeter = 0.0;
+    double height = 0.0;
+
+};
+
+class Cylinder
+{
+public:
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr input_pointCloud;
+    pcl::ModelCoefficients::Ptr cylinderCoef;
+    pcl::PointIndices::Ptr cylinderInliers;
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderPointCloud_ptr;
+
+};
+
+void
+printUsage (const char* progName)
+{
+  std::cout << "\n\nUsage: "<<progName<<" [options]\n\n"
+            << "Options:\n"
+            << "-------------------------------------------\n"
+            << "-h           this help\n"
+            << "-s           Simple visualisation example\n"
+            << "-r           RGB colour visualisation example\n"
+            << "-c           Custom colour visualisation example\n"
+            << "-n           Normals visualisation example\n"
+            << "-a           Shapes visualisation example\n"
+            << "-v           Viewports example\n"
+            << "-i           Interaction Customization example\n"
+            << "\n\n";
+}
+
+
+#if 0
+Tree getCylinderCoeff(pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud,
+                      pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr keyframe,
+                      pcl::PointCloud<pcl::Normal>::Ptr &normals,
+                      double dPointDistance,
+                      int KeypointLocation,
+                      pcl::ModelCoefficients::Ptr &PlaneCoefficients) {
+
+
+
+	point_cloud_ptr->width = (int) point_cloud_ptr->points.size ();
+	point_cloud_ptr->height = 1;
+
+
+	pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> ne;
+	ne.setInputCloud (point_cloud_ptr);
+	pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZRGB> ());
+	ne.setSearchMethod (tree);
+	pcl::PointCloud<pcl::Normal>::Ptr cloud_normals2 (new pcl::PointCloud<pcl::Normal>);
+//  ne.setKSearch(50);
+	ne.setRadiusSearch (1.0);
+//	ne.compute (*cloud_normals2);
+    cout << "check point 2 " << endl;
+
+	// Create the segmentation object for cylinder segmentation and set all the parameters
+    const float ax = PlaneCoefficients->values[0];
+    const float ay = PlaneCoefficients->values[1];
+    const float az = PlaneCoefficients->values[2];
+    const Eigen::Vector3f cylinderAxis(ax,ay,az);
+    const double epsAngle = 10.0/180.0 * M_PI;
+
+
+	pcl::SACSegmentationFromNormals<pcl::PointXYZRGB, pcl::Normal> seg;
+	pcl::PointIndices::Ptr inliers_cylinder (new pcl::PointIndices);
+	pcl::ModelCoefficients::Ptr coefficients_cylinder (new pcl::ModelCoefficients);
+
+
+	cout << "axis is : " << cylinderAxis << endl;
+
+	seg.setOptimizeCoefficients (false);
+	seg.setModelType (pcl::SACMODEL_CYLINDER);
+    seg.setAxis(cylinderAxis);
+    seg.setEpsAngle(epsAngle);
+	seg.setMethodType (pcl::SAC_RANSAC);
+	seg.setNormalDistanceWeight (0.0);
+	seg.setMaxIterations (50000);
+	seg.setDistanceThreshold (0.2);
+	seg.setRadiusLimits (0.02, 0.1);
+	seg.setInputCloud (point_cloud_ptr);
+//	seg.setInputNormals (cloud_normals2);
+    seg.setInputNormals (normals);
+
+
+
+//    cout << "check point 3 " << endl;
+
+    // Obtain the cylinder inliers and coefficients
+	seg.segment (*inliers_cylinder, *coefficients_cylinder);
+    cout << "check point 4 " << endl;
+    if(inliers_cylinder->indices.size() > 0){
+
+        cout << "Size of inliers is : " << inliers_cylinder->indices.size() << endl;
+    }
+
+
+    Tree currentTree;
+
+    //No cylinder found
+    if(coefficients_cylinder->values.size() == 0 or inliers_cylinder->indices.size() < 30 )
+    {
+        coefficients_cylinder->header.frame_id = "NULL";
+        currentTree.cylinderCoef = coefficients_cylinder;
+        currentTree.cylinderPointcloud = inliers_cylinder;
+        return currentTree ;
+    }
+    cout << "Cylinder coefficient is : " << *coefficients_cylinder << endl;
+
+
+	double tmpx = coefficients_cylinder->values[0];
+	double tmpy = coefficients_cylinder->values[1];
+	double tmpz = coefficients_cylinder->values[2];
+	double dist = sqrt(pow(tkpx-tmpx,2.0)+pow(tkpy-tmpy,2.0)+pow(tkpz-tmpz,2.0));
+	if(dist > dPointDistance)
+	{
+        coefficients_cylinder->header.frame_id = "NULL";
+        currentTree.cylinderCoef = coefficients_cylinder;
+        currentTree.cylinderPointcloud = inliers_cylinder;
+        return currentTree ;
+	}
+
+
+
+    pcl::ExtractIndices<pcl::PointXYZRGB> extract (true);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_p (new pcl::PointCloud<pcl::PointXYZRGB>);
+    extract.setInputCloud (point_cloud_ptr);
+    extract.setIndices (inliers_cylinder);
+    extract.setNegative (false);
+    cout << "check point 5 " << endl;
+    extract.filter(*cloud_p);
+    cout << "Size of cloud is : " << cloud->points.size() << endl;
+    cout << "Size of cloud_p is : " << cloud_p->points.size() << endl;
+
+    currentTree.cylinderCoef = coefficients_cylinder;
+    currentTree.cylinderPointcloud = inliers_cylinder;
+    currentTree.numPointcloud = (int) inliers_cylinder->indices.size();
+    currentTree.radius = coefficients_cylinder->values[6];
+    currentTree.perimeter = currentTree.radius * 2 * M_PI;
+
+    /*
+    for(int i=0; i< inliers_cylinder->indices.size(); i++){
+        cout << "the 3D point is : ("<< point_cloud_ptr->points[i].x << " , "
+             << point_cloud_ptr->points[i].y << " , " << point_cloud_ptr->points[i].z << ")" <<endl;
+        currentTree.treePoints.push_back(point_cloud_ptr->points[i]) ;
+    }
+*/
+    return currentTree;
+
+}
+
+
+#endif
+
+// --------------
+// -----Main-----
+// --------------
+int
+main (int argc, char** argv) {
+
+
+    // --------------------------------------
+    // -----Parse Command Line Arguments-----
+    // --------------------------------------
+    std::string sInput = "";
+    std::string sInputKeyframe = "";
+    double dPointDistance = 1.0;
+    if (pcl::console::find_argument(argc, argv, "-h") >= 0) {
+        printUsage(argv[0]);
+        return 0;
+    }
+    bool simple(false), rgb(false), custom_c(false), normals(false),
+            shapes(false), viewports(false), interaction_customization(false);
+    if (pcl::console::find_argument(argc, argv, "-s") >= 0) {
+        simple = true;
+        std::cout << "Simple visualisation example\n";
+    } else if (pcl::console::find_argument(argc, argv, "-c") >= 0) {
+        custom_c = true;
+        std::cout << "Custom colour visualisation example\n";
+    } else if (pcl::console::find_argument(argc, argv, "-r") >= 0) {
+        rgb = true;
+        std::cout << "RGB colour visualisation example\n";
+    } else if (pcl::console::find_argument(argc, argv, "-n") >= 0) {
+        normals = true;
+        std::cout << "Normals visualisation example\n";
+    } else if (pcl::console::find_argument(argc, argv, "-a") >= 0) {
+        shapes = true;
+        std::cout << "Shapes visualisation example\n";
+    } else if (pcl::console::find_argument(argc, argv, "-v") >= 0) {
+        viewports = true;
+        std::cout << "Viewports example\n";
+    } else if (pcl::console::find_argument(argc, argv, "-i") >= 0) {
+        interaction_customization = true;
+        std::cout << "Interaction Customization example\n";
+    } else {
+        printUsage(argv[0]);
+        return 0;
+    }
+
+    // ------------------------------------
+    // -----Create example point cloud-----
+    // ------------------------------------
+    pcl::PointCloud<pcl::PointXYZ>::Ptr basic_cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr point_cloud_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoint_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+    //std::vector<int> vkpCounter;
+    double tkpx = 0, tkpy = 0, tkpz = 0;
+    double dEpsAngle;
+
+    if (argc == 6) {
+        sInput = std::string(argv[2]);
+        sInputKeyframe = std::string(argv[3]);
+        dPointDistance = std::stod(argv[4]);
+        dEpsAngle = std::stod(argv[5]);
+
+        //Input cloud will have pcd format and color in float bits (reinterpret cast from uint32_t)
+        pcl::io::loadPCDFile(sInput, *point_cloud_ptr);
+        pcl::io::loadPCDFile(sInputKeyframe, *keypoint_ptr);
+
+    }
+    else {
+        return -1;
+    }
+
+    basic_cloud_ptr->width = (int) basic_cloud_ptr->points.size();
+    basic_cloud_ptr->height = 1;
+    point_cloud_ptr->width = (int) point_cloud_ptr->points.size();
+    point_cloud_ptr->height = 1;
+    keypoint_ptr->width = (int) keypoint_ptr->points.size();
+    keypoint_ptr->height = 1;
+
+    pcl::PCDWriter writer;
+    pcl::ModelCoefficients::Ptr PlaneCoefficients(new pcl::ModelCoefficients);
+    pcl::PointIndices::Ptr PlaneInliers(new pcl::PointIndices);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr planePointcloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr noPlanePointcloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    bool bPlaneOptimization = false;
+    PlaneSegment myPlane = PlaneSegment(point_cloud_ptr, bPlaneOptimization);
+
+
+    if (!myPlane.performSegmentation())
+        return -1;
+
+    cout << "Total points without plane is : " << myPlane.getNoPlanePointCloud_ptr()->points.size() << endl;
+    cout << "Total points considered as a plane : " << myPlane.getPlanePointCloud_ptr()->points.size() << endl;
+    cout << "Comparison between all points and plane + without plane : " << myPlane.getInputPointCloud()->points.size()
+         << " | " << myPlane.getNoPlanePointCloud_ptr()->points.size() + myPlane.getPlanePointCloud_ptr()->points.size()
+         << endl;
+
+    std::string planeViewerName = "plane1";
+
+    Viewer planeViewer(planeViewerName, planeViewerName);
+
+    std::string planePointCloudName = "planePoint1";
+    planeViewer.addPointcloud(myPlane.getPlanePointCloud_ptr(), planePointCloudName);
+
+    planeViewer.addPlane(myPlane.getPlaneCoefficient(), planeViewerName);
+
+    planeViewer.run();
+
+    NormalEstimator planeNormals(myPlane.getNoPlanePointCloud_ptr(), 0.05);
+    planeNormals.calculate();
+
+    cout << "calculate plane normal" << endl;
+
+    std::string noPlaneNormalName = "no plane normals";
+    Viewer noPlaneNormalViewer(noPlaneNormalName, noPlaneNormalName);
+    std::string noPlanePointCloudName = "no plane PC";
+    noPlaneNormalViewer.addPointcloud(planeNormals.getInputPointCloud(), noPlanePointCloudName);
+    noPlaneNormalViewer.addNormals(planeNormals.getInputPointCloud(), planeNormals.getCloudNormal(), 10, 0.05,
+                                   noPlaneNormalName);
+
+    noPlaneNormalViewer.run();
+
+
+    std::vector<Cylinder> allCylinders;
+
+// Point Cloud filter
+    for (int i = 0; i < keypoint_ptr->points.size(); i++) {
+        pcl::PointXYZRGB tempKeyPoint = keypoint_ptr->points[i];
+        double tkpx = tempKeyPoint.x;
+        double tkpy = tempKeyPoint.y;
+        double tkpz = tempKeyPoint.z;
+
+        Cylinder tempCylinder;
+
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr temp_pointCloud_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+
+
+        for (int j = 0; j < point_cloud_ptr->points.size(); j++) {
+            pcl::PointXYZRGB point = point_cloud_ptr->points[j];
+            double tmpx = point.x;
+            double tmpy = point.y;
+            double tmpz = point.z;
+            double dist = sqrt(pow(tkpx - tmpx, 2.0) + pow(tkpy - tmpy, 2.0) + pow(tkpz - tmpz, 2.0));
+
+            if (dist < dPointDistance) {
+                float tfrgb = point.rgb;
+                uint32_t temprgb = *reinterpret_cast<uint32_t *>(&tfrgb);
+                if (temprgb == 16777215)
+                    continue;    //It's a keyframe point, skip it for now
+
+                temp_pointCloud_ptr->points.push_back(point);
+            }
+
+        }
+
+        tempCylinder.input_pointCloud = temp_pointCloud_ptr;
+        cout << "There are " << tempCylinder.input_pointCloud->points.size() << " points for keyframe number " << i << endl;
+
+        double epsAngle = dEpsAngle/180*M_PI;
+        bool bInitCylinderOptimization = false;
+        Eigen::Vector3f planeVector = myPlane.getPlaneVector();
+
+        CylinderSegment initialCylinderSegment(temp_pointCloud_ptr,planeVector, epsAngle, bInitCylinderOptimization);
+
+        initialCylinderSegment.performSegmentation(keypoint_ptr->points[i]);
+
+        tempCylinder.cylinderCoef = initialCylinderSegment.getCylinderCoefficient();
+        tempCylinder.cylinderInliers = initialCylinderSegment.getCylinderInliers();
+        tempCylinder.cylinderPointCloud_ptr = initialCylinderSegment.getCylinderPointcloud_ptr();
+        allCylinders.push_back(tempCylinder);
+    }
+
+    //End of Point Cloud filter
+
+    std::string cylinderViewerName = "Show all cylinders";
+    Viewer cylinderViewer(cylinderViewerName,cylinderViewerName);
+    std::string cylinderPointCloudName = "cylinderPointCloud";
+
+    cylinderViewer.addPointcloud(myPlane.getNoPlanePointCloud_ptr(),noPlanePointCloudName);
+
+    cout << "start adding cylinders to viewer" <<endl;
+    double sphereRadius = 0.12;
+    int skipCounter = 0;
+    for(int i=0; i< allCylinders.size(); i++) {
+//    for(int i=0; i< 2; i++) {
+        std::string cylinderName = "cylinder" + std::to_string(i);
+        if(allCylinders[i].cylinderInliers->indices.size() < 1) {
+            skipCounter++;
+            continue;
+        }
+
+
+
+        cylinderViewer.addCylinder(allCylinders[i].cylinderCoef, cylinderName);
+
+        if(allCylinders[i].cylinderCoef->values.size() >0) {
+            pcl::PointXYZRGB sphereCenter;
+            cout <<"start making points" <<endl;
+            sphereCenter.x = (float) allCylinders[i].cylinderCoef->values[0];
+            sphereCenter.y = (float) allCylinders[i].cylinderCoef->values[1];
+            sphereCenter.z = (float) allCylinders[i].cylinderCoef->values[2];
+            std::string sphereName = "sphere" + std::to_string(i);
+  //          cylinderViewer.addSphere(sphereCenter,sphereRadius,sphereName);
+        }
+        else {
+            cout << "skip one cylinder" << endl;
+        }
+
+        if(allCylinders[i].cylinderCoef->header.frame_id == "SKIP")
+            skipCounter++;
+
+    }
+
+
+    cout << "total number of cylinder found is : " << allCylinders.size() <<endl;
+    cout << "total number of keyframe is : " << keypoint_ptr->points.size() << endl;
+    cout << "total skipped : " << skipCounter << endl;
+    pcl::PointXYZRGB keyPoint1 = keypoint_ptr->points.front();
+//    pcl::PointXYZRGB keyPoint2 = keypoint_ptr->points.back();
+
+
+    for(int i=0;i< keypoint_ptr->points.size(); i++) {
+
+        if(allCylinders[i].cylinderCoef->values.size() > 0) {
+    //        pcl::PointXYZRGB keyPoint1 = keypoint_ptr->points[i];
+            pcl::PointXYZRGB keyPoint2 = keypoint_ptr->points[i];
+       //     keyPoint2.x =  allCylinders[i].cylinderCoef->values[0];
+       //     keyPoint2.y =  allCylinders[i].cylinderCoef->values[1];
+       //     keyPoint2.z =  allCylinders[i].cylinderCoef->values[2];
+            std::string arrowName = "myArrow" + std::to_string(i);
+            if(i% 10 == 0)
+                cylinderViewer.addArrow(keyPoint1,keyPoint2,0,255,0,true,arrowName);
+        }
+
+
+    }
+
+//    cylinderViewer.addPlane(myPlane.getPlaneCoefficient(), planeViewerName);
+    cylinderViewer.run();
+
+    
+
+
+/*
+    std::vector<Tree> refinedTrees;
+
+    int windowSize = 10;
+
+    double searchLoop = floor(keypoint_ptr->points.size()/10);
+
+
+    for(int i=0; i< searchLoop;i++) {
+
+        int localMaxSize = -1;
+        int maxSizeLocation = i*10;
+
+        if(i == searchLoop-1)
+            windowSize = windowSize + (keypoint_ptr->points.size() - (windowSize*searchLoop));
+
+        for(int j=0; j< windowSize;j++) {
+            int currentSize = allCylinders[i*10 + j].cylinderInliers->indices.size();
+
+            if(localMaxSize > currentSize)
+                continue;
+            else {
+
+                localMaxSize = currentSize;
+                maxSizeLocation = i*10 +j;
+            }
+
+        }
+        cout << "Max size at " << i+1 << " loop is " << maxSizeLocation << " with " << localMaxSize << " points" << endl;
+
+
+    }
+
+
+//    for(int i=0;i < allCylinders.size(); i++) {
+//       cout << "cylinder number " << i << " has " <<allCylinders[i].cylinderInliers->indices.size() << " points" << endl;
+//    }
+*/
+
+
+
+
+
+}
+
+
+
+
+
+#if 0
+
+    int treeCount = 0, treeDiscard = 0;
+    std::vector< Tree > allTrees ;
+
+    for(size_t k = 0; k < keypoint_ptr->size(); k++) {
+      cout << "Loop number : " << k << endl;
+
+      Tree currentTree;
+/*
+   currentTree = getCylinderCoeff(point_cloud_ptr, keypoint_ptr, cloud_normals1, dPointDistance, k, PlaneCoefficients);
+
+      allTrees.push_back(currentTree);
+
+  }
+
+    for(int i=0; i< allTrees.size(); i++) {
+        if(allTrees[i].numPointcloud < 30)
+            treeDiscard++;
+        else {
+
+            treeCount++;
+        }
+
+    }
+
+    cout << "size of noPlanePointcloud is : " << noPlanePointcloud->size() << endl;
+
+    cout << "Prepare to show the point cloud " << endl;
+    cout << "Total possible trees " << allTrees.size() << endl;
+    cout << "Total number of trees discarded : " << treeDiscard << endl;
+    cout << "Total number of trees found : " << treeCount << endl;
+#if 0
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr refinedCylinder (new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    for(int i=10; i< 16; i++) {
+        for(int j=0; j< allTrees[i].treePoints.size(); j++) {
+            refinedCylinder->points.push_back(allTrees[i].treePoints[j]);
+        }
+    }
+
+    cout << "refinedCylinder has " << refinedCylinder->size() << " points." <<endl;
+
+
+    pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> ne1;
+    ne1.setInputCloud (refinedCylinder);
+    pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree1 (new pcl::search::KdTree<pcl::PointXYZRGB> ());
+    ne1.setSearchMethod (tree1);
+    pcl::PointCloud<pcl::Normal>::Ptr cloud_normals21 (new pcl::PointCloud<pcl::Normal>);
+    ne1.setKSearch(50);
+    ne1.compute (*cloud_normals21);
+
+    // Create the segmentation object for cylinder segmentation and set all the parameters
+    pcl::SACSegmentationFromNormals<pcl::PointXYZRGB, pcl::Normal> seg1;
+    pcl::PointIndices::Ptr inliers_cylinder1 (new pcl::PointIndices);
+    pcl::ModelCoefficients::Ptr coefficients_cylinder1 (new pcl::ModelCoefficients);
+
+    seg1.setOptimizeCoefficients (false);
+    seg1.setModelType (pcl::SACMODEL_CYLINDER);
+    seg1.setMethodType (pcl::SAC_RANSAC);
+    seg1.setNormalDistanceWeight(0.1);
+    seg1.setMaxIterations (50000);
+    seg1.setDistanceThreshold (0.2);
+    seg1.setRadiusLimits (0.01, 0.1);
+    seg1.setInputCloud (refinedCylinder);
+    seg1.setInputNormals (cloud_normals21);
+
+    // Obtain the cylinder inliers and coefficients
+    seg1.segment (*inliers_cylinder1, *coefficients_cylinder1);
+
+    if(inliers_cylinder1->indices.size() != 0){
+        cout << "inliers size is : " << inliers_cylinder1->indices.size() <<endl;
+        cout << "radius is : " << coefficients_cylinder1->values[6] << endl;
+
+    }
+    else
+        cout << "inliers = 0" <<endl;
+
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr refinedCylinder2 (new pcl::PointCloud<pcl::PointXYZRGB>);
+    for(int i=0;i < inliers_cylinder1->indices.size();i++){
+        refinedCylinder2->points.push_back(refinedCylinder->points[inliers_cylinder1->indices[i]]);
+    }
+
+
+    pcl::ModelCoefficients::Ptr PlaneCoefficients2 (new pcl::ModelCoefficients);
+    pcl::PointIndices::Ptr PlaneInliers2 (new pcl::PointIndices);
+    // Create the segmentation object
+    pcl::SACSegmentation<pcl::PointXYZRGB> PlaneSeg2;
+    // Optional
+    PlaneSeg2.setOptimizeCoefficients (true);
+    // Mandatory
+    PlaneSeg2.setModelType (pcl::SACMODEL_PLANE);
+    PlaneSeg2.setMethodType (pcl::SAC_RANSAC);
+    PlaneSeg2.setDistanceThreshold (0.01);
+
+    PlaneSeg2.setInputCloud (refinedCylinder);
+    PlaneSeg2.segment (*PlaneInliers2, *PlaneCoefficients2);
+
+    if (PlaneInliers2->indices.size () == 0)
+    {
+        PCL_ERROR ("Could not estimate a planar model for the given dataset.");
+
+        return -1;
+    }
+
+    std::cerr << "Plane model coefficients: " << PlaneCoefficients2->values[0] << " "
+              << PlaneCoefficients2->values[1] << " "
+              << PlaneCoefficients2->values[2] << " "
+              << PlaneCoefficients2->values[3] << std::endl;
+
+    std::cerr << "Model PlaneInliers: " << PlaneInliers2->indices.size () << std::endl;
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr refinedPlane (new pcl::PointCloud<pcl::PointXYZRGB>);
+
+
+    for(int i=0;i< PlaneInliers2->indices.size();i++) {
+        refinedPlane->points.push_back(refinedCylinder->points[PlaneInliers2->indices[i]]);
+    }
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr refinedCylinder3 (new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    for(int i=0; i< refinedCylinder->points.size();i++) {
+        if(i == PlaneInliers2->indices[0]) {
+            PlaneInliers2->indices.erase(PlaneInliers2->indices.begin());
+            continue;
+        }
+        refinedCylinder3->points.push_back(refinedCylinder->points[i]);
+    }
+
+
+    pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> ne2;
+    ne2.setInputCloud (refinedCylinder3);
+    pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree2 (new pcl::search::KdTree<pcl::PointXYZRGB> ());
+    ne2.setSearchMethod (tree2);
+    pcl::PointCloud<pcl::Normal>::Ptr cloud_normals22 (new pcl::PointCloud<pcl::Normal>);
+    ne2.setKSearch(50);
+    ne2.compute (*cloud_normals22);
+
+    // Create the segmentation object for cylinder segmentation and set all the parameters
+    pcl::SACSegmentationFromNormals<pcl::PointXYZRGB, pcl::Normal> seg2;
+    pcl::PointIndices::Ptr inliers_cylinder2 (new pcl::PointIndices);
+    pcl::ModelCoefficients::Ptr coefficients_cylinder2 (new pcl::ModelCoefficients);
+
+    seg2.setOptimizeCoefficients (false);
+    seg2.setModelType (pcl::SACMODEL_CYLINDER);
+    seg2.setMethodType (pcl::SAC_RANSAC);
+    seg2.setNormalDistanceWeight(0.1);
+    seg2.setMaxIterations (50000);
+    seg2.setDistanceThreshold (0.2);
+    seg2.setRadiusLimits (0.01, 0.2);
+    seg2.setInputCloud (refinedCylinder3);
+    seg2.setInputNormals (cloud_normals22);
+
+    // Obtain the cylinder inliers and coefficients
+    seg2.segment (*inliers_cylinder2, *coefficients_cylinder2);
+
+
+    if(inliers_cylinder2->indices.size() != 0){
+        cout << "inliers2 size is : " << inliers_cylinder2->indices.size() <<endl;
+        cout << "radius2 is : " << coefficients_cylinder2->values[6] << endl;
+
+    }
+    else
+        cout << "inliers2 = 0" <<endl;
+
+#endif
+
+
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+    auto currentTime = oss.str();
+
+    ofstream treeWriter;
+    treeWriter.open("tree_cloud_size"+ currentTime +".csv",ios::app);
+    treeWriter << "keyframe, number of point cloud, radius (m), perimeter (m), height (m) " << endl;
+
+    for(int i =0; i < allTrees.size(); i++) {
+        treeWriter << i << "," << allTrees[i].numPointcloud << "," << allTrees[i].radius
+                   << "," << allTrees[i].perimeter << "," << allTrees[i].height << endl;
+    }
+
+    treeWriter.close();
+
+  /*
+  // Create the segmentation object for cylinder segmentation and set all the parameters
+  pcl::SACSegmentationFromNormals<pcl::PointXYZRGB, pcl::Normal> seg; 
+  pcl::PointIndices::Ptr inliers_cylinder (new pcl::PointIndices);
+  pcl::ModelCoefficients::Ptr coefficients_cylinder (new pcl::ModelCoefficients);
+  
+  seg.setOptimizeCoefficients (true);
+  seg.setModelType (pcl::SACMODEL_CYLINDER);
+  seg.setMethodType (pcl::SAC_RANSAC);
+  //seg.setNormalDistanceWeight (0.1);
+  seg.setMaxIterations (50000);
+  seg.setDistanceThreshold (0.2);
+  seg.setRadiusLimits (0, 0.15);
+  seg.setInputCloud (point_cloud_ptr);
+  seg.setInputNormals (cloud_normals2);
+
+  // Obtain the cylinder inliers and coefficients
+  seg.segment (*inliers_cylinder, *coefficients_cylinder);
+  //cout << "Cylinder coefficients: " << *coefficients_cylinder << endl;
+  // Draw the cylinder inliers
+  */
+
+    cout << "Starting visualization..." << endl;
+
+    cout << "The first keyframe is : " << "( " << keypoint_ptr->points[0].x << " , " << keypoint_ptr->points[0].y << " , " << keypoint_ptr->points[0].z << " ) " << endl;
+
+    int totalpoints = keypoint_ptr->size();
+
+    cout << "The last keyframe is : " << "( " << keypoint_ptr->points[totalpoints-1].x << " , " << keypoint_ptr->points[totalpoints-1].y << " , " << keypoint_ptr->points[totalpoints-1].z << " ) " << endl;
+
+    cout << "Total distance travelled : " << sqrt(pow(keypoint_ptr->points[totalpoints-1].x - keypoint_ptr->points[0].x,2) + pow(keypoint_ptr->points[totalpoints-1].y - keypoint_ptr->points[0].y,2)
+                                          + pow(keypoint_ptr->points[totalpoints-1].z - keypoint_ptr->points[0].z,2)) << endl;
+
+    cout << "Point size : " << keypoint_ptr->points.size() << endl;
+    for(int i =0; i< keypoint_ptr->points.size();i++) {
+
+        cout << "Coordinate of the keyframe number " << i << " is : (" << keypoint_ptr->points[i].x << " , " << keypoint_ptr->points[i].y << " , " << keypoint_ptr->points[i].z << ")" << endl;
+
+
+        if(keypoint_ptr->points.size() >  i+5)
+            i += 5;
+        else
+            break;
+    }
+
+
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
+
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer2;
+
+  if (simple)
+  {
+    viewer = simpleVis(basic_cloud_ptr);
+  }
+  else if (rgb)
+  {
+//    viewer = rgbVis(point_cloud_ptr);
+  viewer = rgbVis(noPlanePointcloud);
+//      viewer2 = rgbVis(point_cloud_ptr);
+  }
+  else if (custom_c)
+  {
+    viewer = customColourVis(basic_cloud_ptr);
+  }
+  else if (normals)
+  {
+  	viewer = normalsVis(point_cloud_ptr, cloud_normals2);
+  }
+  else if (shapes)
+  {
+  	//viewer = cylinderVis(point_cloud_ptr, vCylinders);
+    //viewer = shapesVis(point_cloud_ptr);
+  }
+  else if (viewports)
+  {
+    viewer = viewportsVis(point_cloud_ptr, cloud_normals1, cloud_normals2);
+  }
+  else if (interaction_customization)
+  {
+    viewer = interactionCustomizationVis();
+  }
+
+    for(int i =0 ; i < allTrees.size(); i++)
+    {
+
+        if(allTrees[i].numPointcloud < 30)
+            continue;
+
+        viewer->addCylinder(*allTrees[i].cylinderCoef, "cylinder" + std::to_string(i));
+    }
+
+
+    //--------------------
+  // -----Main loop-----
+  //--------------------
+  viewer->setWindowName("Main view");
+
+  viewer->addArrow(keypoint_ptr->back(),keypoint_ptr->front(),0,255,0,false,"my arrow");
+
+
+    //test adding sphere
+//    viewer->addSphere(keypoint_ptr->points[0], 0.5, "first keyframe");
+//    viewer->addSphere(keypoint_ptr->points[totalpoints-1], 1.0, "last keyframe");
+  while (!viewer->wasStopped ())
+  {
+    viewer->spinOnce (100);
+    boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+  }
+
+/*
+  viewer2->setWindowName("Cylinder view");
+
+    while (!viewer2->wasStopped ())
+    {
+        viewer2->spinOnce (100);
+        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    }
+*/
+
+/*
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer2 (new pcl::visualization::PCLVisualizer ("3D Viewer1"));
+    viewer2->setBackgroundColor (0, 0, 0);
+    viewer2->addPointCloud<pcl::PointXYZRGB> (refinedCylinder, "sample cloud1");
+    viewer2->addCoordinateSystem (1.0);
+    viewer2->initCameraParameters ();
+    viewer2->addPlane(*PlaneCoefficients, "planeX");
+    viewer2->addCylinder(*coefficients_cylinder1, "cylinderX");
+
+    while (!viewer2->wasStopped ())
+    {
+        viewer2->spinOnce (100);
+        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    }
+
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer3 (new pcl::visualization::PCLVisualizer ("3D Viewer2"));
+    viewer3->setBackgroundColor (0, 0, 0);
+    viewer3->addPointCloud<pcl::PointXYZRGB> (refinedCylinder2, "sample cloud2");
+    viewer3->addCoordinateSystem (1.0);
+    viewer3->initCameraParameters ();
+    viewer3->addPlane(*PlaneCoefficients, "planeX");
+    viewer3->addCylinder(*coefficients_cylinder1, "cylinderX");
+
+    while (!viewer3->wasStopped ())
+    {
+        viewer3->spinOnce (100);
+        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    }
+
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer4 (new pcl::visualization::PCLVisualizer ("3D Viewer3"));
+    viewer4->setBackgroundColor (0, 0, 0);
+    viewer4->addPointCloud<pcl::PointXYZRGB> (refinedPlane, "sample cloud2");
+    viewer4->addCoordinateSystem (1.0);
+    viewer4->initCameraParameters ();
+    viewer4->addPlane(*PlaneCoefficients2, "planeX");
+    viewer4->addCylinder(*coefficients_cylinder1, "cylinderX");
+
+    while (!viewer4->wasStopped ())
+    {
+        viewer4->spinOnce (100);
+        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    }
+
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer5 (new pcl::visualization::PCLVisualizer ("3D Viewer4"));
+    viewer5->setBackgroundColor (0, 0, 0);
+    viewer5->addPointCloud<pcl::PointXYZRGB> (refinedCylinder3, "sample cloud2");
+    viewer5->addCoordinateSystem (1.0);
+    viewer5->initCameraParameters ();
+//    viewer5->addPlane(*PlaneCoefficients2, "planeX");
+    viewer5->addCylinder(*coefficients_cylinder2, "cylinderX");
+
+    while (!viewer5->wasStopped ())
+    {
+        viewer5->spinOnce (100);
+        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+    }
+*/
+#endif
+
+

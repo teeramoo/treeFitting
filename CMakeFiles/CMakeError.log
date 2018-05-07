@@ -1,0 +1,55 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_39d5e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_39d5e.dir/build.make CMakeFiles/cmTC_39d5e.dir/build
+make[1]: Entering directory '/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_39d5e.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_39d5e.dir/CheckSymbolExists.c.o   -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_39d5e
+/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4203.549/bin/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_39d5e.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_39d5e.dir/CheckSymbolExists.c.o  -o cmTC_39d5e 
+CMakeFiles/cmTC_39d5e.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_39d5e.dir/build.make:97: recipe for target 'cmTC_39d5e' failed
+make[1]: *** [cmTC_39d5e] Error 1
+make[1]: Leaving directory '/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_39d5e/fast' failed
+make: *** [cmTC_39d5e/fast] Error 2
+
+File /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a4cae/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a4cae.dir/build.make CMakeFiles/cmTC_a4cae.dir/build
+make[1]: Entering directory '/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a4cae.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_a4cae.dir/CheckFunctionExists.c.o   -c /home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4203.549/bin/cmake/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_a4cae
+/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4203.549/bin/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a4cae.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_a4cae.dir/CheckFunctionExists.c.o  -o cmTC_a4cae -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_a4cae.dir/build.make:97: recipe for target 'cmTC_a4cae' failed
+make[1]: *** [cmTC_a4cae] Error 1
+make[1]: Leaving directory '/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_a4cae/fast' failed
+make: *** [cmTC_a4cae/fast] Error 2
+
+
