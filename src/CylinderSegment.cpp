@@ -40,11 +40,17 @@ void CylinderSegment::performSegmentation(pcl::PointXYZRGB &refKeyframe) {
     cylinderSegmentator.segment(*cylinderInliers,*cylinderCoefficients);
 //    cout << "done segmenting a cylinder" << endl;
 
-    if(cylinderCoefficients->values.size() == 0 or cylinderInliers->indices.size() < 60 ) {
+    if(cylinderCoefficients->values.size() == 0 or cylinderInliers->indices.size() < 100 ) {
 
         cylinderCoefficients->header.frame_id = "SKIP";
         cylinderPointcloud_ptr = NULL;
         cylinderInliers->indices.erase(cylinderInliers->indices.begin(),cylinderInliers->indices.end());
+
+        if(!cylinderInliers->indices.empty()) {
+            cout << "there are some points in the cylinder Inliers. Terminated." << endl;
+            return;
+
+        }
 
         cout << "skip adding a cylinder" << endl;
         return;

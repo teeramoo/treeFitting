@@ -62,6 +62,10 @@ void Viewer::addSphere(pcl::PointXYZRGB &center, double &radius, std::string &sp
     cout << "done adding sphere" <<endl;
 }
 
+void Viewer::addLineByCoefficient(pcl::ModelCoefficients &lineCoefficients, std::string lineName) {
+    cloudViewer->addLine(lineCoefficients,lineName);
+}
+
 
 void Viewer::run() {
 

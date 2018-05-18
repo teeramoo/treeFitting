@@ -207,6 +207,22 @@ Tree getCylinderCoeff(pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud,
 
 #endif
 
+bool comparePoint(pcl::PointXYZRGB p1, pcl::PointXYZRGB p2){
+    if (p1.x != p2.x)
+        return p1.x > p2.x;
+    else if (p1.y != p2.y)
+        return  p1.y > p2.y;
+    else
+        return p1.z > p2.z;
+}
+
+bool equalPoint(pcl::PointXYZRGB p1, pcl::PointXYZRGB p2){
+    if (p1.x == p2.x && p1.y == p2.y && p1.z == p2.z)
+        return true;
+    return false;
+}
+
+
 // --------------
 // -----Main-----
 // --------------
@@ -392,26 +408,42 @@ main (int argc, char** argv) {
     cout << "start adding cylinders to viewer" <<endl;
     double sphereRadius = 0.12;
     int skipCounter = 0;
+    std::vector<int> cylinderIndices;
+
     for(int i=0; i< allCylinders.size(); i++) {
-//    for(int i=0; i< 2; i++) {
+
         std::string cylinderName = "cylinder" + std::to_string(i);
+        cylinderIndices.push_back(allCylinders[i].cylinderInliers->indices.size());
+
         if(allCylinders[i].cylinderInliers->indices.size() < 1) {
             skipCounter++;
             continue;
         }
 
 
-
+        if(allCylinders[i].cylinderInliers->indices.size() >100)
         cylinderViewer.addCylinder(allCylinders[i].cylinderCoef, cylinderName);
 
         if(allCylinders[i].cylinderCoef->values.size() >0) {
             pcl::PointXYZRGB sphereCenter;
-            cout <<"start making points" <<endl;
+     //       cout <<"start making points" <<endl;
             sphereCenter.x = (float) allCylinders[i].cylinderCoef->values[0];
             sphereCenter.y = (float) allCylinders[i].cylinderCoef->values[1];
             sphereCenter.z = (float) allCylinders[i].cylinderCoef->values[2];
             std::string sphereName = "sphere" + std::to_string(i);
-  //          cylinderViewer.addSphere(sphereCenter,sphereRadius,sphereName);
+        //    cylinderViewer.addSphere(sphereCenter,sphereRadius,sphereName);
+
+            pcl::ModelCoefficients lineCoefficients;
+            lineCoefficients.values.push_back(allCylinders[i].cylinderCoef->values[0]);
+            lineCoefficients.values.push_back(allCylinders[i].cylinderCoef->values[1]);
+            lineCoefficients.values.push_back(allCylinders[i].cylinderCoef->values[2]);
+            lineCoefficients.values.push_back(allCylinders[i].cylinderCoef->values[3]);
+            lineCoefficients.values.push_back(allCylinders[i].cylinderCoef->values[4]);
+            lineCoefficients.values.push_back(allCylinders[i].cylinderCoef->values[5]);
+
+            std::string lineName = "line" + std::to_string(i);
+//            cylinderViewer.addLineByCoefficient(lineCoefficients, lineName);
+
         }
         else {
             cout << "skip one cylinder" << endl;
@@ -429,7 +461,7 @@ main (int argc, char** argv) {
     pcl::PointXYZRGB keyPoint1 = keypoint_ptr->points.front();
 //    pcl::PointXYZRGB keyPoint2 = keypoint_ptr->points.back();
 
-
+/*
     for(int i=0;i< keypoint_ptr->points.size(); i++) {
 
         if(allCylinders[i].cylinderCoef->values.size() > 0) {
@@ -445,17 +477,278 @@ main (int argc, char** argv) {
 
 
     }
-
+*/
 //    cylinderViewer.addPlane(myPlane.getPlaneCoefficient(), planeViewerName);
     cylinderViewer.run();
 
-    
+
+    int prevNumPointCloud = 0;
+    double prevC0 = 0.0, prevC1=0.0, prevC2=0.0, prevC3=0.0, prevC4=0.0, prevC5=0.0, prevC6=0.0;
+
+    int currentCylinder = 0;
+    double distanceLimit = 1.0;
+
+    std::vector<std::vector<Cylinder>> possibleGroupCylinders;
+
+    std::vector<Cylinder> possibleCylinders;
+
+        for(int i = 0; i < allCylinders.size(); i++) {
+
+            double curC0, curC1, curC2, curC3, curC4, curC5, curC6;
+
+            //Check number of point cloud
+            if(!allCylinders[i].cylinderInliers->indices.empty()) {
+
+                curC0 = allCylinders[i].cylinderCoef->values[0];
+                curC1 = allCylinders[i].cylinderCoef->values[1];
+                curC2 = allCylinders[i].cylinderCoef->values[2];
+                curC3 = allCylinders[i].cylinderCoef->values[3];
+                curC4 = allCylinders[i].cylinderCoef->values[4];
+                curC5 = allCylinders[i].cylinderCoef->values[5];
+                curC6 = allCylinders[i].cylinderCoef->values[6];
+            }
+            else {
+                curC0 = 0.0;
+                curC1 = 0.0;
+                curC2 = 0.0;
+                curC3 = 0.0;
+                curC4 = 0.0;
+                curC5 = 0.0;
+                curC6 = 0.0;
+            }
+
+            //Calculate distance between current point and previous point
+//            double distanceTwoPointsXYZ = sqrt(pow(curC0-prevC0,2)+pow(curC1-prevC1,2)+pow(curC2-prevC2,2));
+            double distanceTwoPointsXZ = sqrt(pow(curC0-prevC0,2)+pow(curC2-prevC2,2));
+
+            if(distanceTwoPointsXZ > distanceLimit or i == allCylinders.size()-1) {
+
+
+                if(possibleCylinders[0].cylinderInliers->indices.empty()) {
+
+                    possibleCylinders.clear();
+                    cout << "Delete a group of non cylinder" << endl;
+
+                }
+                else {
+
+                    possibleGroupCylinders.push_back(possibleCylinders);
+                    possibleCylinders.clear();
+                    cout << "Group number " << possibleGroupCylinders.size() << " has " << possibleGroupCylinders.back().size() << " cylinders." << endl;
+                }
+
+
+            }
+            else
+            {
+                possibleCylinders.push_back(allCylinders[i]);
+
+//                cout << "Cylinder is added to the group" << endl;
+            }
+
+            prevC0 = curC0;
+            prevC1 = curC1;
+            prevC2 = curC2;
+            prevC3 = curC3;
+            prevC4 = curC4;
+            prevC5 = curC5;
+            prevC6 = curC6;
+
+
+        }
+
+cout << "there are " << possibleGroupCylinders.size() << " possible trees in the dataset." << endl;
+
+
+        std::vector<std::vector<pcl::PointXYZRGB>> vecCylinderPoints;
+        //Recalculate point cloud for a cylinder
+
+        //Prepare to cull points
+    for(int i=0;i<possibleGroupCylinders.size();i++) {
+
+        std::vector<pcl::PointXYZRGB> cylinderPoints;
+        int checkNumPoints = 0;
+
+        for (int j = 0; j < possibleGroupCylinders[i].size(); j++) {
+
+
+            for (int k = 0; k < possibleGroupCylinders[i][j].cylinderPointCloud_ptr->points.size(); k++) {
+
+                cylinderPoints.push_back(possibleGroupCylinders[i][j].cylinderPointCloud_ptr->points[k]);
+                checkNumPoints++;
+            }
+
+
+            cout << "checkNumPoints / cylinderPoints.size() is : " << checkNumPoints << " / " << cylinderPoints.size()
+                 << endl;
+            if (checkNumPoints != cylinderPoints.size()) {
+
+                cout << "something wrong at cylinder recalculation" << endl;
+
+                return -1;
+            }
+
+            vecCylinderPoints.push_back(cylinderPoints);
+
+        }
+    }
+
+
+    std::vector<pcl::PointCloud<pcl::PointXYZRGB>::Ptr> allPointsAfterCulling;
+
+        for(int i=0;i< vecCylinderPoints.size();i++) {
+
+            std::sort(vecCylinderPoints[i].begin(), vecCylinderPoints[i].end(), comparePoint);
+
+            auto unique_end = std::unique(vecCylinderPoints[i].begin(), vecCylinderPoints[i].end(), equalPoint);
+
+            //Sorting problem --> Try displaying all of them vs points after culling
+            cout << "Number of points before culling : " << vecCylinderPoints[i].size() << endl;
+
+            vecCylinderPoints[i].erase(unique_end, vecCylinderPoints[i].end());
+
+            cout << "Number of points after culling : " << vecCylinderPoints[i].size() << endl;
+
+            pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinderAfterCulling;
+            for(int j=0;j<vecCylinderPoints[0].size();j++) {
+
+                pointCloudCylinderAfterCulling.push_back(vecCylinderPoints[i][j]);
+            }
+
+            pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderPoints_ptrAfterCulling(&pointCloudCylinderAfterCulling);
+            allPointsAfterCulling.push_back(cylinderPoints_ptrAfterCulling);
+
+        }
+
+
+    std::string pointCloudViewerNameAfterCulling = "pclNameAfterCulling";
+
+    Viewer pointcloudViewerAfterCulling(pointCloudViewerNameAfterCulling,pointCloudViewerNameAfterCulling);
+    for(int i=0; i< allPointsAfterCulling.size();i++) {
+        std::string pclNameAfterCulling = "pointcloudAfterCulling" + std::to_string(i);
+        pointcloudViewerAfterCulling.addPointcloud(allPointsAfterCulling[i],pclNameAfterCulling);
+
+    }
+    pointcloudViewerAfterCulling.run();
+
+
+/*
+        pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinder;
+        for(int i=0;i<cylinderPoints.size();i++) {
+
+            pointCloudCylinder.push_back(cylinderPoints[i]);
+        }
+
+
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderPoints_ptr(&pointCloudCylinder);
+
+        std::string pointCloudViewerName = "pclName";
+        std::string pclName = "pointcloud";
+
+        Viewer pointcloudViewer(pointCloudViewerName,pointCloudViewerName);
+        pointcloudViewer.addPointcloud(cylinderPoints_ptr,pclName);
+        pointcloudViewer.run();
+*/
+/*
+        auto unique_end = std::unique(vecCylinderPoints[0].begin(), vecCylinderPoints[0].end(), equalPoint);
+
+
+        //Sorting problem --> Try displaying all of them vs points after culling
+        cout << "Number of points before culling : " << vecCylinderPoints[0].size() << endl;
+
+        vecCylinderPoints[0].erase(unique_end, vecCylinderPoints[0].end());
+
+        cout << "Number of points after culling : " << vecCylinderPoints[0].size() << endl;
+*/
+/*
+        pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinderAfterCulling;
+        for(int i=0;i<vecCylinderPoints[0].size();i++) {
+
+            pointCloudCylinderAfterCulling.push_back(vecCylinderPoints[0][i]);
+        }
+
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderPoints_ptrAfterCulling(&pointCloudCylinderAfterCulling);
+
+        std::string pointCloudViewerNameAfterCulling = "pclNameAfterCulling";
+        std::string pclNameAfterCulling = "pointcloudAfterCulling";
+
+        Viewer pointcloudViewerAfterCulling(pointCloudViewerNameAfterCulling,pointCloudViewerNameAfterCulling);
+        pointcloudViewerAfterCulling.addPointcloud(cylinderPoints_ptrAfterCulling,pclNameAfterCulling);
+        pointcloudViewerAfterCulling.run();
+
+
+
+*/
+
+
+
+    std::string cylinderViewer2Name = "Show possible cylinders";
+    Viewer cylinderViewer2(cylinderViewer2Name,cylinderViewer2Name);
+
+    for(int i=0;i< possibleGroupCylinders.size(); i++) {
+
+
+        for(int j=0; j< possibleGroupCylinders[i].size();j++) {
+            std::string cylinder2Name = "cy." + std::to_string(i) + "-" +std::to_string(j);
+            cylinderViewer2.addCylinder(possibleGroupCylinders[i][j].cylinderCoef,cylinder2Name);
+
+        }
+
+    }
+
+    cylinderViewer2.run();
+
+
+
+
+
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+    auto currentTime = oss.str();
+
+    ofstream treeWriter;
+    treeWriter.open("tree_cloud_size"+ currentTime +".csv",ios::app);
+    treeWriter << "keyframe, number of point cloud, c0, c1, c2, c3, c4, c5, c6" << endl;
+
+
+
+
+    for(int i =0; i < allCylinders.size(); i++) {
+//        cout << "loop number " << i << endl;
+
+        if(allCylinders[i].cylinderInliers->indices.size() > 0) {
+            treeWriter << i
+                       << "," << allCylinders[i].cylinderInliers->indices.size() << "," << allCylinders[i].cylinderCoef->values[0]
+                       << "," << allCylinders[i].cylinderCoef->values[1] << "," << allCylinders[i].cylinderCoef->values[2]
+                       << "," << allCylinders[i].cylinderCoef->values[3] << "," << allCylinders[i].cylinderCoef->values[4]
+                       << "," << allCylinders[i].cylinderCoef->values[5] << "," << allCylinders[i].cylinderCoef->values[6]
+                       << endl;
+
+        } else {
+            treeWriter << i
+                       << "," << 0 << "," << 0
+                       << "," << 0 << "," << 0
+                       << "," << 0 << "," << 0
+                       << "," << 0 << "," << 0
+                       << endl;
+
+        }
+
+    }
+
+
+    treeWriter.close();
+
+
+
 
 
 /*
     std::vector<Tree> refinedTrees;
 
-    int windowSize = 10;
 
     double searchLoop = floor(keypoint_ptr->points.size()/10);
 

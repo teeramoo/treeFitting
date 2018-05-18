@@ -59,6 +59,8 @@ public:
 
     void addSphere(pcl::PointXYZRGB &center, double &radius, std::string &sphereName);
 
+    void addLineByCoefficient(pcl::ModelCoefficients &lineCoefficients, std::string lineName);
+
 private:
     boost::shared_ptr<pcl::visualization::PCLVisualizer> cloudViewer;
 
