@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o"
+  "CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o"
   "CMakeFiles/treeFit.dir/src/Viewer.cpp.o"
   "CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o"
-  "CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o"
+  "CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o"
   "libtreeFit.pdb"
   "libtreeFit.so"
 )

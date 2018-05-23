@@ -2,17 +2,17 @@
 // Created by teeramoo on 23/4/2561.
 //
 
-#include "PlaneSegment.h"
+#include "PlaneProcessor.h"
 
-PlaneSegment::~PlaneSegment() {
-    cout << "PlaneSegment has been destroyed." << endl;
+PlaneProcessor::~PlaneProcessor() {
+    cout << "PlaneProcessor has been destroyed." << endl;
 }
 
 
-bool PlaneSegment::performSegmentation() {
+bool PlaneProcessor::segment() {
 
     cout << "about to segment a plane" << endl;
-    planeSegmentator.segment(*planeInliers, *planeCoefficients);
+    planeSegmenter.segment(*planeInliers, *planeCoefficients);
     cout << "finish segmentation" << endl;
 
     if (planeInliers->indices.size () == 0)
@@ -49,7 +49,7 @@ bool PlaneSegment::performSegmentation() {
     return true;
 }
 
-void PlaneSegment::calculatePlaneVector() {
+void PlaneProcessor::calculatePlaneVector() {
 
     const float ax = planeCoefficients->values[0];
     const float ay = planeCoefficients->values[1];
@@ -62,19 +62,19 @@ void PlaneSegment::calculatePlaneVector() {
 }
 
 
-PlaneSegment::PlaneSegment(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_point_cloud_ptr, bool &bSetOptimization) {
+PlaneProcessor::PlaneProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_point_cloud_ptr, bool &bSetOptimization) {
 
     pcl::ModelCoefficients::Ptr _planeCoefficients (new pcl::ModelCoefficients);
     pcl::PointIndices::Ptr _planeInliers (new pcl::PointIndices);
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr _planePointcloud (new pcl::PointCloud<pcl::PointXYZRGB>);
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr _noPlanePointcloud (new pcl::PointCloud<pcl::PointXYZRGB>);
 
-    planeSegmentator.setOptimizeCoefficients (bSetOptimization);
+    planeSegmenter.setOptimizeCoefficients (bSetOptimization);
     // Mandatory
-    planeSegmentator.setModelType (pcl::SACMODEL_PLANE);
-    planeSegmentator.setMethodType (pcl::SAC_RANSAC);
-    planeSegmentator.setDistanceThreshold (0.4);
-    planeSegmentator.setInputCloud (_point_cloud_ptr);
+    planeSegmenter.setModelType (pcl::SACMODEL_PLANE);
+    planeSegmenter.setMethodType (pcl::SAC_RANSAC);
+    planeSegmenter.setDistanceThreshold (0.4);
+    planeSegmenter.setInputCloud (_point_cloud_ptr);
 
     setInputPointCloud(_point_cloud_ptr);
     setPlaneCoefficient(_planeCoefficients);
@@ -85,50 +85,50 @@ PlaneSegment::PlaneSegment(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_point_cloud_
 
 }
 
-void PlaneSegment::setPlaneVector(Eigen::Vector3f &_planeVector) {
+void PlaneProcessor::setPlaneVector(Eigen::Vector3f &_planeVector) {
     planeVector = _planeVector;
 }
 
-Eigen::Vector3f PlaneSegment::getPlaneVector() {
+Eigen::Vector3f PlaneProcessor::getPlaneVector() {
     return planeVector;
 }
 
-void PlaneSegment::setInputPointCloud(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_point_cloud_ptr) {
+void PlaneProcessor::setInputPointCloud(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_point_cloud_ptr) {
     inputPointCloud = _point_cloud_ptr;
 }
 
-pcl::PointCloud<pcl::PointXYZRGB>::Ptr PlaneSegment::getInputPointCloud() {
+pcl::PointCloud<pcl::PointXYZRGB>::Ptr PlaneProcessor::getInputPointCloud() {
     return inputPointCloud;
 }
 
-void PlaneSegment::setPlaneCoefficient(pcl::ModelCoefficients::Ptr &_planeCoefficients) {
+void PlaneProcessor::setPlaneCoefficient(pcl::ModelCoefficients::Ptr &_planeCoefficients) {
     planeCoefficients = _planeCoefficients;
 }
 
-pcl::ModelCoefficients::Ptr PlaneSegment::getPlaneCoefficient() {
+pcl::ModelCoefficients::Ptr PlaneProcessor::getPlaneCoefficient() {
     return planeCoefficients;
 }
 
-void PlaneSegment::setPlaneInliers(pcl::PointIndices::Ptr &_planeInliers) {
+void PlaneProcessor::setPlaneInliers(pcl::PointIndices::Ptr &_planeInliers) {
     planeInliers = _planeInliers;
 }
 
-pcl::PointIndices::Ptr PlaneSegment::getPlaneInliers() {
+pcl::PointIndices::Ptr PlaneProcessor::getPlaneInliers() {
     return planeInliers;
 }
 
-void PlaneSegment::setPlanePointCloud_ptr(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_planePointcloud) {
+void PlaneProcessor::setPlanePointCloud_ptr(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_planePointcloud) {
     planePointcloud_ptr = _planePointcloud;
 }
 
-pcl::PointCloud<pcl::PointXYZRGB>::Ptr PlaneSegment::getPlanePointCloud_ptr() {
+pcl::PointCloud<pcl::PointXYZRGB>::Ptr PlaneProcessor::getPlanePointCloud_ptr() {
     return planePointcloud_ptr;
 }
 
-void PlaneSegment::setNoPlanePointCloud_ptr(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_noPlanePointcloud) {
+void PlaneProcessor::setNoPlanePointCloud_ptr(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_noPlanePointcloud) {
     noPlanePointcloud_ptr = _noPlanePointcloud;
 }
 
-pcl::PointCloud<pcl::PointXYZRGB>::Ptr PlaneSegment::getNoPlanePointCloud_ptr() {
+pcl::PointCloud<pcl::PointXYZRGB>::Ptr PlaneProcessor::getNoPlanePointCloud_ptr() {
     return noPlanePointcloud_ptr;
 }

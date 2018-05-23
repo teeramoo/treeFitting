@@ -30,16 +30,16 @@
 #include <pcl/segmentation/sac_segmentation.h>
 
 
-class PlaneSegment {
+class PlaneProcessor {
 
 public:
 
-    PlaneSegment();
-    PlaneSegment(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &point_cloud_ptr, bool &bSetOptimization);
+    PlaneProcessor();
+    PlaneProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &point_cloud_ptr, bool &bSetOptimization);
 
-    ~PlaneSegment();
+    ~PlaneProcessor();
 
-    bool performSegmentation();
+    bool segment();
 
     // ** Implement all of these
 
@@ -81,7 +81,7 @@ public:
 
 private:
 
-    pcl::SACSegmentation<pcl::PointXYZRGB> planeSegmentator;
+    pcl::SACSegmentation<pcl::PointXYZRGB> planeSegmenter;
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputPointCloud;
     pcl::ModelCoefficients::Ptr planeCoefficients;
     pcl::PointIndices::Ptr planeInliers;

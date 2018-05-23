@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../include/CylinderSegment.h
+../include/CylinderProcessor.h
 boost/thread/thread.hpp
 -
 pcl/common/common_headers.h
@@ -96,7 +96,7 @@ pcl/sample_consensus/model_types.h
 pcl/segmentation/sac_segmentation.h
 -
 
-../include/PlaneSegment.h
+../include/PlaneProcessor.h
 boost/thread/thread.hpp
 -
 pcl/common/common_headers.h
@@ -241,13 +241,13 @@ string
 -
 fstream
 -
-PlaneSegment.h
+PlaneProcessor.h
 -
 Viewer.h
 -
 NormalEstimator.h
 -
-CylinderSegment.h
+CylinderProcessor.h
 -
 
 /usr/local/include/eigen3/Eigen/Cholesky

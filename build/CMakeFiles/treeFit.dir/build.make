@@ -57,28 +57,28 @@ include CMakeFiles/treeFit.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/treeFit.dir/flags.make
 
-CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o: CMakeFiles/treeFit.dir/flags.make
-CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o: ../src/PlaneSegment.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneSegment.cpp
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: CMakeFiles/treeFit.dir/flags.make
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: ../src/PlaneProcessor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp
 
-CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneSegment.cpp > CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.i
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp > CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i
 
-CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneSegment.cpp -o CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.s
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp -o CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s
 
-CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.requires:
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.requires:
 
-.PHONY : CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.requires
+.PHONY : CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.requires
 
-CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.provides: CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.requires
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.provides.build
-.PHONY : CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.provides
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.provides: CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.requires
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.provides.build
+.PHONY : CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.provides
 
-CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.provides.build: CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.provides.build: CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o
 
 
 CMakeFiles/treeFit.dir/src/Viewer.cpp.o: CMakeFiles/treeFit.dir/flags.make
@@ -129,44 +129,44 @@ CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o.provides: CMakeFiles/treeFit.di
 CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o.provides.build: CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o
 
 
-CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o: CMakeFiles/treeFit.dir/flags.make
-CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o: ../src/CylinderSegment.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderSegment.cpp
+CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o: CMakeFiles/treeFit.dir/flags.make
+CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o: ../src/CylinderProcessor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp
 
-CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderSegment.cpp > CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.i
+CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp > CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i
 
-CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderSegment.cpp -o CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.s
+CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp -o CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s
 
-CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.requires:
+CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.requires:
 
-.PHONY : CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.requires
+.PHONY : CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.requires
 
-CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.provides: CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.requires
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.provides.build
-.PHONY : CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.provides
+CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.provides: CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.requires
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.provides.build
+.PHONY : CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.provides
 
-CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.provides.build: CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o
+CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.provides.build: CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o
 
 
 # Object files for target treeFit
 treeFit_OBJECTS = \
-"CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o" \
+"CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o" \
 "CMakeFiles/treeFit.dir/src/Viewer.cpp.o" \
 "CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o" \
-"CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o"
+"CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o"
 
 # External object files for target treeFit
 treeFit_EXTERNAL_OBJECTS =
 
-libtreeFit.so: CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o
+libtreeFit.so: CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o
 libtreeFit.so: CMakeFiles/treeFit.dir/src/Viewer.cpp.o
 libtreeFit.so: CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o
-libtreeFit.so: CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o
+libtreeFit.so: CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o
 libtreeFit.so: CMakeFiles/treeFit.dir/build.make
 libtreeFit.so: CMakeFiles/treeFit.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library libtreeFit.so"
@@ -177,10 +177,10 @@ CMakeFiles/treeFit.dir/build: libtreeFit.so
 
 .PHONY : CMakeFiles/treeFit.dir/build
 
-CMakeFiles/treeFit.dir/requires: CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o.requires
+CMakeFiles/treeFit.dir/requires: CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.requires
 CMakeFiles/treeFit.dir/requires: CMakeFiles/treeFit.dir/src/Viewer.cpp.o.requires
 CMakeFiles/treeFit.dir/requires: CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o.requires
-CMakeFiles/treeFit.dir/requires: CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o.requires
+CMakeFiles/treeFit.dir/requires: CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.requires
 
 .PHONY : CMakeFiles/treeFit.dir/requires
 

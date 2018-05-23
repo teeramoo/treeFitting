@@ -19,16 +19,16 @@ include_directories(${PCL_INCLUDE_DIRS}
 		)
 
 add_library(${PROJECT_NAME} SHARED
-        src/PlaneSegment.cpp
+		src/PlaneProcessor.cpp
         src/Viewer.cpp
         src/NormalEstimator.cpp
-		src/CylinderSegment.cpp
+		src/CylinderProcessor.cpp
 
 
-        include/PlaneSegment.h
+		include/PlaneProcessor.h
         include/Viewer.h
         include/NormalEstimator.h
-		include/CylinderSegment.h
+		include/CylinderProcessor.h
 		)
 
 link_directories(${PCL_LIBRARY_DIRS})

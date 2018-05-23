@@ -37,10 +37,10 @@
 #include <string>
 #include <fstream>
 
-#include <PlaneSegment.h>
+#include <PlaneProcessor.h>
 #include <Viewer.h>
 #include <NormalEstimator.h>
-#include <CylinderSegment.h>
+#include <CylinderProcessor.h>
 
 class Tree
 {
@@ -56,6 +56,7 @@ public:
 
 };
 
+/*
 class Cylinder
 {
 public:
@@ -66,7 +67,7 @@ public:
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderPointCloud_ptr;
 
 };
-
+*/
 void
 printUsage (const char* progName)
 {
@@ -223,6 +224,7 @@ bool equalPoint(pcl::PointXYZRGB p1, pcl::PointXYZRGB p2){
 }
 
 
+
 // --------------
 // -----Main-----
 // --------------
@@ -309,10 +311,10 @@ main (int argc, char** argv) {
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr noPlanePointcloud(new pcl::PointCloud<pcl::PointXYZRGB>);
 
     bool bPlaneOptimization = false;
-    PlaneSegment myPlane = PlaneSegment(point_cloud_ptr, bPlaneOptimization);
+    PlaneProcessor myPlane = PlaneProcessor(point_cloud_ptr, bPlaneOptimization);
 
 
-    if (!myPlane.performSegmentation())
+    if (!myPlane.segment())
         return -1;
 
     cout << "Total points without plane is : " << myPlane.getNoPlanePointCloud_ptr()->points.size() << endl;
@@ -383,13 +385,15 @@ main (int argc, char** argv) {
         tempCylinder.input_pointCloud = temp_pointCloud_ptr;
         cout << "There are " << tempCylinder.input_pointCloud->points.size() << " points for keyframe number " << i << endl;
 
+
+
         double epsAngle = dEpsAngle/180*M_PI;
         bool bInitCylinderOptimization = false;
         Eigen::Vector3f planeVector = myPlane.getPlaneVector();
 
-        CylinderSegment initialCylinderSegment(temp_pointCloud_ptr,planeVector, epsAngle, bInitCylinderOptimization);
+        CylinderProcessor initialCylinderSegment(temp_pointCloud_ptr,planeVector, epsAngle, bInitCylinderOptimization);
 
-        initialCylinderSegment.performSegmentation(keypoint_ptr->points[i]);
+        initialCylinderSegment.segment(keypoint_ptr->points[i]);
 
         tempCylinder.cylinderCoef = initialCylinderSegment.getCylinderCoefficient();
         tempCylinder.cylinderInliers = initialCylinderSegment.getCylinderInliers();
@@ -459,7 +463,6 @@ main (int argc, char** argv) {
     cout << "total number of keyframe is : " << keypoint_ptr->points.size() << endl;
     cout << "total skipped : " << skipCounter << endl;
     pcl::PointXYZRGB keyPoint1 = keypoint_ptr->points.front();
-//    pcl::PointXYZRGB keyPoint2 = keypoint_ptr->points.back();
 
 /*
     for(int i=0;i< keypoint_ptr->points.size(); i++) {
@@ -477,89 +480,58 @@ main (int argc, char** argv) {
 
 
     }
-*/
+
 //    cylinderViewer.addPlane(myPlane.getPlaneCoefficient(), planeViewerName);
+ */
     cylinderViewer.run();
 
 
-    int prevNumPointCloud = 0;
-    double prevC0 = 0.0, prevC1=0.0, prevC2=0.0, prevC3=0.0, prevC4=0.0, prevC5=0.0, prevC6=0.0;
 
-    int currentCylinder = 0;
-    double distanceLimit = 1.0;
+
 
     std::vector<std::vector<Cylinder>> possibleGroupCylinders;
+    std::vector<pcl::PointCloud<pcl::PointXYZRGB>::Ptr> allPointsAfterCulling;
 
-    std::vector<Cylinder> possibleCylinders;
+    double distanceLimit = 1.0;
 
-        for(int i = 0; i < allCylinders.size(); i++) {
-
-            double curC0, curC1, curC2, curC3, curC4, curC5, curC6;
-
-            //Check number of point cloud
-            if(!allCylinders[i].cylinderInliers->indices.empty()) {
-
-                curC0 = allCylinders[i].cylinderCoef->values[0];
-                curC1 = allCylinders[i].cylinderCoef->values[1];
-                curC2 = allCylinders[i].cylinderCoef->values[2];
-                curC3 = allCylinders[i].cylinderCoef->values[3];
-                curC4 = allCylinders[i].cylinderCoef->values[4];
-                curC5 = allCylinders[i].cylinderCoef->values[5];
-                curC6 = allCylinders[i].cylinderCoef->values[6];
-            }
-            else {
-                curC0 = 0.0;
-                curC1 = 0.0;
-                curC2 = 0.0;
-                curC3 = 0.0;
-                curC4 = 0.0;
-                curC5 = 0.0;
-                curC6 = 0.0;
-            }
-
-            //Calculate distance between current point and previous point
-//            double distanceTwoPointsXYZ = sqrt(pow(curC0-prevC0,2)+pow(curC1-prevC1,2)+pow(curC2-prevC2,2));
-            double distanceTwoPointsXZ = sqrt(pow(curC0-prevC0,2)+pow(curC2-prevC2,2));
-
-            if(distanceTwoPointsXZ > distanceLimit or i == allCylinders.size()-1) {
+    CylinderProcessor cylinderRefiner(distanceLimit, CylinderProcessor::XZ );
+    cylinderRefiner.cluster(allCylinders, possibleGroupCylinders );
 
 
-                if(possibleCylinders[0].cylinderInliers->indices.empty()) {
+    cout << "there are " << possibleGroupCylinders.size() << " possible trees in the dataset." << endl;
 
-                    possibleCylinders.clear();
-                    cout << "Delete a group of non cylinder" << endl;
+//    cylinderRefiner.removeDuplicates(possibleGroupCylinders, allPointsAfterCulling);
 
-                }
-                else {
-
-                    possibleGroupCylinders.push_back(possibleCylinders);
-                    possibleCylinders.clear();
-                    cout << "Group number " << possibleGroupCylinders.size() << " has " << possibleGroupCylinders.back().size() << " cylinders." << endl;
-                }
+    std::vector<std::vector<pcl::PointXYZRGB>> vecCylinderPoints;
+    cylinderRefiner.cloud2vec(possibleGroupCylinders,vecCylinderPoints);
 
 
-            }
-            else
-            {
-                possibleCylinders.push_back(allCylinders[i]);
+    for(int i=0;i< vecCylinderPoints.size();i++) {
 
-//                cout << "Cylinder is added to the group" << endl;
-            }
+        std::sort(vecCylinderPoints[i].begin(), vecCylinderPoints[i].end(), comparePoint);
 
-            prevC0 = curC0;
-            prevC1 = curC1;
-            prevC2 = curC2;
-            prevC3 = curC3;
-            prevC4 = curC4;
-            prevC5 = curC5;
-            prevC6 = curC6;
+        auto unique_end = std::unique(vecCylinderPoints[i].begin(), vecCylinderPoints[i].end(), equalPoint);
+
+        //Sorting problem --> Try displaying all of them vs points after culling
+        cout << "Number of points before culling : " << vecCylinderPoints[i].size() << endl;
+
+        vecCylinderPoints[i].erase(unique_end, vecCylinderPoints[i].end());
+
+        cout << "Number of points after culling : " << vecCylinderPoints[i].size() << endl;
 
 
+        pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinderAfterCulling;
+        for(int j=0;j<vecCylinderPoints[0].size();j++) {
+
+            pointCloudCylinderAfterCulling.push_back(vecCylinderPoints[i][j]);
         }
 
-cout << "there are " << possibleGroupCylinders.size() << " possible trees in the dataset." << endl;
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderPoints_ptrAfterCulling(&pointCloudCylinderAfterCulling);
+        allPointsAfterCulling.push_back(cylinderPoints_ptrAfterCulling);
 
+    }
 
+/*
         std::vector<std::vector<pcl::PointXYZRGB>> vecCylinderPoints;
         //Recalculate point cloud for a cylinder
 
@@ -588,11 +560,17 @@ cout << "there are " << possibleGroupCylinders.size() << " possible trees in the
                 return -1;
             }
 
-            vecCylinderPoints.push_back(cylinderPoints);
+
 
         }
+
+
+        vecCylinderPoints.push_back(cylinderPoints);
+
+
     }
 
+    cout << "check size of vecCylinderPoints : " << vecCylinderPoints.size() << endl;
 
     std::vector<pcl::PointCloud<pcl::PointXYZRGB>::Ptr> allPointsAfterCulling;
 
@@ -609,6 +587,7 @@ cout << "there are " << possibleGroupCylinders.size() << " possible trees in the
 
             cout << "Number of points after culling : " << vecCylinderPoints[i].size() << endl;
 
+
             pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinderAfterCulling;
             for(int j=0;j<vecCylinderPoints[0].size();j++) {
 
@@ -619,7 +598,7 @@ cout << "there are " << possibleGroupCylinders.size() << " possible trees in the
             allPointsAfterCulling.push_back(cylinderPoints_ptrAfterCulling);
 
         }
-
+*/
 
     std::string pointCloudViewerNameAfterCulling = "pclNameAfterCulling";
 
@@ -682,21 +661,21 @@ cout << "there are " << possibleGroupCylinders.size() << " possible trees in the
 
 
 
-    std::string cylinderViewer2Name = "Show possible cylinders";
-    Viewer cylinderViewer2(cylinderViewer2Name,cylinderViewer2Name);
+
 
     for(int i=0;i< possibleGroupCylinders.size(); i++) {
-
+        std::string cylinderViewer2Name = "Show possible cylinders";
+        Viewer cylinderViewer2(cylinderViewer2Name,cylinderViewer2Name);
 
         for(int j=0; j< possibleGroupCylinders[i].size();j++) {
             std::string cylinder2Name = "cy." + std::to_string(i) + "-" +std::to_string(j);
             cylinderViewer2.addCylinder(possibleGroupCylinders[i][j].cylinderCoef,cylinder2Name);
 
         }
-
+        cylinderViewer2.run();
     }
 
-    cylinderViewer2.run();
+
 
 
 

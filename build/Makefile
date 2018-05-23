@@ -136,32 +136,32 @@ treeFit/fast:
 	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/build
 .PHONY : treeFit/fast
 
-src/CylinderSegment.o: src/CylinderSegment.cpp.o
+src/CylinderProcessor.o: src/CylinderProcessor.cpp.o
 
-.PHONY : src/CylinderSegment.o
+.PHONY : src/CylinderProcessor.o
 
 # target to build an object file
-src/CylinderSegment.cpp.o:
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.o
-.PHONY : src/CylinderSegment.cpp.o
+src/CylinderProcessor.cpp.o:
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o
+.PHONY : src/CylinderProcessor.cpp.o
 
-src/CylinderSegment.i: src/CylinderSegment.cpp.i
+src/CylinderProcessor.i: src/CylinderProcessor.cpp.i
 
-.PHONY : src/CylinderSegment.i
+.PHONY : src/CylinderProcessor.i
 
 # target to preprocess a source file
-src/CylinderSegment.cpp.i:
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.i
-.PHONY : src/CylinderSegment.cpp.i
+src/CylinderProcessor.cpp.i:
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i
+.PHONY : src/CylinderProcessor.cpp.i
 
-src/CylinderSegment.s: src/CylinderSegment.cpp.s
+src/CylinderProcessor.s: src/CylinderProcessor.cpp.s
 
-.PHONY : src/CylinderSegment.s
+.PHONY : src/CylinderProcessor.s
 
 # target to generate assembly for a file
-src/CylinderSegment.cpp.s:
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderSegment.cpp.s
-.PHONY : src/CylinderSegment.cpp.s
+src/CylinderProcessor.cpp.s:
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s
+.PHONY : src/CylinderProcessor.cpp.s
 
 src/NormalEstimator.o: src/NormalEstimator.cpp.o
 
@@ -190,32 +190,32 @@ src/NormalEstimator.cpp.s:
 	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.s
 .PHONY : src/NormalEstimator.cpp.s
 
-src/PlaneSegment.o: src/PlaneSegment.cpp.o
+src/PlaneProcessor.o: src/PlaneProcessor.cpp.o
 
-.PHONY : src/PlaneSegment.o
+.PHONY : src/PlaneProcessor.o
 
 # target to build an object file
-src/PlaneSegment.cpp.o:
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.o
-.PHONY : src/PlaneSegment.cpp.o
+src/PlaneProcessor.cpp.o:
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o
+.PHONY : src/PlaneProcessor.cpp.o
 
-src/PlaneSegment.i: src/PlaneSegment.cpp.i
+src/PlaneProcessor.i: src/PlaneProcessor.cpp.i
 
-.PHONY : src/PlaneSegment.i
+.PHONY : src/PlaneProcessor.i
 
 # target to preprocess a source file
-src/PlaneSegment.cpp.i:
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.i
-.PHONY : src/PlaneSegment.cpp.i
+src/PlaneProcessor.cpp.i:
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i
+.PHONY : src/PlaneProcessor.cpp.i
 
-src/PlaneSegment.s: src/PlaneSegment.cpp.s
+src/PlaneProcessor.s: src/PlaneProcessor.cpp.s
 
-.PHONY : src/PlaneSegment.s
+.PHONY : src/PlaneProcessor.s
 
 # target to generate assembly for a file
-src/PlaneSegment.cpp.s:
-	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneSegment.cpp.s
-.PHONY : src/PlaneSegment.cpp.s
+src/PlaneProcessor.cpp.s:
+	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s
+.PHONY : src/PlaneProcessor.cpp.s
 
 src/Viewer.o: src/Viewer.cpp.o
 
@@ -281,15 +281,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... treeFitting"
 	@echo "... treeFit"
-	@echo "... src/CylinderSegment.o"
-	@echo "... src/CylinderSegment.i"
-	@echo "... src/CylinderSegment.s"
+	@echo "... src/CylinderProcessor.o"
+	@echo "... src/CylinderProcessor.i"
+	@echo "... src/CylinderProcessor.s"
 	@echo "... src/NormalEstimator.o"
 	@echo "... src/NormalEstimator.i"
 	@echo "... src/NormalEstimator.s"
-	@echo "... src/PlaneSegment.o"
-	@echo "... src/PlaneSegment.i"
-	@echo "... src/PlaneSegment.s"
+	@echo "... src/PlaneProcessor.o"
+	@echo "... src/PlaneProcessor.i"
+	@echo "... src/PlaneProcessor.s"
 	@echo "... src/Viewer.o"
 	@echo "... src/Viewer.i"
 	@echo "... src/Viewer.s"

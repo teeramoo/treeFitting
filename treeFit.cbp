@@ -230,25 +230,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/include/CylinderSegment.h">
+		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/include/CylinderProcessor.h">
 			<Option target="treeFit"/>
 		</Unit>
 		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/include/NormalEstimator.h">
 			<Option target="treeFit"/>
 		</Unit>
-		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/include/PlaneSegment.h">
+		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/include/PlaneProcessor.h">
 			<Option target="treeFit"/>
 		</Unit>
 		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/include/Viewer.h">
 			<Option target="treeFit"/>
 		</Unit>
-		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderSegment.cpp">
+		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp">
 			<Option target="treeFit"/>
 		</Unit>
 		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp">
 			<Option target="treeFit"/>
 		</Unit>
-		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneSegment.cpp">
+		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp">
 			<Option target="treeFit"/>
 		</Unit>
 		<Unit filename="/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/Viewer.cpp">
