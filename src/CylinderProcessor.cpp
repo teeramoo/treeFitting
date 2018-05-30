@@ -5,7 +5,7 @@
 #include "CylinderProcessor.h"
 
 CylinderProcessor::~CylinderProcessor() {
-    cout << "Cylinder segmentation has been destroyed." << endl;
+//    cout << "Cylinder segmentation has been destroyed." << endl;
 }
 
 CylinderProcessor::CylinderProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputPointCloud, Eigen::Vector3f &normalVector,
@@ -125,6 +125,18 @@ void CylinderProcessor::cluster(std::vector<Cylinder> &allCylinders,
 
 }
 
+void CylinderProcessor::segment() {
+    cout << "before segment " << endl;
+    cylinderSegmenter.segment(*cylinderInliers,*cylinderCoefficients);
+    cout << "after segment " << endl;
+    pcl::ExtractIndices<pcl::PointXYZRGB> extract (true);
+    extract.setInputCloud (cylinderSegmenter.getInputCloud());
+    extract.setIndices (cylinderInliers);
+    extract.setNegative (false);
+    extract.filter(*cylinderPointcloud_ptr);
+
+}
+
 void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe) {
 //    cout << "about to segment a cylinder" << endl;
     cylinderSegmenter.segment(*cylinderInliers,*cylinderCoefficients);
@@ -161,24 +173,21 @@ void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe) {
         cylinderPointcloud_ptr = NULL;
         cylinderInliers->indices.erase(cylinderInliers->indices.begin(),cylinderInliers->indices.end());
 
-//        if(cylinderInliers->indices.size() > 0)
-//            sleep(1);
-
-        cout << "skip adding cylinder due to too far distance " << endl;
+//        cout << "skip adding cylinder due to too far distance " << endl;
         return;
     }
 
-    cout << "Cylinder coefficient is : " << *cylinderCoefficients << endl;
+//    cout << "Cylinder coefficient is : " << *cylinderCoefficients << endl;
 
     //Extract point cloud representing the cylinder
     pcl::ExtractIndices<pcl::PointXYZRGB> extract (true);
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr tempCylinderCloud (new pcl::PointCloud<pcl::PointXYZRGB>);
+//    pcl::PointCloud<pcl::PointXYZRGB>::Ptr tempCylinderCloud (new pcl::PointCloud<pcl::PointXYZRGB>);
     extract.setInputCloud (cylinderSegmenter.getInputCloud());
     extract.setIndices (cylinderInliers);
     extract.setNegative (false);
     extract.filter(*cylinderPointcloud_ptr);
 
-    cout << "Size of cylinderPointcloud_ptr is : " << cylinderPointcloud_ptr->points.size() << endl;
+//    cout << "Size of cylinderPointcloud_ptr is : " << cylinderPointcloud_ptr->points.size() << endl;
 
 }
 
@@ -233,6 +242,8 @@ bool CylinderProcessor::cloud2vec(std::vector<std::vector<Cylinder>> &possibleGr
 
         std::vector<pcl::PointXYZRGB> cylinderPoints;
         int checkNumPoints = 0;
+
+
 
         for (int j = 0; j < possibleGroupCylinders[i].size(); j++) {
 

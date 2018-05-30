@@ -1,4 +1,4 @@
-/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.4668.70/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE= -G "CodeBlocks - Unix Makefiles" /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit
+/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE= -G "CodeBlocks - Unix Makefiles" /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit
 -- Boost version: 1.58.0
 -- Found the following Boost libraries:
 --   system

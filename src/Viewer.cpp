@@ -7,7 +7,7 @@
 Viewer::Viewer() {}
 
 Viewer::~Viewer() {
-    cout << "Viewer has been destroyed" << endl;
+
 }
 
 void Viewer::setViewer(boost::shared_ptr<pcl::visualization::PCLVisualizer> &viewer) {

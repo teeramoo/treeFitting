@@ -5,15 +5,15 @@
 #include "PlaneProcessor.h"
 
 PlaneProcessor::~PlaneProcessor() {
-    cout << "PlaneProcessor has been destroyed." << endl;
+ //   cout << "PlaneProcessor has been destroyed." << endl;
 }
 
 
 bool PlaneProcessor::segment() {
 
-    cout << "about to segment a plane" << endl;
+//    cout << "about to segment a plane" << endl;
     planeSegmenter.segment(*planeInliers, *planeCoefficients);
-    cout << "finish segmentation" << endl;
+//    cout << "finish segmentation" << endl;
 
     if (planeInliers->indices.size () == 0)
     {
@@ -22,14 +22,14 @@ bool PlaneProcessor::segment() {
         return false;
     }
 
-    std::cerr << "Plane model coefficients: " << planeCoefficients->values[0] << " "
-              << planeCoefficients->values[1] << " "
-              << planeCoefficients->values[2] << " "
-              << planeCoefficients->values[3] << std::endl;
+//    std::cerr << "Plane model coefficients: " << planeCoefficients->values[0] << " "
+//              << planeCoefficients->values[1] << " "
+//              << planeCoefficients->values[2] << " "
+//              << planeCoefficients->values[3] << std::endl;
 
 
-    cout << "Size of all point cloud is : " << inputPointCloud->points.size() << endl;
-    std::cerr << "Model PlaneInliers: " << planeInliers->indices.size () << std::endl;
+//    cout << "Size of all point cloud is : " << inputPointCloud->points.size() << endl;
+//    std::cerr << "Model PlaneInliers: " << planeInliers->indices.size () << std::endl;
 
     calculatePlaneVector();
 

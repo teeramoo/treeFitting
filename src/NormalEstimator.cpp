@@ -19,7 +19,7 @@ NormalEstimator::NormalEstimator(pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputPoi
 }
 
 NormalEstimator::~NormalEstimator() {
-    cout << "Normal calculator has been  destroyed" << endl;
+ //   cout << "Normal calculator has been  destroyed" << endl;
 }
 
 void NormalEstimator::setEstimator(pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> _normalEstimator) {

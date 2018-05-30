@@ -4,8 +4,9 @@
 //Boost libraries
 #include <boost/thread/thread.hpp>
 
-// PCL libraries
 
+
+// PCL libraries
 #include <pcl/common/common_headers.h>
 #include <pcl/common/distances.h>
 #include <pcl/features/normal_3d.h>
@@ -238,6 +239,7 @@ main (int argc, char** argv) {
     std::string sInput = "";
     std::string sInputKeyframe = "";
     double dPointDistance = 1.0;
+    /*
     if (pcl::console::find_argument(argc, argv, "-h") >= 0) {
         printUsage(argv[0]);
         return 0;
@@ -269,6 +271,8 @@ main (int argc, char** argv) {
         printUsage(argv[0]);
         return 0;
     }
+*/
+
 
     // ------------------------------------
     // -----Create example point cloud-----
@@ -346,10 +350,14 @@ main (int argc, char** argv) {
     noPlaneNormalViewer.addNormals(planeNormals.getInputPointCloud(), planeNormals.getCloudNormal(), 10, 0.05,
                                    noPlaneNormalName);
 
-    noPlaneNormalViewer.run();
+//    noPlaneNormalViewer.run();
 
 
     std::vector<Cylinder> allCylinders;
+
+    double epsAngle = dEpsAngle/180*M_PI;
+    bool bInitCylinderOptimization = false;
+    Eigen::Vector3f planeVector = myPlane.getPlaneVector();
 
 // Point Cloud filter
     for (int i = 0; i < keypoint_ptr->points.size(); i++) {
@@ -382,14 +390,15 @@ main (int argc, char** argv) {
 
         }
 
+
         tempCylinder.input_pointCloud = temp_pointCloud_ptr;
         cout << "There are " << tempCylinder.input_pointCloud->points.size() << " points for keyframe number " << i << endl;
 
 
 
-        double epsAngle = dEpsAngle/180*M_PI;
-        bool bInitCylinderOptimization = false;
-        Eigen::Vector3f planeVector = myPlane.getPlaneVector();
+//        double epsAngle = dEpsAngle/180*M_PI;
+//        bool bInitCylinderOptimization = false;
+//        Eigen::Vector3f planeVector = myPlane.getPlaneVector();
 
         CylinderProcessor initialCylinderSegment(temp_pointCloud_ptr,planeVector, epsAngle, bInitCylinderOptimization);
 
@@ -483,7 +492,7 @@ main (int argc, char** argv) {
 
 //    cylinderViewer.addPlane(myPlane.getPlaneCoefficient(), planeViewerName);
  */
-    cylinderViewer.run();
+//    cylinderViewer.run();
 
 
 
@@ -500,10 +509,10 @@ main (int argc, char** argv) {
 
     cout << "there are " << possibleGroupCylinders.size() << " possible trees in the dataset." << endl;
 
-//    cylinderRefiner.removeDuplicates(possibleGroupCylinders, allPointsAfterCulling);
-
     std::vector<std::vector<pcl::PointXYZRGB>> vecCylinderPoints;
     cylinderRefiner.cloud2vec(possibleGroupCylinders,vecCylinderPoints);
+    cout << "vecCylinderPoint.size() is : " << vecCylinderPoints.size() << endl;
+    pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinderAfterCulling;
 
 
     for(int i=0;i< vecCylinderPoints.size();i++) {
@@ -520,16 +529,104 @@ main (int argc, char** argv) {
         cout << "Number of points after culling : " << vecCylinderPoints[i].size() << endl;
 
 
-        pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinderAfterCulling;
-        for(int j=0;j<vecCylinderPoints[0].size();j++) {
+/*
+        for(int j=0;j<vecCylinderPoints[i].size();j++) {
 
+            vecCylinderPoints[i][j].r = 255;
+            vecCylinderPoints[i][j].g = 0;
+            vecCylinderPoints[i][j].b = 0;
             pointCloudCylinderAfterCulling.push_back(vecCylinderPoints[i][j]);
-        }
 
+        }
+        */
+/*
         pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderPoints_ptrAfterCulling(&pointCloudCylinderAfterCulling);
         allPointsAfterCulling.push_back(cylinderPoints_ptrAfterCulling);
+        cout << "cylinderPoints_ptrAfterCulling : " << cylinderPoints_ptrAfterCulling->points.size() << endl;
+
+        for(int k=0; k< allPointsAfterCulling.size();k++) {
+            cout << "allPointsAfterCulling[" << k <<"] has " << allPointsAfterCulling[i]->points.size() << " points." <<endl;
+
+        }
+*/
+    }
+
+
+    // create point cloud
+    std::string cloudAfterCullingName = "cloudAfterCullingName";
+    Viewer cloudAfterCulling(cloudAfterCullingName,cloudAfterCullingName);
+    pcl::PointCloud<pcl::PointXYZRGB> tempCloud;
+    std::vector<pcl::PointCloud<pcl::PointXYZRGB>> vecTempCloud;
+    pcl::PointCloud<pcl::PointXYZRGB> CylinCloud;
+
+    for(int i=0; i< vecCylinderPoints.size();i++) {
+
+
+        CylinCloud.width = (int) vecCylinderPoints[i].size();
+        CylinCloud.height = 1;
+        CylinCloud.is_dense = false;
+        CylinCloud.points.resize(CylinCloud.width * CylinCloud.height);
+        for(int j=0; j< vecCylinderPoints[i].size();++j) {
+
+            CylinCloud.points[j] = vecCylinderPoints[i][j];
+            //        tempCloud.points[j].x = vecCylinderPoints[i][j].x;
+    //        tempCloud.points[j].y = vecCylinderPoints[i][j].y;
+    //        tempCloud.points[j].z = vecCylinderPoints[i][j].z;
+    //        cout << vecCylinderPoints[i][j] << endl;
+
+            tempCloud.push_back(vecCylinderPoints[i][j]);
+
+        }
+
+        vecTempCloud.push_back(CylinCloud);
+
+        cout << "finish adding pointcloud to tempCloud" << endl;
+
+
+
 
     }
+
+
+    for(int i=0;i< vecTempCloud.size(); i++) {
+
+        std::string eachCloudName = "cloudAfterCullingName"+ std::to_string(i);
+
+//        cout << eachCloudName << endl;
+
+        cout << vecTempCloud[i].points.size() << endl;
+    }
+
+
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr tempCloudPtr(&tempCloud);
+
+    cloudAfterCulling.addPointcloud(tempCloudPtr,cloudAfterCullingName);
+
+
+
+    cout << "showing cloud" << endl;
+    cloudAfterCulling.run();
+
+    bool bFinalCylinderSegmentation = false;
+    for(int i=0; i< vecTempCloud.size();i++) {
+
+        cout << "adding ptr" << endl;
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr cylinderCloudPtr(new pcl::PointCloud<pcl::PointXYZRGB>);
+        for(int j=0;j < vecTempCloud[i].points.size();j++) {
+
+            cylinderCloudPtr->points.push_back(vecTempCloud[i][j]);
+        }
+        cout << "hello" << endl;
+
+        CylinderProcessor finalCylinSegment(cylinderCloudPtr,planeVector, epsAngle, bFinalCylinderSegmentation);
+        finalCylinSegment.segment();
+
+        cout << "radius size : " << finalCylinSegment.getCylinderCoefficient()->values[6] << endl;
+        cout << "circumference size : " << finalCylinSegment.getCylinderCoefficient()->values[6] * M_PI *2 << endl;
+    }
+
+
 
 /*
         std::vector<std::vector<pcl::PointXYZRGB>> vecCylinderPoints;
@@ -599,7 +696,7 @@ main (int argc, char** argv) {
 
         }
 */
-
+/*
     std::string pointCloudViewerNameAfterCulling = "pclNameAfterCulling";
 
     Viewer pointcloudViewerAfterCulling(pointCloudViewerNameAfterCulling,pointCloudViewerNameAfterCulling);
@@ -609,7 +706,7 @@ main (int argc, char** argv) {
 
     }
     pointcloudViewerAfterCulling.run();
-
+*/
 
 /*
         pcl::PointCloud<pcl::PointXYZRGB> pointCloudCylinder;
