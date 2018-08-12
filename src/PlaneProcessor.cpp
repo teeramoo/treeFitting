@@ -22,10 +22,10 @@ bool PlaneProcessor::segment() {
         return false;
     }
 
-//    std::cerr << "Plane model coefficients: " << planeCoefficients->values[0] << " "
-//              << planeCoefficients->values[1] << " "
-//              << planeCoefficients->values[2] << " "
-//              << planeCoefficients->values[3] << std::endl;
+    std::cerr << "Plane model coefficients: " << planeCoefficients->values[0] << " "
+              << planeCoefficients->values[1] << " "
+              << planeCoefficients->values[2] << " "
+              << planeCoefficients->values[3] << std::endl;
 
 
 //    cout << "Size of all point cloud is : " << inputPointCloud->points.size() << endl;
@@ -54,7 +54,7 @@ void PlaneProcessor::calculatePlaneVector() {
     const float ax = planeCoefficients->values[0];
     const float ay = planeCoefficients->values[1];
     const float az = planeCoefficients->values[2];
-    cout << "planeCoefficient : " << planeCoefficients->values[0] << " , " << planeCoefficients->values[1]  << " , " << planeCoefficients->values[2] << " , " << planeCoefficients->values[3]<< endl;
+    cout << "planeVector : " << planeCoefficients->values[0] << " , " << planeCoefficients->values[1]  << " , " << planeCoefficients->values[2] << " , " << planeCoefficients->values[3]<< endl;
     Eigen::Vector3f planeVector(ax,ay,az);
 
     setPlaneVector(planeVector);
@@ -73,7 +73,7 @@ PlaneProcessor::PlaneProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_point_cl
     // Mandatory
     planeSegmenter.setModelType (pcl::SACMODEL_PLANE);
     planeSegmenter.setMethodType (pcl::SAC_RANSAC);
-    planeSegmenter.setDistanceThreshold (0.4);
+    planeSegmenter.setDistanceThreshold (0.3);
     planeSegmenter.setInputCloud (_point_cloud_ptr);
 
     setInputPointCloud(_point_cloud_ptr);

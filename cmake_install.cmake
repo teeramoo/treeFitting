@@ -1,4 +1,4 @@
-# Install script for directory: /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit
+# Install script for directory: /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

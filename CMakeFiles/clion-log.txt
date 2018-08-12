@@ -1,4 +1,4 @@
-/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/181.5087.36/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE= -G "CodeBlocks - Unix Makefiles" /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit
+/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.3911.40/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE= -G "CodeBlocks - Unix Makefiles" /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit
 -- Boost version: 1.58.0
 -- Found the following Boost libraries:
 --   system
@@ -51,8 +51,23 @@
 -- looking for PCL_OUTOFCORE
 -- looking for PCL_PEOPLE
 -- found PCL at /usr/local/lib
--- OCTAVE_INCLUDE_DIR=/usr/include/octave-4.2.1
--- OCTAVE_LIBRARY=/usr/lib/x86_64-linux-gnu/liboctave.so
+CMake Warning at CMakeLists.txt:39 (find_package):
+  By not providing "FindOctave.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "Octave", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "Octave" with any
+  of the following names:
+
+    OctaveConfig.cmake
+    octave-config.cmake
+
+  Add the installation prefix of "Octave" to CMAKE_PREFIX_PATH or set
+  "Octave_DIR" to a directory containing one of the above files.  If "Octave"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+
+
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit
+-- Build files have been written to: /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit

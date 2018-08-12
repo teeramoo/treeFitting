@@ -6,7 +6,7 @@ CMakeFiles/treeFitting.dir/treeFit.cpp.o
  ../include/NormalEstimator.h
  ../include/PlaneProcessor.h
  ../include/Viewer.h
- /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/treeFit.cpp
+ /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit.cpp
  /usr/local/include/eigen3/Eigen/Cholesky
  /usr/local/include/eigen3/Eigen/Core
  /usr/local/include/eigen3/Eigen/Dense
@@ -277,8 +277,12 @@ CMakeFiles/treeFitting.dir/treeFit.cpp.o
  /usr/local/include/pcl-1.8/pcl/filters/impl/extract_indices.hpp
  /usr/local/include/pcl-1.8/pcl/filters/impl/filter.hpp
  /usr/local/include/pcl-1.8/pcl/filters/impl/filter_indices.hpp
+ /usr/local/include/pcl-1.8/pcl/filters/impl/model_outlier_removal.hpp
  /usr/local/include/pcl-1.8/pcl/filters/impl/passthrough.hpp
+ /usr/local/include/pcl-1.8/pcl/filters/impl/statistical_outlier_removal.hpp
+ /usr/local/include/pcl-1.8/pcl/filters/model_outlier_removal.h
  /usr/local/include/pcl-1.8/pcl/filters/passthrough.h
+ /usr/local/include/pcl-1.8/pcl/filters/statistical_outlier_removal.h
  /usr/local/include/pcl-1.8/pcl/for_each_type.h
  /usr/local/include/pcl-1.8/pcl/geometry/planar_polygon.h
  /usr/local/include/pcl-1.8/pcl/impl/cloud_iterator.hpp

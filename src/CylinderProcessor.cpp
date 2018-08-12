@@ -16,9 +16,9 @@ CylinderProcessor::CylinderProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inp
     cylinderSegmenter.setAxis(normalVector);
     cylinderSegmenter.setEpsAngle(epsAngle);
     cylinderSegmenter.setMethodType (pcl::SAC_RANSAC);
-    cylinderSegmenter.setNormalDistanceWeight (0.0);
+    cylinderSegmenter.setNormalDistanceWeight (0.1); // 0.0
     cylinderSegmenter.setMaxIterations (50000);
-    cylinderSegmenter.setDistanceThreshold (0.2);
+    cylinderSegmenter.setDistanceThreshold (0.6); //0.2
     cylinderSegmenter.setRadiusLimits (0.01, 0.1);
     cylinderSegmenter.setInputCloud (inputPointCloud);
 
@@ -142,7 +142,7 @@ void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe) {
     cylinderSegmenter.segment(*cylinderInliers,*cylinderCoefficients);
 //    cout << "done segmenting a cylinder" << endl;
 
-    if(cylinderCoefficients->values.size() == 0 or cylinderInliers->indices.size() < 100 ) {
+    if(cylinderCoefficients->values.size() == 0 or cylinderInliers->indices.size() < 20 ) {
 
         cylinderCoefficients->header.frame_id = "SKIP";
         cylinderPointcloud_ptr = NULL;

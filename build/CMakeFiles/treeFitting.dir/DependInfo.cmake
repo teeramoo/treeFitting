@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/treeFit.cpp" "/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o"
+  "/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit.cpp" "/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -38,13 +38,13 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../"
   "../include"
   "../src"
-  "/usr/include/octave-4.2.1/octave"
+  "/octave"
   "/usr/local/include"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles/treeFit.dir/DependInfo.cmake"
+  "/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/treeFit.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

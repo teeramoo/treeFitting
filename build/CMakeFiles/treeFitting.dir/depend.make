@@ -276,8 +276,12 @@ CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/impl/extract_indices.hpp
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/impl/filter.hpp
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/impl/filter_indices.hpp
+CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/impl/model_outlier_removal.hpp
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/impl/passthrough.hpp
+CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/impl/statistical_outlier_removal.hpp
+CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/model_outlier_removal.h
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/passthrough.h
+CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/filters/statistical_outlier_removal.h
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/for_each_type.h
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/geometry/planar_polygon.h
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/impl/cloud_iterator.hpp

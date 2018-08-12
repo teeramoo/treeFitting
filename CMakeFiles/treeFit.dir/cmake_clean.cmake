@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/treeFit.dir/src/Viewer.cpp.o"
   "CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o"
   "CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o"
+  "CMakeFiles/treeFit.dir/src/HeightEstimator.cpp.o"
   "libtreeFit.pdb"
   "libtreeFit.so"
 )

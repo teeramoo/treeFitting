@@ -186,21 +186,21 @@ pcl/segmentation/sac_segmentation.h
 string
 -
 
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp
 CylinderProcessor.h
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.h
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.h
 
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp
 NormalEstimator.h
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/NormalEstimator.h
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/NormalEstimator.h
 
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp
 PlaneProcessor.h
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.h
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.h
 
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/Viewer.cpp
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/Viewer.cpp
 Viewer.h
-/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/Viewer.h
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/Viewer.h
 
 /usr/local/include/eigen3/Eigen/Cholesky
 Core

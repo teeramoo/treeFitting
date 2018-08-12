@@ -23,13 +23,13 @@ add_library(${PROJECT_NAME} SHARED
         src/Viewer.cpp
         src/NormalEstimator.cpp
 		src/CylinderProcessor.cpp
-
+		src/HeightEstimator.cpp
 
 		include/PlaneProcessor.h
         include/Viewer.h
         include/NormalEstimator.h
 		include/CylinderProcessor.h
-		)
+		include/HeightEstimator.h )
 
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})

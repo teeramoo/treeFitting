@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit
+CMAKE_SOURCE_DIR = /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build
+CMAKE_BINARY_DIR = /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/treeFit.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/treeFit.dir/flags.make
 
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: CMakeFiles/treeFit.dir/flags.make
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: ../src/PlaneProcessor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp
 
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp > CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp > CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.i
 
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp -o CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp -o CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.s
 
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o.provides.build: CMakeFiles/treeF
 
 CMakeFiles/treeFit.dir/src/Viewer.cpp.o: CMakeFiles/treeFit.dir/flags.make
 CMakeFiles/treeFit.dir/src/Viewer.cpp.o: ../src/Viewer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/treeFit.dir/src/Viewer.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/Viewer.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/Viewer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/treeFit.dir/src/Viewer.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/Viewer.cpp.o -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/Viewer.cpp
 
 CMakeFiles/treeFit.dir/src/Viewer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/Viewer.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/Viewer.cpp > CMakeFiles/treeFit.dir/src/Viewer.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/Viewer.cpp > CMakeFiles/treeFit.dir/src/Viewer.cpp.i
 
 CMakeFiles/treeFit.dir/src/Viewer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/Viewer.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/Viewer.cpp -o CMakeFiles/treeFit.dir/src/Viewer.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/Viewer.cpp -o CMakeFiles/treeFit.dir/src/Viewer.cpp.s
 
 CMakeFiles/treeFit.dir/src/Viewer.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/treeFit.dir/src/Viewer.cpp.o.provides.build: CMakeFiles/treeFit.dir/s
 
 CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o: CMakeFiles/treeFit.dir/flags.make
 CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o: ../src/NormalEstimator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp
 
 CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp > CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp > CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.i
 
 CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp -o CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp -o CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.s
 
 CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o.provides.build: CMakeFiles/tree
 
 CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o: CMakeFiles/treeFit.dir/flags.make
 CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o: ../src/CylinderProcessor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o -c /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp
 
 CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp > CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp > CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.i
 
 CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp -o CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp -o CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.s
 
 CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o.requires:
 
@@ -169,7 +169,7 @@ libtreeFit.so: CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o
 libtreeFit.so: CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o
 libtreeFit.so: CMakeFiles/treeFit.dir/build.make
 libtreeFit.so: CMakeFiles/treeFit.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library libtreeFit.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library libtreeFit.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/treeFit.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -189,6 +189,6 @@ CMakeFiles/treeFit.dir/clean:
 .PHONY : CMakeFiles/treeFit.dir/clean
 
 CMakeFiles/treeFit.dir/depend:
-	cd /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build /home/teeramoo/Desktop/ORB-slam-script/Point_cloud_segmentation/tree_fit/build/CMakeFiles/treeFit.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/treeFit.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/treeFit.dir/depend
 
