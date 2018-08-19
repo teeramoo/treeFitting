@@ -1,4 +1,0 @@
-/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/rebuild_cache.dir
-/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/edit_cache.dir
-/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/treeFitting.dir
-/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/treeFit.dir

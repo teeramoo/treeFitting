@@ -44,6 +44,12 @@
 #include <Viewer.h>
 #include <NormalEstimator.h>
 #include <CylinderProcessor.h>
+#include<bits/stdc++.h>
+#include <iostream>
+#include <utility>
+#include <functional>
+#include <math.h>
+
 
 class Tree
 {
@@ -51,20 +57,26 @@ public:
     pcl::ModelCoefficients::Ptr cylinderCoef;
     pcl::ModelCoefficients::Ptr relatedPlaneCoef;
 
-    pcl::PointCloud<pcl::PointXYZRGB> trunkPointcloud;
-    pcl::PointCloud<pcl::PointXYZRGB> treetopPointcloud;
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr trunkPointcloud;
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr treetopPointcloud;
 
 
     bool isTree;
     double radius;
     double height;
-    Eigen::Vector3d projectedPointOnPlane;
+    pcl::PointXYZRGB projectedPointOnPlane;
     pcl::PointXYZRGB highestPoint;
 
 
 };
 
+class GroundTruth {
 
+public:
+    int numTree;
+    double circumference;
+    double height;
+};
 
 void
 printUsage (const char* progName)
@@ -99,7 +111,63 @@ bool equalPoint(pcl::PointXYZRGB p1, pcl::PointXYZRGB p2){
     return false;
 }
 
+void tokenize(const string &str, vector<string> &vTokens) {
+    int iPos = 0;
+    int iTokBeg = 0;
+    while (iPos < (int) str.length())
+    {
+        if (str[iPos] == ',')
+        {
+            if (iTokBeg < iPos)
+            {
+                vTokens.push_back(str.substr(iTokBeg, iPos - iTokBeg));
+                iTokBeg = iPos + 1;
+            }
+        }
+        iPos++;
+    }
+    if (iTokBeg < (int) str.length())
+        vTokens.push_back(str.substr(iTokBeg));
+}
 
+void readCSV(std::string &_pathToCSVfile, std::vector<GroundTruth> &_vGroundTruth) {
+
+    cout << "read CSV data from " << _pathToCSVfile <<"." << endl;
+    //skip name of all columns
+    ifstream fTimes;
+    fTimes.open(_pathToCSVfile.c_str());
+    // Skip first line
+    std::string s;
+    getline(fTimes,s);
+
+    while(!fTimes.eof()) {
+
+        std::string s;
+        getline(fTimes,s);
+        if(!s.empty()) {
+
+            std::vector<std::string> vTokens;
+            tokenize(s, vTokens);
+
+            if(vTokens.size() >= 3) {
+
+                GroundTruth currentGroundTruth;
+
+                currentGroundTruth.numTree = std::stoi(vTokens[0]);
+                currentGroundTruth.circumference = std::stod(vTokens[1]);
+                currentGroundTruth.height = std::stod(vTokens[2]);
+
+                _vGroundTruth.push_back(currentGroundTruth);
+
+            }
+
+        }
+    }
+
+
+
+
+}
 
 // --------------
 // -----Main-----
@@ -118,9 +186,9 @@ main (int argc, char** argv) {
     double tkpx = 0, tkpy = 0, tkpz = 0;
    
 
-    if(argc != 7) {
+    if(argc != 8) {
         cout << "Usage : " << argv[0] << "<Pointcloud from downward camera> <Pointcloud from upward camera> "
-                                         "<3D points representing keyframe> <search radius> <angle to detect cylinder> <planting distance>" << endl;
+                                         "<3D points representing keyframe> <search radius> <angle to detect cylinder> <planting distance> <path to manual measurement file>" << endl;
         return -1;
     }
 
@@ -131,6 +199,7 @@ main (int argc, char** argv) {
     double dPointDistance = std::stod(argv[4]);
     double dEpsAngle = std::stod(argv[5]);
     double plantDistance = std::stod(argv[6]);
+    std::string sPathToGroundTruth = std::string(argv[7]);
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr downward_point_cloud_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoint_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -141,6 +210,7 @@ main (int argc, char** argv) {
     pcl::io::loadPCDFile(sInput, *downward_point_cloud_ptr);
     pcl::io::loadPCDFile(sInputKeyframe, *keypoint_ptr);
     pcl::io::loadPCDFile(sUpwardInput, *upward_point_cloud_ptr);
+
 
     //View inputs
     std::string inputViewerName = "original inputs";
@@ -463,8 +533,15 @@ main (int argc, char** argv) {
 
     cout << "showing cloud" << endl;
     cloudAfterCulling.run();
-    double epsAngle2 = 5/180 * M_PI;
+
+
+    double epsAngle2 = dEpsAngle/180 * M_PI; // 5.0/180 * M_PI;
     bool bFinalCylinderSegmentation = false;
+
+
+//create vector of all trees
+    std::vector<Tree> foundTrees;
+
 
     std::vector<pcl::ModelCoefficientsPtr> vecRefinedCylinders;
 
@@ -473,6 +550,7 @@ main (int argc, char** argv) {
     Viewer viewRefinedCylinder(viewRefinedCylinderName,viewRefinedCylinderName);
     Viewer test(testName,testName);
 
+    cout << "Size of vecTempCloud : " << vecTempCloud.size() << endl;
 
     for(int i=0; i< vecTempCloud.size();i++) {
 
@@ -485,7 +563,14 @@ main (int argc, char** argv) {
             cylinderCloudPtr->points.push_back(vecTempCloud[i][j]);
         }
 
-/*
+        if(cylinderCloudPtr->points.empty()) {
+
+            cout << "skip one cylinder" << endl;
+            continue;
+        }
+
+
+            /*
         if(i==0 or i==1) {
             bool bSetOpt = true;
             PlaneProcessor removePlane(cylinderCloudPtr,bSetOpt);
@@ -516,7 +601,7 @@ main (int argc, char** argv) {
         }
 */
 
-
+        cout << "size of cylinderPtr : " << cylinderCloudPtr->points.size() << endl;
         CylinderProcessor finalCylinSegment(cylinderCloudPtr,planeVector, epsAngle, bFinalCylinderSegmentation);
 
 //        if(i==0 or i==1)
@@ -524,18 +609,31 @@ main (int argc, char** argv) {
 
         finalCylinSegment.segment();
 
+        if(std::isnan(finalCylinSegment.getCylinderCoefficient()->values[6]))
+            continue;
+
         cout << "radius size : " << finalCylinSegment.getCylinderCoefficient()->values[6] << endl;
         cout << "circumference size : " << finalCylinSegment.getCylinderCoefficient()->values[6] * M_PI *2 << endl;
 
         vecRefinedCylinders.push_back(finalCylinSegment.getCylinderCoefficient());
+
+        //Create tree and add coefficient and point cloud to the tree
+        Tree tree;
+        tree.cylinderCoef = finalCylinSegment.getCylinderCoefficient();
+        tree.trunkPointcloud = finalCylinSegment.getCylinderPointcloud_ptr();
+        tree.isTree = true ;
+        tree.relatedPlaneCoef = myPlane.getPlaneCoefficient();
+        foundTrees.push_back(tree);
+
+
     }
 
-    test.run();
-
-    for(int i=0;i<vecRefinedCylinders.size();i++) {
+//    test.run();
+/*
+    for(int i=0;i<foundTrees.size();i++) {
 
         std::string refinedCylinderName = "RefinedCylinder" + std::to_string(i);
-        viewRefinedCylinder.addCylinder(vecRefinedCylinders[i],refinedCylinderName);
+        viewRefinedCylinder.addCylinder(foundTrees[i].cylinderCoef,refinedCylinderName);
     }
 
     std::string planename = "refplane";
@@ -552,24 +650,14 @@ main (int argc, char** argv) {
             cylinderViewer2.addCylinder(possibleGroupCylinders[i][j].cylinderCoef,cylinder2Name);
 
         }
-   //     cylinderViewer2.run();
+        cylinderViewer2.run();
     }
+*/
 
-//create vector of all trees
-    std::vector<Tree> allTrees;
-    for(size_t i = 0 ; i < vecRefinedCylinders.size(); i++) {
-
-        Tree tree;
-        tree.isTree = true;
-        tree.cylinderCoef = vecRefinedCylinders[i];
-        tree.relatedPlaneCoef = myPlane.getPlaneCoefficient();
-        tree.trunkPointcloud = vecRefinedCylinders[i];
-
-    }
 
 
 // Identify tree location
-
+    cout << "starting identify tree location" << endl;
     //create point cloud that has 3D points equal to number of cylinder found
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr trees3Dpoint (new pcl::PointCloud<pcl::PointXYZRGB>);
     trees3Dpoint->width = vecRefinedCylinders.size();
@@ -604,27 +692,29 @@ main (int argc, char** argv) {
        */
 
     // convert normal vector of the plane to Eigen::Vector
-    Eigen::Vector3d plane(myPlane.getPlaneCoefficient()->values[0],
-                          myPlane.getPlaneCoefficient()->values[1],
-                          myPlane.getPlaneCoefficient()->values[2]);
 
     //Project the center of the cylinder of each tree along its axis vector to the ground (3D plane)
-    for( size_t i = 0; i < trees3Dpoint->points.size(); i++) {
+    for( size_t i = 0; i < foundTrees.size(); i++) {
 
-        Eigen::Vector3d pointOnLine(vecRefinedCylinders[i]->values[0],
-                                    vecRefinedCylinders[i]->values[1],
-                                    vecRefinedCylinders[i]->values[2]);
-
-
-        Eigen::Vector3d line(vecRefinedCylinders[i]->values[3],
-                             vecRefinedCylinders[i]->values[4],
-                             vecRefinedCylinders[i]->values[5]);
+        Eigen::Vector3d plane(foundTrees[i].relatedPlaneCoef->values[0],
+                              foundTrees[i].relatedPlaneCoef->values[1],
+                              foundTrees[i].relatedPlaneCoef->values[2]);
 
 
+        Eigen::Vector3d pointOnLine(foundTrees[i].cylinderCoef->values[0],
+                                    foundTrees[i].cylinderCoef->values[1],
+                                    foundTrees[i].cylinderCoef->values[2]);
+
+
+        Eigen::Vector3d line(foundTrees[i].cylinderCoef->values[3],
+                             foundTrees[i].cylinderCoef->values[4],
+                             foundTrees[i].cylinderCoef->values[5]);
+
+        cout << "value of PointOnLine is : " << pointOnLine << endl;
 
         //calculate dot product between line and plane
         double lineDotPlane = line.dot(plane);
-
+        cout << "value of lineDotPlane is : " << lineDotPlane << endl;
         if(lineDotPlane == 0) { // line and plane does not intersect to each other.
             cout << "lineDotPlane is zero " << endl;
             continue;
@@ -632,36 +722,186 @@ main (int argc, char** argv) {
 
         double t = - (plane[0]*pointOnLine[0] + plane[1]*pointOnLine[1] + plane[2]*pointOnLine[2] + myPlane.getPlaneCoefficient()->values[3]) / lineDotPlane;
 
+        cout << "value of t is " << t << endl;
+        cout << "value of line is : " << line << endl;
         double tempX = pointOnLine[0] + line[0]*t;
         double tempY = pointOnLine[1] + line[1]*t;
         double tempZ = pointOnLine[2] + line[2]*t;
 
-        pcl::PointXYZRGB projectedPoint(tempX,tempY,tempZ);
+        cout << "projected temp Value is : " << tempX << " , " << tempY << " , " << tempZ << endl;
+        //round value of tempX, tempY, tempZ
 
+        pcl::PointXYZRGB projectedPoint;
+        projectedPoint.x = tempX;
+        projectedPoint.y = tempY;
+        projectedPoint.z = tempZ;
+
+        cout << "projected point is : " << projectedPoint.x << " , " << projectedPoint.y << " , " << projectedPoint.z << endl;
         // Add the projected point to the cloud
-        trees3Dpoint->points.push_back(projectedPoint);
+       foundTrees[i].projectedPointOnPlane = projectedPoint;
+       cout << "value of foundTrees[i].projectedPointOnPlane is : " << foundTrees[i].projectedPointOnPlane << endl;
     }
 
-    //Sort the center of each tree with distance from the origin point to the center
-    std::vector< std::pair<pcl::PointXYZRGB, double>> pairPointDistance;
+    sleep(2);
+    //Create pair of <distance from the origin point, Tree>
+    std::vector< std::pair<double, int>> vPairDistanceTree;
+    std::vector<Tree> vTempTrees;
+        //std::vector<Tree> tempAllTrees;
 
+    for(size_t i = 0; i < foundTrees.size(); i ++) {
+
+        Tree tempTree = foundTrees[i];
+        double tempDistance = sqrt( pow(tempTree.projectedPointOnPlane.x,2) +
+                                    pow(tempTree.projectedPointOnPlane.y,2) +
+                                    pow(tempTree.projectedPointOnPlane.z,2) );
+
+        vPairDistanceTree.push_back( std::make_pair(tempDistance,i) );
+        vTempTrees.push_back(foundTrees[i]);
+    }
+
+    if(vPairDistanceTree.size() != foundTrees.size())
+        cerr << "error occurs at pairing distance" << endl;
+
+    //Sort the pair using the distance in ascending order
+    sort(vPairDistanceTree.begin(), vPairDistanceTree.end());
+
+    //Clear foundTrees
+    foundTrees.clear();
+
+    for(size_t i = 0; i < vPairDistanceTree.size(); i++) {
+
+        Tree tempTree = vTempTrees[vPairDistanceTree[i].second];
+        foundTrees.push_back(tempTree); //Add all sorted trees to the vector
+    }
+
+// Identify tree location and its number
+
+    //get direction vector from the first and the last keyframe
+        //pcl::PointXYZRGB firstKP = keypoint_ptr->points.front();
+        //pcl::PointXYZRGB lastKP = keypoint_ptr->points.back();
+
+    Eigen::Vector3d firstKP(keypoint_ptr->points[1].x,
+                            keypoint_ptr->points[1].y,
+                            keypoint_ptr->points[1].z);
+
+    Eigen::Vector3d lastKP(keypoint_ptr->points.back().x,
+                           keypoint_ptr->points.back().y,
+                           keypoint_ptr->points.back().z);
+
+    Eigen::Vector3d vecFirstLastKP(lastKP - firstKP);
+
+    //calculate unit vector of vecFirstLastKP
+    Eigen::Vector3d unitVecFirstLast = vecFirstLastKP.normalized();
+    cout << "unitVector is : " << unitVecFirstLast << endl;
+
+    //use the calculated unit vector to find the tree
+    cout << "total trees in foundTrees : " << foundTrees.size() << endl;
+
+    pcl::PointXYZRGB searchPoint;
+    pcl::PointXYZRGB firstTree;
+
+    searchPoint.x = foundTrees.front().projectedPointOnPlane.x;
+    searchPoint.y = foundTrees.front().projectedPointOnPlane.y;
+    searchPoint.z = foundTrees.front().projectedPointOnPlane.z;
+    firstTree.x = foundTrees.front().projectedPointOnPlane.x;
+    firstTree.y = foundTrees.front().projectedPointOnPlane.y;
+    firstTree.z = foundTrees.front().projectedPointOnPlane.z;
+
+
+    std::vector<Tree> allTrees;
+    size_t numberOfFoundTree = foundTrees.size();
+
+
+    while(foundTrees.size() > 0) {
+
+        //initialize search point
+        double tempX = searchPoint.x;
+        double tempY = searchPoint.y;
+        double tempZ = searchPoint.z;
+        cout << "temp 3D points is : " << tempX << " , " << tempY << " , " << tempZ << endl;
+
+        double distanceFromFirstTree = sqrt(pow(firstTree.x - tempX,2) +
+                                            pow(firstTree.y - tempY,2) +
+                                            pow(firstTree.z - tempZ,2) );
+
+        cout << "distance from first tree is : " << distanceFromFirstTree << endl;
+
+
+        //find the nearest tree within a radius (planting distance)
+        std::vector<std::pair<double, int> > candidateTrees;
+
+        for(size_t i = 0; i < foundTrees.size(); i++) {
+
+            cout << "current point being checked is : " << foundTrees[i].projectedPointOnPlane.x << " , " <<
+                                                           foundTrees[i].projectedPointOnPlane.y << " , " <<
+                                                           foundTrees[i].projectedPointOnPlane.z << endl;
+            //calculate distance of all points relative to the temp points
+            double distance = sqrt(pow(tempX - foundTrees[i].projectedPointOnPlane.x,2) +
+                                   pow(tempY - foundTrees[i].projectedPointOnPlane.y,2) +
+                                   pow(tempZ - foundTrees[i].projectedPointOnPlane.z,2) );
+
+            cout << "distance is : " << distance << endl;
+
+            if(distance < plantDistance*1.5)
+                candidateTrees.push_back(std::make_pair(distance,i));
+
+        }
+
+
+
+        if(candidateTrees.empty()) {
+
+            //add blank tree to allTrees
+            Tree blankTree;
+            blankTree.isTree = false;
+            blankTree.height = 0;
+            blankTree.radius = 0;
+            allTrees.push_back(blankTree);
+
+        } else {
+
+            // get the tree with nearest distance to the center of the search
+            sort(candidateTrees.begin(), candidateTrees.end());
+            int treeIndex = candidateTrees.front().second;
+
+            allTrees.push_back(foundTrees[treeIndex]);
+            
+            //remove the added tree from foundTrees
+            foundTrees.erase(foundTrees.begin()+treeIndex);
+
+        }
+
+        searchPoint.x = tempX + plantDistance*unitVecFirstLast[0];
+        searchPoint.y = tempY + plantDistance*unitVecFirstLast[1];
+        searchPoint.z = tempZ + plantDistance*unitVecFirstLast[2];
+
+        cout << "total tree left in the vector : " << foundTrees.size() << endl;
+        sleep(1);
+    }
+    
+    cout << "Was looking for " << allTrees.size() << " trees."<<endl;
+    sleep(1);
 
 
 //Finding highest point for each cylinder
 
     std::vector<pcl::PointCloud<pcl::PointXYZRGB>::Ptr> allCloudInCylinder;
+    cout << "size of all tree is : " << allTrees.size() << endl;
+    for(size_t i =0; i< allTrees.size(); i++) {
 
-    for(int i =0; i< vecRefinedCylinders.size(); i++) {
+        //if it's not the tree
+        if(!allTrees[i].isTree)
+            continue;
 
-        pcl::ModelCoefficients::Ptr cylinder_coeff = vecRefinedCylinders[i];
-        cout << "vecCylinder coefficient " <<
-             vecRefinedCylinders[i]->values[0] << endl;
-        cout << vecRefinedCylinders[i]->values[1] << endl;
-        cout << vecRefinedCylinders[i]->values[2] << endl;
-        cout << vecRefinedCylinders[i]->values[3] << endl;
-        cout << vecRefinedCylinders[i]->values[4] << endl;
-        cout << vecRefinedCylinders[i]->values[5] << endl;
-        cout << vecRefinedCylinders[i]->values[6] << endl;
+        pcl::ModelCoefficients::Ptr cylinder_coeff = allTrees[i].cylinderCoef;
+        cout << "current cylinder coefficient "
+             << cylinder_coeff->values[0] << endl;
+        cout << cylinder_coeff->values[1] << endl;
+        cout << cylinder_coeff->values[2] << endl;
+        cout << cylinder_coeff->values[3] << endl;
+        cout << cylinder_coeff->values[4] << endl;
+        cout << cylinder_coeff->values[5] << endl;
+        cout << cylinder_coeff->values[6] << endl;
 
 
         Eigen::Vector3d point1(cylinder_coeff->values[0],
@@ -677,7 +917,6 @@ main (int argc, char** argv) {
                                point1[2] - cylinder_coeff->values[5]*30);
 
         double constraintRadius = cylinder_coeff->values[6]*300;
-
 
 
         pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloudInCylinder(new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -748,17 +987,24 @@ main (int argc, char** argv) {
                 lowestPoint = tempPoint;
 
         }
-        cout << "The lowest point locates at " << lowestPoint << endl;
+        cout << "The highest point locates at " << lowestPoint << endl;
 
-        double planeA = myPlane.getPlaneCoefficient()->values[0];
-        double planeB = myPlane.getPlaneCoefficient()->values[1];
-        double planeC = myPlane.getPlaneCoefficient()->values[2];
-        double planeD = myPlane.getPlaneCoefficient()->values[3];
+        double planeA = allTrees[i].relatedPlaneCoef->values[0];
+        double planeB = allTrees[i].relatedPlaneCoef->values[1];
+        double planeC = allTrees[i].relatedPlaneCoef->values[2];
+        double planeD = allTrees[i].relatedPlaneCoef->values[3];
 
         double distance = fabs(planeA*lowestPoint.x + planeB*lowestPoint.y + planeC*lowestPoint.z + planeD)
         / sqrt(pow(planeA,2) + pow(planeB,2) + pow(planeC,2));
 
         cout << "tree height is : " << distance << endl;
+
+        allTrees[i].treetopPointcloud = filtered_cloud_in_cylinder;
+        allTrees[i].highestPoint = lowestPoint;
+        allTrees[i].height = distance;
+        allTrees[i].radius = allTrees[i].cylinderCoef->values[6];
+
+        cout << "end of tree number : " << i+1 << endl;
     }
 
 
@@ -769,6 +1015,45 @@ main (int argc, char** argv) {
     oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
     auto currentTime = oss.str();
 
+    ofstream treeWriter;
+    treeWriter.open("tree_measurement"+ currentTime +".csv",ios::app);
+    treeWriter << "number of tree, location in x, location in y, location in z, estimated radius, estimated circumference, estimated height, ground truth circumference, ground truth height" << endl;
+
+    //read groundtruth from CSV file
+    std::vector<GroundTruth> vGroundTruth;
+    readCSV(sPathToGroundTruth, vGroundTruth);
+
+
+    
+
+    for(int i =0; i < allTrees.size(); i++) {
+    cout << "writing information of tree number " << i+1 << endl;
+        if(!allTrees[i].isTree) {
+
+            treeWriter << i +1
+                       << "," << 0 << "," << 0
+                       << "," << 0 << "," << 0
+                       << "," << 0 << "," << 0
+                       << endl;
+        } else {
+
+            treeWriter << i +1
+                       << "," << allTrees[i].radius << "," << allTrees[i].radius * 2 * M_PI
+                       << "," << allTrees[i].height << "," << allTrees[i].projectedPointOnPlane.x
+                       << "," << allTrees[i].projectedPointOnPlane.y << "," << allTrees[i].projectedPointOnPlane.z
+                       << endl;
+
+        }
+
+
+
+
+
+    }
+
+
+    treeWriter.close();
+    /*
     ofstream treeWriter;
     treeWriter.open("tree_cloud_size"+ currentTime +".csv",ios::app);
     treeWriter << "keyframe, number of point cloud, c0, c1, c2, c3, c4, c5, c6" << endl;
@@ -800,7 +1085,7 @@ main (int argc, char** argv) {
 
 
     treeWriter.close();
-
+*/
 
 }
 

@@ -233,9 +233,6 @@
 		<Unit filename="/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/include/CylinderProcessor.h">
 			<Option target="treeFit"/>
 		</Unit>
-		<Unit filename="/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/include/HeightEstimator.h">
-			<Option target="treeFit"/>
-		</Unit>
 		<Unit filename="/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/include/NormalEstimator.h">
 			<Option target="treeFit"/>
 		</Unit>
@@ -246,9 +243,6 @@
 			<Option target="treeFit"/>
 		</Unit>
 		<Unit filename="/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/CylinderProcessor.cpp">
-			<Option target="treeFit"/>
-		</Unit>
-		<Unit filename="/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/HeightEstimator.cpp">
 			<Option target="treeFit"/>
 		</Unit>
 		<Unit filename="/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/NormalEstimator.cpp">
