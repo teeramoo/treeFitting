@@ -289,7 +289,7 @@ main (int argc, char** argv) {
     Eigen::Vector3f planeVector = myPlane.getPlaneVector();
 
 
-    // Point Cloud filter using keypoints
+    //3D points segmentation using keypoints as the center.
     for (int i = 0; i < keypoint_ptr->points.size(); i++) {
 
 
