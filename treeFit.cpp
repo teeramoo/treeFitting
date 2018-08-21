@@ -1106,7 +1106,7 @@ main (int argc, char** argv) {
 
     ofstream treeWriter;
     treeWriter.open("tree_measurement"+ currentTime +".csv",ios::app);
-    treeWriter << "number of tree, location in x, location in y, location in z, estimated radius, estimated circumference, estimated height, ground truth circumference, ground truth height" << endl;
+    treeWriter << "number of tree, estimated radius, estimated circumference, estimated height, ground truth circumference, ground truth height, circumference error rate, height error rate" << endl;
 
     //read groundtruth from CSV file
     std::vector<GroundTruth> vGroundTruth;
@@ -1121,15 +1121,12 @@ main (int argc, char** argv) {
 
             treeWriter << i +1
                        << "," << 0 << "," << 0
-                       << "," << 0 << "," << 0
-                       << "," << 0 << "," << 0
-                       << endl;
+                       << "," << 0 ;
         } else {
 
             treeWriter << i +1
                        << "," << allTrees[i].radius << "," << allTrees[i].radius * 2 * M_PI
-                       << "," << allTrees[i].height << "," << allTrees[i].projectedPointOnPlane.x
-                       << "," << allTrees[i].projectedPointOnPlane.y << "," << allTrees[i].projectedPointOnPlane.z
+                       << "," << allTrees[i].height << ","
                        << endl;
 
         }
