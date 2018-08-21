@@ -56,11 +56,29 @@ void PlaneProcessor::calculatePlaneVector() {
     const float az = planeCoefficients->values[2];
     cout << "planeVector : " << planeCoefficients->values[0] << " , " << planeCoefficients->values[1]  << " , " << planeCoefficients->values[2] << " , " << planeCoefficients->values[3]<< endl;
     Eigen::Vector3f planeVector(ax,ay,az);
+    Eigen::Vector3f yAxis(0.0, 1.0, 0.0);
+
+    double angle2vecs = calculateAngleBetweenVectors(planeVector, yAxis);
+
+    if(angle2vecs > 90.0) {
+        planeVector = planeVector*-1;
+    }
+
 
     setPlaneVector(planeVector);
 
 }
 
+double PlaneProcessor::calculateAngleBetweenVectors(Eigen::Vector3f &planeVector, Eigen::Vector3f &refAxis) {
+
+    double numerator = planeVector.dot(refAxis);
+
+    double denominator = planeVector.norm() * refAxis.norm();
+
+    return  acos(numerator/denominator) * 180 / M_PI; // return angle between two vectors in degrees
+
+
+}
 
 PlaneProcessor::PlaneProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &_point_cloud_ptr, bool &bSetOptimization) {
 

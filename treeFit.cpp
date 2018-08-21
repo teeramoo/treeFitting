@@ -111,7 +111,7 @@ bool equalPoint(pcl::PointXYZRGB p1, pcl::PointXYZRGB p2){
     return false;
 }
 
-void tokenize(const string &str, vector<string> &vTokens) {
+void tokenize(const std::string &str, std::vector<std::string> &vTokens) {
     int iPos = 0;
     int iTokBeg = 0;
     while (iPos < (int) str.length())
@@ -186,9 +186,10 @@ main (int argc, char** argv) {
     double tkpx = 0, tkpy = 0, tkpz = 0;
    
 
-    if(argc != 8) {
+    if(argc != 9) {
         cout << "Usage : " << argv[0] << "<Pointcloud from downward camera> <Pointcloud from upward camera> "
-                                         "<3D points representing keyframe> <search radius> <angle to detect cylinder> <planting distance> <path to manual measurement file>" << endl;
+                                         "<3D points representing keyframe> <search radius> <angle to detect cylinder>"
+                                         "<planting_distance_column> <planting_distance_row> <path to manual measurement file>" << endl;
         return -1;
     }
 
@@ -198,8 +199,9 @@ main (int argc, char** argv) {
     std::string sInputKeyframe = std::string(argv[3]);
     double dPointDistance = std::stod(argv[4]);
     double dEpsAngle = std::stod(argv[5]);
-    double plantDistance = std::stod(argv[6]);
-    std::string sPathToGroundTruth = std::string(argv[7]);
+    double plantDistanceColumn = std::stod(argv[6]);
+    double plantDistanceRow = std::stod(argv[7]);
+    std::string sPathToGroundTruth = std::string(argv[8]);
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr downward_point_cloud_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr keypoint_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -286,13 +288,100 @@ main (int argc, char** argv) {
 
     double epsAngle = dEpsAngle/180*M_PI;
     bool bInitCylinderOptimization = false;
-    Eigen::Vector3f planeVector = myPlane.getPlaneVector();
+    Eigen::Vector3f unitPlaneVector = myPlane.getPlaneVector();
+    unitPlaneVector.normalized();
+
+    Eigen::Vector3f firstKF(keypoint_ptr->points[1].x,
+                            keypoint_ptr->points[1].y,
+                            keypoint_ptr->points[1].z);
+
+    Eigen::Vector3f lastKF(keypoint_ptr->points.back().x,
+                           keypoint_ptr->points.back().y,
+                           keypoint_ptr->points.back().z);
+
+    Eigen::Vector3f unitVecFirstLastKF(lastKF - firstKF);
+    unitVecFirstLastKF.normalized();
+
+    //cross product of two vectors
+    Eigen::Vector3f unitCrossVector = unitPlaneVector.cross(unitVecFirstLastKF);
+
+    double cylinderRadius;
+
+    if(plantDistanceColumn < plantDistanceRow)
+        cylinderRadius = plantDistanceColumn*0.75;
+    else
+        cylinderRadius = plantDistanceRow*0.75;
 
 
     //3D points segmentation using keypoints as the center.
     for (int i = 0; i < keypoint_ptr->points.size(); i++) {
 
+        Cylinder tempCylinder;
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr temp_pointCloud_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
 
+
+        Eigen::Vector3f point1(keypoint_ptr->points[i].x + unitCrossVector[0]*plantDistanceRow*0.5,
+                               keypoint_ptr->points[i].y + unitCrossVector[1]*plantDistanceRow*0.5,
+                               keypoint_ptr->points[i].z + unitCrossVector[2]*plantDistanceRow*0.5);
+
+        Eigen::Vector3f point2(point1[0] + unitPlaneVector[0]*3,
+                               point1[1] + unitPlaneVector[1]*3,
+                               point1[2] + unitPlaneVector[2]*3);
+
+        Eigen::Vector3f point3(point1[0] - unitPlaneVector[0]*3,
+                               point1[1] - unitPlaneVector[1]*3,
+                               point1[2] - unitPlaneVector[2]*3);
+
+        for(int j = 0; myPlane.getNoPlanePointCloud_ptr()->points.size(); j++) {
+
+            pcl::PointXYZRGB tempPoint = myPlane.getNoPlanePointCloud_ptr()->points[j];
+
+            Eigen::Vector3f testPoint(tempPoint.x,
+                                      tempPoint.y,
+                                      tempPoint.z);
+
+            // qp1 = testPoint - point1
+            Eigen::Vector3f qp1(testPoint - point1);
+
+            // qp2 = testPoint - point2
+            Eigen::Vector3f qp2(testPoint - point2);
+
+            // p2p1 = point2 - point1
+            Eigen::Vector3f p2p1(point2 - point1);
+
+            // p1p2 = point1 - point2
+            Eigen::Vector3f p1p2(point1 - point2);
+
+            //1. Check if testPoint is between the two circular facets of the cylinder model
+            // with (q-p1) dot (p2-p1) >=0 && (q-p2) dot (p1-p2) >=0
+            if( qp1.dot(p2p1) < 0 or qp2.dot(p1p2) <0 )
+                continue;
+
+            //2. Check if norm(qp1 x p2p1) <= contraintRadius * norm(p2p1)
+            Eigen::Vector3f Crossqp1xp2p1( qp1.cross(p2p1) );
+
+            if(Crossqp1xp2p1.norm() > cylinderRadius * p2p1.norm() )
+                continue;
+
+            temp_pointCloud_ptr->points.push_back(tempPoint);
+
+        }
+
+        tempCylinder.input_pointCloud = temp_pointCloud_ptr;
+        cout << "There are " << tempCylinder.input_pointCloud->points.size() << " points for keyframe number " << i << endl;
+
+
+        CylinderProcessor initialCylinderSegment(temp_pointCloud_ptr,unitPlaneVector, epsAngle, bInitCylinderOptimization);
+
+        bool checkDistance = false;
+        initialCylinderSegment.segment(keypoint_ptr->points[i], checkDistance); // Dont check distance
+
+        tempCylinder.cylinderCoef = initialCylinderSegment.getCylinderCoefficient();
+        tempCylinder.cylinderInliers = initialCylinderSegment.getCylinderInliers();
+        tempCylinder.cylinderPointCloud_ptr = initialCylinderSegment.getCylinderPointcloud_ptr();
+        allCylinders.push_back(tempCylinder);
+
+/*
         pcl::PointXYZRGB tempKeyPoint = keypoint_ptr->points[i];
         double tkpx = tempKeyPoint.x;
         double tkpy = tempKeyPoint.y;
@@ -334,11 +423,11 @@ main (int argc, char** argv) {
         tempCylinder.cylinderInliers = initialCylinderSegment.getCylinderInliers();
         tempCylinder.cylinderPointCloud_ptr = initialCylinderSegment.getCylinderPointcloud_ptr();
         allCylinders.push_back(tempCylinder);
+*/
+
     }
 
-    //End of Point Cloud filter
-
-
+    //3D points segmentation using keypoints as the center.
 
 
     std::string cylinderViewerName = "Show all cylinders";
@@ -602,7 +691,7 @@ main (int argc, char** argv) {
 */
 
         cout << "size of cylinderPtr : " << cylinderCloudPtr->points.size() << endl;
-        CylinderProcessor finalCylinSegment(cylinderCloudPtr,planeVector, epsAngle, bFinalCylinderSegmentation);
+        CylinderProcessor finalCylinSegment(cylinderCloudPtr,unitPlaneVector, epsAngle, bFinalCylinderSegmentation);
 
 //        if(i==0 or i==1)
 //            finalCylinSegment.setCylinderPointCloud_ptr(cylinderCloudPtr2);
@@ -742,7 +831,7 @@ main (int argc, char** argv) {
        cout << "value of foundTrees[i].projectedPointOnPlane is : " << foundTrees[i].projectedPointOnPlane << endl;
     }
 
-    sleep(2);
+//    sleep(2);
     //Create pair of <distance from the origin point, Tree>
     std::vector< std::pair<double, int>> vPairDistanceTree;
     std::vector<Tree> vTempTrees;
@@ -842,7 +931,7 @@ main (int argc, char** argv) {
 
             cout << "distance is : " << distance << endl;
 
-            if(distance < plantDistance*1.5)
+            if(distance < plantDistanceColumn*1.5)
                 candidateTrees.push_back(std::make_pair(distance,i));
 
         }
@@ -871,9 +960,9 @@ main (int argc, char** argv) {
 
         }
 
-        searchPoint.x = tempX + plantDistance*unitVecFirstLast[0];
-        searchPoint.y = tempY + plantDistance*unitVecFirstLast[1];
-        searchPoint.z = tempZ + plantDistance*unitVecFirstLast[2];
+        searchPoint.x = tempX + plantDistanceColumn*unitVecFirstLast[0];
+        searchPoint.y = tempY + plantDistanceColumn*unitVecFirstLast[1];
+        searchPoint.z = tempZ + plantDistanceColumn*unitVecFirstLast[2];
 
         cout << "total tree left in the vector : " << foundTrees.size() << endl;
         sleep(1);

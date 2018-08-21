@@ -137,7 +137,7 @@ void CylinderProcessor::segment() {
 
 }
 
-void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe) {
+void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe, bool &bCheckDistance) {
 //    cout << "about to segment a cylinder" << endl;
     cylinderSegmenter.segment(*cylinderInliers,*cylinderCoefficients);
 //    cout << "done segmenting a cylinder" << endl;
@@ -158,26 +158,26 @@ void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe) {
         return;
     }
 
-    double xKF = refKeyframe.x;
-    double yKF = refKeyframe.y;
-    double zKF = refKeyframe.z;
-    double xCylinder = cylinderCoefficients->values[0];
-    double yCylinder = cylinderCoefficients->values[1];
-    double zCylinder = cylinderCoefficients->values[2];
+    if(bCheckDistance) {
 
-    double dDistance = sqrt(pow(xKF-xCylinder,2) + pow(yKF-yCylinder,2) + pow(zKF-zCylinder,2) );
-//    cout << "distance is " << dDistance << endl;
+        double xKF = refKeyframe.x;
+        double yKF = refKeyframe.y;
+        double zKF = refKeyframe.z;
+        double xCylinder = cylinderCoefficients->values[0];
+        double yCylinder = cylinderCoefficients->values[1];
+        double zCylinder = cylinderCoefficients->values[2];
 
-    if(dDistance > 2.0) {
-        cylinderCoefficients->header.frame_id = "SKIP";
-        cylinderPointcloud_ptr = NULL;
-        cylinderInliers->indices.erase(cylinderInliers->indices.begin(),cylinderInliers->indices.end());
+        double dDistance = sqrt(pow(xKF - xCylinder, 2) + pow(yKF - yCylinder, 2) + pow(zKF - zCylinder, 2));
 
-//        cout << "skip adding cylinder due to too far distance " << endl;
-        return;
+        if (dDistance > 2.0) {
+            cylinderCoefficients->header.frame_id = "SKIP";
+            cylinderPointcloud_ptr = NULL;
+            cylinderInliers->indices.erase(cylinderInliers->indices.begin(), cylinderInliers->indices.end());
+
+            return;
+        }
+
     }
-
-//    cout << "Cylinder coefficient is : " << *cylinderCoefficients << endl;
 
     //Extract point cloud representing the cylinder
     pcl::ExtractIndices<pcl::PointXYZRGB> extract (true);
@@ -187,7 +187,6 @@ void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe) {
     extract.setNegative (false);
     extract.filter(*cylinderPointcloud_ptr);
 
-//    cout << "Size of cylinderPointcloud_ptr is : " << cylinderPointcloud_ptr->points.size() << endl;
 
 }
 

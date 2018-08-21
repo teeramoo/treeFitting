@@ -108,7 +108,7 @@ public:
 
     void cluster(std::vector<Cylinder> &allCylinders,std::vector<std::vector<Cylinder>> &possibleGroupCylinders );
 
-    void segment(pcl::PointXYZRGB &refKeyframe);
+    void segment(pcl::PointXYZRGB &refKeyframe, bool &bCheckDistance);
     void segment();
 
 

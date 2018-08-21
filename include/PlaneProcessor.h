@@ -79,6 +79,8 @@ public:
 
     Eigen::Vector3f getPlaneVector();
 
+    double calculateAngleBetweenVectors(Eigen::Vector3f &planeVector, Eigen::Vector3f &refAxis);
+
 private:
 
     pcl::SACSegmentation<pcl::PointXYZRGB> planeSegmenter;
