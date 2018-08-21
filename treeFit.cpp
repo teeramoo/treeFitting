@@ -1112,33 +1112,79 @@ main (int argc, char** argv) {
     std::vector<GroundTruth> vGroundTruth;
     readCSV(sPathToGroundTruth, vGroundTruth);
 
+    int writerIterator ;
 
-    
+    //check if the size of vGroundTruth and vAllTrees are not empty
+    if(vGroundTruth.empty() || allTrees.empty()) {
 
-    for(int i =0; i < allTrees.size(); i++) {
-    cout << "writing information of tree number " << i+1 << endl;
-        if(!allTrees[i].isTree) {
+        if(vGroundTruth.empty())
+            cerr << "vGroundTruth is empty." << endl;
+
+        if(allTrees.empty())
+            cerr << "allTrees is empty." << endl;
+
+        return -1;
+
+    }
+
+    //Set number of writerIterator
+    if(vGroundTruth.size() < allTrees.size())
+        writerIterator = allTrees.size();
+    else
+        writerIterator = vGroundTruth.size();
+
+
+    for(int i =0; i < writerIterator; i++) {
+
+        cout << "writing information of tree number " << i+1 << endl;
+
+        double circumferenceError, heightError;
+
+
+        if(!allTrees[i].isTree or allTrees.size() < i+1 ) {
+
+            circumferenceError = fabs(0 - vGroundTruth[i].circumference)/ vGroundTruth[i].circumference *100.0 ;
+            heightError = fabs(0 - vGroundTruth[i].height)/ vGroundTruth[i].height * 100.0;
 
             treeWriter << i +1
-                       << "," << 0 << "," << 0
-                       << "," << 0 ;
-        } else {
+                       << "," << 0
+                       << "," << 0
+                       << "," << 0
+                       << "," << vGroundTruth[i].circumference
+                       << "," << vGroundTruth[i].height
+                       << "," << circumferenceError
+                       << "," << heightError << endl;
+
+        } else if( vGroundTruth.size() < i+1 ) {
+            treeWriter << i +1
+                       << "," << 0
+                       << "," << 0
+                       << "," << 0
+                       << "," << "N/A"
+                       << "," << "N/A"
+                       << "," << "N/A"
+                       << "," << "N/A" << endl;
+        } else{
 
             treeWriter << i +1
-                       << "," << allTrees[i].radius << "," << allTrees[i].radius * 2 * M_PI
-                       << "," << allTrees[i].height << ","
-                       << endl;
+                       << "," << allTrees[i].radius
+                       << "," << allTrees[i].radius * 2 * M_PI
+                       << "," << allTrees[i].height
+                       << "," << vGroundTruth[i].circumference
+                       << "," << vGroundTruth[i].height
+                       << "," << circumferenceError
+                       << "," << heightError << endl;
 
         }
 
 
-
-
-
     }
 
+    double detectErrorRate = fabs(allTrees.size() - vGroundTruth.size())/ vGroundTruth.size() *100 ;
+    treeWriter << endl
+               << "tree detection error rate" << "," << detectErrorRate << endl;
 
-    treeWriter.close();
+               treeWriter.close();
     /*
     ofstream treeWriter;
     treeWriter.open("tree_cloud_size"+ currentTime +".csv",ios::app);
