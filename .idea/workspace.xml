@@ -14,17 +14,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e0936664-212d-4cba-b8ee-0e0df8d28d4e" name="Default" comment="backup before fixing initial search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libtreeFit.so" beforeDir="false" afterPath="$PROJECT_DIR$/build/libtreeFit.so" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/treeFitting" beforeDir="false" afterPath="$PROJECT_DIR$/build/treeFitting" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/CylinderProcessor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/CylinderProcessor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/HeightEstimator.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/PlaneProcessor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/PlaneProcessor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CylinderProcessor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/CylinderProcessor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HeightEstimator.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlaneProcessor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlaneProcessor.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treeFit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/treeFit.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -34,6 +25,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Default" />
   <component name="FUSProjectUsageTrigger">
     <session id="340708748">
@@ -42,41 +47,45 @@
           <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.13" value="2" />
-          <entry key="project.open.time.14" value="3" />
+          <entry key="project.open.time.13" value="3" />
+          <entry key="project.open.time.14" value="4" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="cpp" value="3" />
           <entry key="h" value="4" />
-          <entry key="sh" value="1" />
+          <entry key="save" value="1" />
+          <entry key="sh" value="2" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="Bash" value="93" />
           <entry key="CMakeLists.txt" value="4" />
-          <entry key="ObjectiveC" value="11830" />
+          <entry key="ObjectiveC" value="12250" />
           <entry key="PLAIN_TEXT" value="57" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="11530" />
+          <entry key="cpp" value="11950" />
           <entry key="h" value="300" />
+          <entry key="sh" value="93" />
           <entry key="txt" value="61" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Bash" value="1" />
+          <entry key="Bash" value="2" />
           <entry key="CMakeLists.txt" value="1" />
           <entry key="ObjectiveC" value="7" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.cidr.testingFrameworks.usages" />
@@ -84,22 +93,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/treeFit.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="524" column="25" lean-forward="true" selection-start-line="524" selection-start-column="25" selection-end-line="524" selection-end-column="25" />
+            <state relative-caret-position="34">
+              <caret line="310" column="49" lean-forward="true" selection-start-line="310" selection-start-column="45" selection-end-line="310" selection-end-column="49" />
               <folding>
                 <element signature="e#104#142#0" expanded="true" />
                 <element signature="e#1032#1049#0" expanded="true" />
-                <element signature="e#9762#11496#0" />
-                <element signature="e#13630#14377#0" />
-                <element signature="e#15730#16022#0" />
-                <element signature="e#16023#16521#0" />
-                <element signature="e#19246#20063#0" />
-                <element signature="e#21203#22146#0" />
-                <element signature="e#22572#23617#0" />
+                <element signature="e#12986#14720#0" />
+                <element signature="e#23051#23868#0" />
+                <element signature="e#25012#25955#0" />
+                <element signature="e#26381#27426#0" />
+                <element signature="e#41365#42545#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="1" column="103" selection-start-line="1" selection-start-column="103" selection-end-line="1" selection-end-column="103" />
             </state>
           </provider>
         </entry>
@@ -107,7 +123,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
+            <state relative-caret-position="2034">
               <caret line="113" selection-start-line="113" selection-end-line="113" />
               <folding>
                 <element signature="e#113#147#0" expanded="true" />
@@ -116,10 +132,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CylinderProcessor.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-467">
+            <state relative-caret-position="810">
               <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
               <folding>
                 <element signature="e#188#1503#0" />
@@ -132,7 +148,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
+            <state relative-caret-position="810">
               <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
             </state>
           </provider>
@@ -141,7 +157,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
+            <state relative-caret-position="1620">
               <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
             </state>
           </provider>
@@ -238,6 +254,7 @@
         <option value="$PROJECT_DIR$/src/PlaneProcessor.cpp" />
         <option value="$PROJECT_DIR$/src/CylinderProcessor.cpp" />
         <option value="$PROJECT_DIR$/include/CylinderProcessor.h" />
+        <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/treeFit.cpp" />
       </list>
     </option>
@@ -250,10 +267,10 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1436" />
-    <option name="y" value="-11" />
-    <option name="width" value="1851" />
-    <option name="height" value="1092" />
+    <option name="x" value="1991" />
+    <option name="y" value="308" />
+    <option name="width" value="1295" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -288,7 +305,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cloudViewer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cloudVisualizer" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
@@ -445,6 +462,8 @@
       <workItem from="1534418703312" duration="313000" />
       <workItem from="1534733827951" duration="3895000" />
       <workItem from="1534769907857" duration="13926000" />
+      <workItem from="1534835087264" duration="2800000" />
+      <workItem from="1534862416317" duration="2340000" />
     </task>
     <task id="LOCAL-00001" summary="backup before adding Tree class">
       <created>1534078387050</created>
@@ -460,17 +479,30 @@
       <option name="project" value="LOCAL" />
       <updated>1534734576161</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="backup before fixing initial search">
+      <created>1534835427526</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1534835427526</updated>
+    </task>
+    <task id="LOCAL-00004" summary="backup before fixing initial search">
+      <created>1534837026709</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1534837026709</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="539188000" />
+    <option name="totallyTimeSpent" value="544328000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1437" y="-4" width="1849" height="1084" extended-state="6" />
-    <editor active="true" />
+    <frame x="1991" y="308" width="1295" height="772" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14032169" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.142514" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -480,17 +512,17 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Messages" order="7" visible="true" weight="0.32845187" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.20711297" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32845187" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.20652173" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32868218" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32919255" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.25104603" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Data View" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Database" order="4" weight="0.3298639" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12028302" />
@@ -574,20 +606,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/NormalEstimator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" selection-start-line="8" selection-end-line="30" selection-end-column="46" />
-          <folding>
-            <element signature="e#188#226#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/NormalEstimator.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="864">
           <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HeightEstimator.cpp" />
+    <entry file="file://$PROJECT_DIR$/include/HeightEstimator.h" />
+    <entry file="file://$PROJECT_DIR$/run.sh.save">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2034">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+          <folding>
+            <element signature="e#113#147#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CylinderProcessor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+          <folding>
+            <element signature="e#188#1503#0" />
+            <element signature="e#1505#1695#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -598,75 +660,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HeightEstimator.cpp">
+    <entry file="file://$PROJECT_DIR$/include/NormalEstimator.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/HeightEstimator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="38" column="67" selection-start-line="38" selection-start-column="67" selection-end-line="38" selection-end-column="67" />
+        <state relative-caret-position="144">
+          <caret line="8" selection-start-line="8" selection-end-line="30" selection-end-column="46" />
           <folding>
-            <element signature="e#167#205#0" expanded="true" />
+            <element signature="e#188#226#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/run.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="90" column="45" selection-start-line="90" selection-start-column="45" selection-end-line="90" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
-          <folding>
-            <element signature="e#113#147#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="18">
+          <caret line="1" column="103" selection-start-line="1" selection-start-column="103" selection-end-line="1" selection-end-column="103" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/treeFit.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="524" column="25" lean-forward="true" selection-start-line="524" selection-start-column="25" selection-end-line="524" selection-end-column="25" />
+        <state relative-caret-position="34">
+          <caret line="310" column="49" lean-forward="true" selection-start-line="310" selection-start-column="45" selection-end-line="310" selection-end-column="49" />
           <folding>
             <element signature="e#104#142#0" expanded="true" />
             <element signature="e#1032#1049#0" expanded="true" />
-            <element signature="e#9762#11496#0" />
-            <element signature="e#13630#14377#0" />
-            <element signature="e#15730#16022#0" />
-            <element signature="e#16023#16521#0" />
-            <element signature="e#19246#20063#0" />
-            <element signature="e#21203#22146#0" />
-            <element signature="e#22572#23617#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CylinderProcessor.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-467">
-          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
-          <folding>
-            <element signature="e#188#1503#0" />
-            <element signature="e#1505#1695#0" />
+            <element signature="e#12986#14720#0" />
+            <element signature="e#23051#23868#0" />
+            <element signature="e#25012#25955#0" />
+            <element signature="e#26381#27426#0" />
+            <element signature="e#41365#42545#0" />
           </folding>
         </state>
       </provider>

@@ -312,8 +312,10 @@ main (int argc, char** argv) {
     else
         cylinderRadius = plantDistanceRow*0.75;
 
-
+    cout << "starting initial point cloud clustering" << endl;
+    pcl::PointXYZRGB tempPoint;
     //3D points segmentation using keypoints as the center.
+    cout << "total noPlane pointcloud : " << myPlane.getNoPlanePointCloud_ptr()->points.size() << endl;
     for (int i = 0; i < keypoint_ptr->points.size(); i++) {
 
         Cylinder tempCylinder;
@@ -332,9 +334,9 @@ main (int argc, char** argv) {
                                point1[1] - unitPlaneVector[1]*3,
                                point1[2] - unitPlaneVector[2]*3);
 
-        for(int j = 0; myPlane.getNoPlanePointCloud_ptr()->points.size(); j++) {
+        for(int j = 0; j < myPlane.getNoPlanePointCloud_ptr()->points.size(); j++) {
 
-            pcl::PointXYZRGB tempPoint = myPlane.getNoPlanePointCloud_ptr()->points[j];
+            tempPoint = myPlane.getNoPlanePointCloud_ptr()->points[j];
 
             Eigen::Vector3f testPoint(tempPoint.x,
                                       tempPoint.y,
@@ -363,6 +365,7 @@ main (int argc, char** argv) {
             if(Crossqp1xp2p1.norm() > cylinderRadius * p2p1.norm() )
                 continue;
 
+            cout << "added point to the vector" << endl;
             temp_pointCloud_ptr->points.push_back(tempPoint);
 
         }
