@@ -14,9 +14,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e0936664-212d-4cba-b8ee-0e0df8d28d4e" name="Default" comment="backup before fixing initial search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/treeFitting" beforeDir="false" afterPath="$PROJECT_DIR$/build/treeFitting" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treeFit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/treeFit.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -96,7 +93,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/treeFit.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="-4462">
               <caret line="310" column="49" lean-forward="true" selection-start-line="310" selection-start-column="45" selection-end-line="310" selection-end-column="49" />
               <folding>
                 <element signature="e#104#142#0" expanded="true" />
@@ -463,7 +460,7 @@
       <workItem from="1534733827951" duration="3895000" />
       <workItem from="1534769907857" duration="13926000" />
       <workItem from="1534835087264" duration="2800000" />
-      <workItem from="1534862416317" duration="2340000" />
+      <workItem from="1534862416317" duration="3081000" />
     </task>
     <task id="LOCAL-00001" summary="backup before adding Tree class">
       <created>1534078387050</created>
@@ -493,14 +490,22 @@
       <option name="project" value="LOCAL" />
       <updated>1534837026709</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="backup before fixing initial search">
+      <created>1534868320413</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1534868320413</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="544328000" />
+    <option name="totallyTimeSpent" value="545069000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1991" y="308" width="1295" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.142514" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -679,7 +684,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/treeFit.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
+        <state relative-caret-position="-4462">
           <caret line="310" column="49" lean-forward="true" selection-start-line="310" selection-start-column="45" selection-end-line="310" selection-end-column="49" />
           <folding>
             <element signature="e#104#142#0" expanded="true" />
