@@ -220,9 +220,10 @@ main (int argc, char** argv) {
 
     std::string inputDownwardPointCloudName = "inputDownwardPoint1";
     std::string inputUpwardPointCloudName = "inputUpwardPoint1";
+    std::string keyPointName = "keyPointName";
     inputViewer.addPointcloud(downward_point_cloud_ptr, inputDownwardPointCloudName);
     inputViewer.addPointcloud(upward_point_cloud_ptr, inputUpwardPointCloudName);
-
+    inputViewer.addPointcloud(keypoint_ptr, keyPointName);
     inputViewer.run();
   
     downward_point_cloud_ptr->width = (int) downward_point_cloud_ptr->points.size();
@@ -282,6 +283,154 @@ main (int argc, char** argv) {
                                    noPlaneNormalName);
 
     noPlaneNormalViewer.run();
+
+    //remove all 3D points that locate on the right side of the camera
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr  cleanPointCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+
+    // Project all non-plane 3D points on the 3D plane
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr projectedNonPlane(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    //vector of 3d plane
+    Eigen::Vector3d planeInit(myPlane.getPlaneCoefficient()->values[0],
+                              myPlane.getPlaneCoefficient()->values[1],
+                              myPlane.getPlaneCoefficient()->values[2]);
+
+    Eigen::Vector3d lineInit(myPlane.getPlaneVector()[0],
+                             myPlane.getPlaneVector()[1],
+                             myPlane.getPlaneVector()[2]);
+
+
+    for( size_t i = 0; i < myPlane.getNoPlanePointCloud_ptr()->points.size(); i++) {
+
+        Eigen::Vector3d pointOnLineInit(myPlane.getNoPlanePointCloud_ptr()->points[i].x,
+                                        myPlane.getNoPlanePointCloud_ptr()->points[i].y,
+                                        myPlane.getNoPlanePointCloud_ptr()->points[i].z) ;
+//        Eigen::Vector3d pointOnLineInit(cleanPointCloud->points[i].x,
+//                                        cleanPointCloud->points[i].y,
+//                                        cleanPointCloud->points[i].z);
+
+
+
+//        cout << "value of PointOnLine is : " << pointOnLineInit << endl;
+
+        //calculate dot product between line and plane
+        double lineDotPlane = lineInit.dot(planeInit);
+//        cout << "value of lineDotPlane is : " << lineDotPlane << endl;
+        if(lineDotPlane == 0) { // line and plane does not intersect to each other.
+            cout << "lineDotPlane is zero " << endl;
+            continue;
+        }
+
+        double t = - (planeInit[0]*pointOnLineInit[0] + planeInit[1]*pointOnLineInit[1] + planeInit[2]*pointOnLineInit[2] + myPlane.getPlaneCoefficient()->values[3]) / lineDotPlane;
+
+//        cout << "value of t is " << t << endl;
+ //       cout << "value of line is : " << lineInit << endl;
+        double tempX = pointOnLineInit[0] + lineInit[0]*t;
+        double tempY = pointOnLineInit[1] + lineInit[1]*t;
+        double tempZ = pointOnLineInit[2] + lineInit[2]*t;
+
+//        cout << "projected temp Value is : " << tempX << " , " << tempY << " , " << tempZ << endl;
+        //round value of tempX, tempY, tempZ
+
+        pcl::PointXYZRGB projectedPoint;
+        projectedPoint.x = tempX;
+        projectedPoint.y = tempY;
+        projectedPoint.z = tempZ;
+        projectedPoint.r = 0;
+        projectedPoint.g = 255;
+        projectedPoint.b = 0;
+
+  //      cout << "projected point is : " << projectedPoint.x << " , " << projectedPoint.y << " , " << projectedPoint.z << endl;
+        // Add the projected point to the cloud
+        projectedNonPlane->points.push_back(projectedPoint);
+
+    }
+
+    //project KF on the plane
+    Eigen::Vector3f KF1st(keypoint_ptr->points[1].x,
+                          keypoint_ptr->points[1].y,
+                          keypoint_ptr->points[1].z);
+
+    Eigen::Vector3f KF_last(keypoint_ptr->points[round(keypoint_ptr->points.size()/2)].x,
+                            keypoint_ptr->points[round(keypoint_ptr->points.size()/2)].y,
+                            keypoint_ptr->points[round(keypoint_ptr->points.size()/2)].z);
+
+    double lineDotPlane = lineInit.dot(planeInit);
+    double tT = - (planeInit[0]*KF1st[0] + planeInit[1]*KF1st[1] + planeInit[2]*KF1st[2] + myPlane.getPlaneCoefficient()->values[3]) / lineDotPlane;
+
+    double tempXx = KF1st[0] + lineInit[0]*tT;
+    double tempYy = KF1st[1] + lineInit[1]*tT;
+    double tempZz = KF1st[2] + lineInit[2]*tT;
+
+    cout << "total point before removing points on the right side : " << projectedNonPlane->points.size() << endl;
+    double refXvalue = tempXx;
+    for(size_t i = 0; i< projectedNonPlane->points.size(); i++) {
+
+        pcl::PointXYZRGB tempPoint = projectedNonPlane->points[i];
+
+        if(tempPoint.x < refXvalue)
+            continue;
+
+        cleanPointCloud->points.push_back(tempPoint);
+
+    }
+
+    cleanPointCloud->width = cleanPointCloud->points.size();
+    cleanPointCloud->height = 1;
+
+    cout << "total point after removing points on the right side : " << cleanPointCloud->points.size() << endl;
+
+
+    projectedNonPlane->width = (int) projectedNonPlane->points.size();
+    projectedNonPlane->height = 1;
+
+
+    // Export file to test with Euclidean cluster
+    pcl::PCDWriter cloudWriter;
+ //   writer.write("real_distance_Downward_scaled_point_cloud.pcd", *scaled_cloud_ptr, false);
+    myPlane.getNoPlanePointCloud_ptr()->width = (int) myPlane.getNoPlanePointCloud_ptr()->points.size();
+    myPlane.getNoPlanePointCloud_ptr()->height = 1;
+
+    cloudWriter.write("Projected_pointcloud_without_plane.pcd", *projectedNonPlane, false);
+    cloudWriter.write("Projected_cleanPointCloud.pcd", *cleanPointCloud, false);
+
+    std::string cloudClusterName = "cloud cluster";
+    Viewer cloudCluster(cloudClusterName, cloudClusterName);
+
+    std::string clusterCloudName = "clusterCloudName";
+    cloudCluster.addPointcloud(myPlane.getNoPlanePointCloud_ptr(), clusterCloudName);
+    cloudCluster.addPointcloud(projectedNonPlane, clusterCloudName);
+
+    pcl::PointXYZRGB firstArrowPoint;
+//    firstArrowPoint.x = KF1st[0];
+//    firstArrowPoint.y = KF1st[1];
+//    firstArrowPoint.z = KF1st[2];
+
+    firstArrowPoint.x = KF1st[0] + lineInit[0]*tT;
+    firstArrowPoint.y = KF1st[1] + lineInit[1]*tT;
+    firstArrowPoint.z = KF1st[2] + lineInit[2]*tT;
+
+    pcl::PointXYZRGB lastArrowPoint;
+//    lastArrowPoint.x = KF_last[0];
+//    lastArrowPoint.y = KF_last[1];
+//    lastArrowPoint.z = KF_last[2];
+    lastArrowPoint.x = KF_last[0] + lineInit[0]*tT;
+    lastArrowPoint.y = KF_last[1] + lineInit[1]*tT;
+    lastArrowPoint.z = KF_last[2] + lineInit[2]*tT;
+
+
+
+    cloudCluster.addArrow(firstArrowPoint,lastArrowPoint,255,0,0,true,"arrow");
+    double pRadius = 0.5;
+    std::string spName = "sphere";
+    cloudCluster.addSphere(lastArrowPoint,pRadius,spName);
+    cloudCluster.run();
+
+
+    return -1;
+
 
 
     std::vector<Cylinder> allCylinders;
