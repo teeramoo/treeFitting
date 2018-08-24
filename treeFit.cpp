@@ -169,6 +169,45 @@ void readCSV(std::string &_pathToCSVfile, std::vector<GroundTruth> &_vGroundTrut
 
 }
 
+
+void removePointsRightSide(pcl::PointXYZRGB &firstKFPoint, pcl::PointXYZRGB &lastKFPoint, Eigen::Vector3f &planeNormalVector,
+                           pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputCloud, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &outputCloud) {
+
+    //create vector from start point to last point = lastPoint - startPoint
+    Eigen::Vector3f guideVector(lastKFPoint.x - firstKFPoint.x, lastKFPoint.y - firstKFPoint.y, lastKFPoint.z - firstKFPoint.z);
+
+    //create Vector that points to the left of the guideVector
+    Eigen::Vector3f leftVector = guideVector.cross(planeNormalVector);
+
+    for(size_t i = 0; i < inputCloud->points.size(); i++) {
+
+        pcl::PointXYZRGB tempPoint;
+        tempPoint.x = inputCloud->points[i].x;
+        tempPoint.y = inputCloud->points[i].y;
+        tempPoint.z = inputCloud->points[i].z;
+
+        Eigen::Vector3f testVector(tempPoint.x - firstKFPoint.x,
+                                   tempPoint.y - firstKFPoint.y,
+                                   tempPoint.z - firstKFPoint.z);
+
+        double nominator = leftVector.dot(testVector);
+        double denominator = leftVector.norm() * testVector.norm();
+        double angle = acos(nominator/denominator) * 180.0 /M_PI;
+
+        if(angle <= 90.0)
+            outputCloud->points.push_back(tempPoint);
+
+    }
+
+    cout << "input pointcloud has " << inputCloud->points.size() << " points." << endl;
+
+    cout << "output pointcloud has " << outputCloud->points.size() << "points." << endl;
+
+
+}
+
+
+
 // --------------
 // -----Main-----
 // --------------
@@ -283,6 +322,38 @@ main (int argc, char** argv) {
 
     noPlaneNormalViewer.run();
 
+    //remove all 3D points or the right side of the key points (incrementally remove the points every 10 keyframes)
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloudWithoutPlane(new pcl::PointCloud<pcl::PointXYZRGB>);
+    pointcloudWithoutPlane = myPlane.getNoPlanePointCloud_ptr();
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr leftPointCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    Eigen::Vector3f planeNormalVector(myPlane.getPlaneVector()[0],myPlane.getPlaneVector()[1],myPlane.getPlaneVector()[2]);
+    for(size_t i = 0; i < keypoint_ptr->points.size(); i+=10) {
+
+        removePointsRightSide(keypoint_ptr->points[i], keypoint_ptr->points[i+10],
+                              planeNormalVector,pointcloudWithoutPlane, leftPointCloud);
+
+        if(i + 10 > keypoint_ptr->points.size())
+            i = keypoint_ptr->points.size() - 10;
+
+    }
+
+    std::string beforeRemoval = "before removal";
+    std::string noPlaneName = "noPlaneName";
+
+    Viewer removeRightPointsBefore(beforeRemoval, beforeRemoval);
+    removeRightPointsBefore.addPointcloud(myPlane.getNoPlanePointCloud_ptr(),noPlaneName);
+    removeRightPointsBefore.run();
+
+    std::string afterRemoval = "after removal";
+    std::string afterPlaneName = "noRightPlaneName";
+
+    Viewer removeRightPointsAfter(afterRemoval, afterRemoval);
+    removeRightPointsAfter.addPointcloud(leftPointCloud, afterPlaneName);
+    removeRightPointsAfter.run();
+
+    return -1;
 
     std::vector<Cylinder> allCylinders;
 
@@ -386,8 +457,8 @@ main (int argc, char** argv) {
 
 /*
         pcl::PointXYZRGB tempKeyPoint = keypoint_ptr->points[i];
-        double tkpx = tempKeyPoint.x;
         double tkpy = tempKeyPoint.y;
+        double tkpx = tempKeyPoint.x;
         double tkpz = tempKeyPoint.z;
 
         Cylinder tempCylinder;

@@ -37,9 +37,6 @@ add_definitions(${PCL_DEFINITIONS})
 
 
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
-find_package(Octave)
-include_directories(${OCTAVE_INCLUDE_DIR}/octave/)
-link_directories(${OCTAVE_LIBDIR})
 
 #add_executable (treeFit treeFit.cpp src/planeSegmentation.cpp src/planeSegmentation.h)
 add_executable (treeFitting treeFit.cpp)
