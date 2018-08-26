@@ -174,10 +174,19 @@ void removePointsRightSide(pcl::PointXYZRGB &firstKFPoint, pcl::PointXYZRGB &las
                            pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputCloud, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &outputCloud) {
 
     //create vector from start point to last point = lastPoint - startPoint
-    Eigen::Vector3f guideVector(lastKFPoint.x - firstKFPoint.x, lastKFPoint.y - firstKFPoint.y, lastKFPoint.z - firstKFPoint.z);
+    Eigen::Vector3f vectorA(firstKFPoint.x + planeNormalVector[0],
+                            firstKFPoint.y + planeNormalVector[1],
+                            firstKFPoint.z + planeNormalVector[2]);
+
+
+    Eigen::Vector3f vectorB(lastKFPoint.x - firstKFPoint.x,
+                            lastKFPoint.y - firstKFPoint.y,
+                            lastKFPoint.z - firstKFPoint.z);
+
+
 
     //create Vector that points to the left of the guideVector
-    Eigen::Vector3f leftVector = guideVector.cross(planeNormalVector);
+    Eigen::Vector3f leftVector = vectorA.cross(vectorB); // A x B = C
 
     for(size_t i = 0; i < inputCloud->points.size(); i++) {
 
@@ -185,28 +194,236 @@ void removePointsRightSide(pcl::PointXYZRGB &firstKFPoint, pcl::PointXYZRGB &las
         tempPoint.x = inputCloud->points[i].x;
         tempPoint.y = inputCloud->points[i].y;
         tempPoint.z = inputCloud->points[i].z;
+        tempPoint.r = inputCloud->points[i].r;
+        tempPoint.g = inputCloud->points[i].g;
+        tempPoint.b = inputCloud->points[i].b;
 
         Eigen::Vector3f testVector(tempPoint.x - firstKFPoint.x,
                                    tempPoint.y - firstKFPoint.y,
                                    tempPoint.z - firstKFPoint.z);
 
-        double nominator = leftVector.dot(testVector);
+        double numerator = leftVector.dot(testVector);
         double denominator = leftVector.norm() * testVector.norm();
-        double angle = acos(nominator/denominator) * 180.0 /M_PI;
+        double angle = acos(numerator/denominator) * 180.0 /M_PI;
 
-        if(angle <= 90.0)
+        if(angle < 90.0)
             outputCloud->points.push_back(tempPoint);
 
     }
 
-    cout << "input pointcloud has " << inputCloud->points.size() << " points." << endl;
+//    cout << "input pointcloud has " << inputCloud->points.size() << " points." << endl;
 
-    cout << "output pointcloud has " << outputCloud->points.size() << "points." << endl;
+//    cout << "output pointcloud has " << outputCloud->points.size() << "points." << endl;
 
 
 }
 
 
+void projectPointsToPlane(Eigen::Vector4d &planeEquation,pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputCloud,
+                          pcl::PointCloud<pcl::PointXYZRGB>::Ptr &outputCloud){
+
+
+    // Calculate a unit plane normal vector
+    Eigen::Vector3d planeNormalVector(planeEquation[0],
+                                      planeEquation[1],
+                                      planeEquation[2]);
+
+    planeNormalVector.normalize();
+
+    if(planeNormalVector.norm() > 1.0) {
+        cerr << "norm of the unit vector is greater than zero." << endl;
+        return;
+    }
+
+
+    for(size_t i = 0; i < inputCloud->points.size(); i++) {
+
+        //calculate  t = -(Ax1 + By1 + Cz1 +D) /(Aa + Bb + Cc)
+        // where Ax + By + Cz + D = 0 is a 3D plane model
+        // and x = x1 + at , y = y1 + bt , z = z1 + ct are parametric equation of a 3D line
+
+        pcl::PointXYZRGB tempPoint = inputCloud->points[i];
+
+        double A = planeEquation[0];
+        double B = planeEquation[1];
+        double C = planeEquation[2];
+        double D = planeEquation[3];
+
+        double a = planeNormalVector[0];
+        double b = planeNormalVector[1];
+        double c = planeNormalVector[2];
+
+        double x1 = tempPoint.x;
+        double y1 = tempPoint.y;
+        double z1 = tempPoint.z;
+
+
+        double t  = - (A*x1 + B*y1 + C*z1 + D) / (A*a + B*b + C*c);
+
+
+        pcl::PointXYZRGB projectedPoint; // projected point is in red colour
+        projectedPoint.x = x1 + a*t;
+        projectedPoint.y = y1 + b*t;
+        projectedPoint.z = z1 + c*t;
+
+        outputCloud->points.push_back(projectedPoint);
+    }
+
+
+}
+
+void projectPairPointIndexToPlane(Eigen::Vector4d &planeEquation,std::vector<std::pair<pcl::PointXYZRGB, int>> &vPairPointIndex,
+                                  std::vector<std::pair<pcl::PointXYZRGB, int>> &vProjectedPairPointIndex){
+
+
+    // Calculate a unit plane normal vector
+    Eigen::Vector3d planeNormalVector(planeEquation[0],
+                                      planeEquation[1],
+                                      planeEquation[2]);
+
+    planeNormalVector.normalize();
+
+    if(planeNormalVector.norm() > 1.0) {
+        cerr << "norm of the unit vector is greater than zero." << endl;
+        return;
+    }
+
+
+    for(size_t i = 0; i < vPairPointIndex.size(); i++) {
+
+        //calculate  t = -(Ax1 + By1 + Cz1 +D) /(Aa + Bb + Cc)
+        // where Ax + By + Cz + D = 0 is a 3D plane model
+        // and x = x1 + at , y = y1 + bt , z = z1 + ct are parametric equation of a 3D line
+
+        pcl::PointXYZRGB tempPoint = vPairPointIndex[i].first;
+
+        double A = planeEquation[0];
+        double B = planeEquation[1];
+        double C = planeEquation[2];
+        double D = planeEquation[3];
+
+        double a = planeNormalVector[0];
+        double b = planeNormalVector[1];
+        double c = planeNormalVector[2];
+
+        double x1 = tempPoint.x;
+        double y1 = tempPoint.y;
+        double z1 = tempPoint.z;
+
+
+        double t  = - (A*x1 + B*y1 + C*z1 + D) / (A*a + B*b + C*c);
+
+
+        pcl::PointXYZRGB projectedPoint; // projected point is in red colour
+        projectedPoint.x = x1 + a*t;
+        projectedPoint.y = y1 + b*t;
+        projectedPoint.z = z1 + c*t;
+
+        vProjectedPairPointIndex.push_back(std::make_pair(projectedPoint,i));
+
+    }
+
+
+}
+
+
+void searchRadius2d(Eigen::Vector3d &planeNormalVector, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &projectedKeypoints,
+                    std::vector<std::pair<pcl::PointXYZRGB,int>> &vProjectedPairPointIndex,
+                    double &plantDistanceRow, double &plantDistanceColumn,
+                    std::vector<std::pair<pcl::PointXYZRGB,int>> &vCleanedProjectedPairPointIndex) {
+
+    //verify search radius. pick the lowest one between row and column planting distance
+    double searchRadius = plantDistanceRow * 0.5;
+
+    for(size_t currentKP = 0; currentKP < projectedKeypoints->points.size(); currentKP++) {
+
+        if( currentKP + 1 >= projectedKeypoints->points.size()) //skip when i reaches the last element of projectedKeypoints
+            continue;
+
+
+        Eigen::Vector3d firstKP(projectedKeypoints->points[currentKP].x,
+                                projectedKeypoints->points[currentKP].y,
+                                projectedKeypoints->points[currentKP].z);
+
+
+        Eigen::Vector3d secondKP(projectedKeypoints->points[currentKP+1].x,
+                                 projectedKeypoints->points[currentKP+1].y,
+                                 projectedKeypoints->points[currentKP+1].z);
+
+        Eigen::Vector3d vecKPs(secondKP - firstKP);
+
+        Eigen::Vector3d leftVector = planeNormalVector.cross(vecKPs);
+        leftVector.normalize();
+
+        //Assume data collector walks exactly at the middle of tree rows.
+        //Shift the first KP to the left by plantDistanceRow * 0.5
+        Eigen::Vector3d searchCenter(firstKP + leftVector*searchRadius);
+
+        //extract points within radius search
+        std::vector<int> vRemovePairs;
+        for(size_t currentPair = 0; currentPair < vProjectedPairPointIndex.size(); currentPair++ ) {
+
+            //calculate distance from search center to any point
+            Eigen::Vector3d tempPoint(vProjectedPairPointIndex[currentPair].first.x,
+                                      vProjectedPairPointIndex[currentPair].first.y,
+                                      vProjectedPairPointIndex[currentPair].first.z);
+
+            Eigen::Vector3d center2tempPoint(tempPoint - searchCenter);
+
+            if(center2tempPoint.norm() <= searchRadius) {
+                vRemovePairs.push_back(currentPair);
+                vCleanedProjectedPairPointIndex.push_back(vProjectedPairPointIndex[currentPair]);
+
+            }
+
+
+
+        }
+
+        //removed points being added to the cleaned projected point pair from the vector
+        //start to remove them from the last element
+        while(!vRemovePairs.empty()) {
+
+            int removeIndex = vRemovePairs.back();
+            vProjectedPairPointIndex.erase(vProjectedPairPointIndex.begin() + removeIndex);
+            vRemovePairs.pop_back();
+
+
+        }
+
+
+    }
+
+
+}
+
+void initialCloudClustering(Eigen::Vector4d &planeEquation, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputCloud,
+                            double &planeDistanceRow, double &planeDistanceColumn, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &keypoints,
+                            pcl::PointCloud<pcl::PointXYZRGB>::Ptr &outputCloud){
+
+    std::vector<std::pair<pcl::PointXYZRGB, int>> vPairPointIndex;
+
+    //convert input pointcloud to <point,index> pair
+    for(size_t i = 0; i < inputCloud->points.size(); i++) {
+
+        pcl::PointXYZRGB tempPoint = inputCloud->points[i];
+
+        vPairPointIndex.push_back(std::make_pair(tempPoint,i));
+
+    }
+
+    //project all keypoints to plane
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr projectedKeypoints (new pcl::PointCloud<pcl::PointXYZRGB>);
+    projectPointsToPlane(planeEquation, keypoints, projectedKeypoints);
+
+   //project vPairPointIndex to the plane
+   std::vector<std::pair<pcl::PointXYZRGB,int>> vProjectedPairPointIndex;
+   projectPairPointIndexToPlane(planeEquation,vPairPointIndex,vProjectedPairPointIndex);
+
+    //search 2d radius including finding vector to the left of two keypoints
+
+
+}
 
 // --------------
 // -----Main-----
@@ -302,7 +519,17 @@ main (int argc, char** argv) {
     planeViewer.addPointcloud(myPlane.getPlanePointCloud_ptr(), planePointCloudName);
 
     planeViewer.addPlane(myPlane.getPlaneCoefficient(), planeViewerName);
+    pcl::PointXYZRGB firstNormalPoint;
+    firstNormalPoint.x = 0.0;
+    firstNormalPoint.y = 0.0;
+    firstNormalPoint.z = 0.0;
 
+    pcl::PointXYZRGB lastNormalPoint;
+    lastNormalPoint.x = firstNormalPoint.x + myPlane.getPlaneVector()[0] * 10;
+    lastNormalPoint.y = firstNormalPoint.y + myPlane.getPlaneVector()[1] * 10;
+    lastNormalPoint.z = firstNormalPoint.z + myPlane.getPlaneVector()[2] * 10;
+    std::string normalVectorName = "normalVec";
+    planeViewer.addArrow(firstNormalPoint,lastNormalPoint,0,255,0,false, normalVectorName);
     planeViewer.run();
 
     //End of plane segmentation
@@ -322,39 +549,92 @@ main (int argc, char** argv) {
 
     noPlaneNormalViewer.run();
 
+    std::string be4name = "b4name";
+    Viewer beforeProjection(be4name,be4name);
+    std::string b4projection = "b4projection";
+    beforeProjection.addPointcloud(myPlane.getNoPlanePointCloud_ptr(),b4projection);
+    beforeProjection.run();
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputProjectedPoints(new pcl::PointCloud<pcl::PointXYZRGB>);
+    inputProjectedPoints = myPlane.getNoPlanePointCloud_ptr();
+
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr projectedPoints(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    Eigen::Vector4d planeEquation(myPlane.getPlaneCoefficient()->values[0],myPlane.getPlaneCoefficient()->values[1],
+                                  myPlane.getPlaneCoefficient()->values[2],myPlane.getPlaneCoefficient()->values[3]);
+
+    projectPointsToPlane(planeEquation, inputProjectedPoints, projectedPoints);
+
+    std::string afterName = "afterName";
+    Viewer afterProjection(afterName,afterName);
+    std::string aftProjection = "aftProjection";
+    afterProjection.addPointcloud(projectedPoints,aftProjection);
+    afterProjection.run();
+
+    return -1;
+
+/*
     //remove all 3D points or the right side of the key points (incrementally remove the points every 10 keyframes)
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloudWithoutPlane(new pcl::PointCloud<pcl::PointXYZRGB>);
     pointcloudWithoutPlane = myPlane.getNoPlanePointCloud_ptr();
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr leftPointCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
-
     Eigen::Vector3f planeNormalVector(myPlane.getPlaneVector()[0],myPlane.getPlaneVector()[1],myPlane.getPlaneVector()[2]);
-    for(size_t i = 0; i < keypoint_ptr->points.size(); i+=10) {
 
-        removePointsRightSide(keypoint_ptr->points[i], keypoint_ptr->points[i+10],
+    double iteRound = round(keypoint_ptr->points.size()/10);
+ //   if(keypoint_ptr->points.size() % 10 != 0)
+ //       iteRound +=1;
+    cout << iteRound << endl;
+
+    removePointsRightSide(keypoint_ptr->points.front(), keypoint_ptr->points.back(),
+                          planeNormalVector,pointcloudWithoutPlane, leftPointCloud);
+
+
+    for(size_t i = 0; i < (int) iteRound; i++) {
+
+        removePointsRightSide(keypoint_ptr->points[i*10], keypoint_ptr->points[i*10 + 9],
                               planeNormalVector,pointcloudWithoutPlane, leftPointCloud);
 
-        if(i + 10 > keypoint_ptr->points.size())
-            i = keypoint_ptr->points.size() - 10;
+
+        std::string afterRemoval = "after removal";
+        std::string afterPlaneName = "noRightPlaneName";
+
+        Viewer removeRightPointsAfter(afterRemoval, afterRemoval);
+
+        removeRightPointsAfter.addPointcloud(leftPointCloud, afterPlaneName);
+          std::string aName = "anme";
+        //  removeRightPointsAfter.addArrow(keypoint_ptr->points[round(keypoint_ptr->points.size()/10)*10], keypoint_ptr->points.back(),255,255,255,false,aName);
+        removeRightPointsAfter.addArrow(keypoint_ptr->points[i*10],keypoint_ptr->points[i*10 + 9],0,255,0,false, aName + std::to_string(i));
+        removeRightPointsAfter.run();
+
 
     }
 
+
+
+
+
     std::string beforeRemoval = "before removal";
     std::string noPlaneName = "noPlaneName";
+    std::string aName = "anme";
 
     Viewer removeRightPointsBefore(beforeRemoval, beforeRemoval);
     removeRightPointsBefore.addPointcloud(myPlane.getNoPlanePointCloud_ptr(),noPlaneName);
+    removeRightPointsBefore.addArrow(keypoint_ptr->points.front(), keypoint_ptr->points.back(),255,255,255,false,aName);
     removeRightPointsBefore.run();
+
 
     std::string afterRemoval = "after removal";
     std::string afterPlaneName = "noRightPlaneName";
 
     Viewer removeRightPointsAfter(afterRemoval, afterRemoval);
+
     removeRightPointsAfter.addPointcloud(leftPointCloud, afterPlaneName);
+
+    removeRightPointsAfter.addArrow(keypoint_ptr->points.front(), keypoint_ptr->points.back(),255,255,255,false,aName);
     removeRightPointsAfter.run();
 
-    return -1;
-
+*/
     std::vector<Cylinder> allCylinders;
 
     double epsAngle = dEpsAngle/180*M_PI;

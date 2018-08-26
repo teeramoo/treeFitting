@@ -52,7 +52,7 @@ void Viewer::addNormals(pcl::PointCloud<pcl::PointXYZRGB>::Ptr _pointCloud,
 void Viewer::addArrow(pcl::PointXYZRGB &keypoint1, pcl::PointXYZRGB &keypoint2,
                       double red, double green, double blue, bool showArrowLength,
                       std::string arrowName) {
-    cloudViewer->addArrow(keypoint1,keypoint2,red,green,blue,arrowName);
+    cloudViewer->addArrow(keypoint1,keypoint2,red,green,blue, showArrowLength,arrowName);
 
 }
 
@@ -71,7 +71,8 @@ void Viewer::run() {
 
     while (!cloudViewer->wasStopped ()) {
         cloudViewer->spinOnce (100);
-        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
+        usleep(100);
+//        boost::this_thread::sleep (boost::posix_time::microseconds (100000));
     }
 
 }

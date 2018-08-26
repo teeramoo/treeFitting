@@ -14,21 +14,24 @@
   <component name="ChangeListManager">
     <list default="true" id="e0936664-212d-4cba-b8ee-0e0df8d28d4e" name="Default" comment="backup before fixing initial search">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/3.12.0/CMakeSystem.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeError.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/clion-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdC/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/3.5.1/CompilerIdCXX/a.out" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeError.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/TargetDirectories.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/feature_tests.bin" afterDir="false" />
@@ -56,11 +59,9 @@
       <change beforePath="$PROJECT_DIR$/build/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/cmake_install.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libtreeFit.so" beforeDir="false" afterPath="$PROJECT_DIR$/build/libtreeFit.so" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/treeFitting" beforeDir="false" afterPath="$PROJECT_DIR$/build/treeFitting" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildOpencv.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/octaveSpace/octave-workspace" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/octaveSpace/octaveTest.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/octaveSpace/readCSV.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/octaveSpace/testRead.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/Viewer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Viewer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlaneProcessor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlaneProcessor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Viewer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Viewer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treeFit.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/treeFit.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treeFit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/treeFit.cpp" afterDir="false" />
     </list>
@@ -97,14 +98,16 @@
           <entry key="project.open.time.14" value="4" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="3" />
+          <entry key="cpp" value="4" />
           <entry key="h" value="4" />
+          <entry key="hpp" value="1" />
           <entry key="save" value="1" />
           <entry key="sh" value="2" />
           <entry key="txt" value="1" />
@@ -114,14 +117,14 @@
         <counts>
           <entry key="Bash" value="93" />
           <entry key="CMakeLists.txt" value="4" />
-          <entry key="ObjectiveC" value="12250" />
+          <entry key="ObjectiveC" value="19739" />
           <entry key="PLAIN_TEXT" value="57" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="11950" />
-          <entry key="h" value="300" />
+          <entry key="cpp" value="19423" />
+          <entry key="h" value="316" />
           <entry key="sh" value="93" />
           <entry key="txt" value="61" />
         </counts>
@@ -130,7 +133,7 @@
         <counts>
           <entry key="Bash" value="2" />
           <entry key="CMakeLists.txt" value="1" />
-          <entry key="ObjectiveC" value="7" />
+          <entry key="ObjectiveC" value="9" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
@@ -164,16 +167,58 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/treeFit.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="626">
-              <caret line="355" column="14" selection-start-line="355" selection-start-column="14" selection-end-line="355" selection-end-column="14" />
+            <state relative-caret-position="1296">
+              <caret line="393" lean-forward="true" selection-start-line="393" selection-end-line="393" />
               <folding>
                 <element signature="e#104#142#0" expanded="true" />
                 <element signature="e#1032#1049#0" expanded="true" />
                 <element signature="e#1840#2528#0" />
                 <element signature="e#3380#4273#0" />
-                <element signature="e#13228#14962#0" />
-                <element signature="e#17677#18424#0" />
+                <element signature="e#4276#6174#0" />
+                <element signature="e#6252#9616#0" />
+                <element signature="e#7791#9403#0" />
+                <element signature="e#13193#15763#0" />
+                <element signature="e#21684#23418#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="150" column="21" selection-start-line="150" selection-start-column="21" selection-end-line="150" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Viewer.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1386">
+              <caret line="77" column="1" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/Viewer.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1116">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
+              <folding>
+                <element signature="e#167#205#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="1" column="103" selection-start-line="1" selection-start-column="103" selection-end-line="1" selection-end-column="103" />
             </state>
           </provider>
         </entry>
@@ -181,7 +226,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1695">
+            <state relative-caret-position="2034">
               <caret line="113" selection-start-line="113" selection-end-line="113" />
               <folding>
                 <element signature="e#113#147#0" expanded="true" />
@@ -193,7 +238,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CylinderProcessor.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
+            <state relative-caret-position="810">
               <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
               <folding>
                 <element signature="e#188#1503#0" />
@@ -204,28 +249,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="110" column="15" selection-start-line="110" selection-start-column="15" selection-end-line="110" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="91" column="20" selection-start-line="91" selection-start-column="20" selection-end-line="91" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+            <state relative-caret-position="556">
+              <caret line="90" column="43" selection-start-line="90" selection-start-column="43" selection-end-line="90" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -233,7 +260,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/NormalEstimator.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
+            <state relative-caret-position="144">
               <caret line="8" selection-start-line="8" selection-end-line="30" selection-end-column="46" />
               <folding>
                 <element signature="e#188#226#0" expanded="true" />
@@ -299,20 +326,20 @@
         <option value="$PROJECT_DIR$/include/NormalEstimator.h" />
         <option value="$PROJECT_DIR$/include/Geometry.h" />
         <option value="$PROJECT_DIR$/include/CylinderSegment.h" />
-        <option value="$PROJECT_DIR$/include/Viewer.h" />
         <option value="$PROJECT_DIR$/src/CylinderSegment.cpp" />
         <option value="$PROJECT_DIR$/src/CylinderCluster.h" />
         <option value="$PROJECT_DIR$/src/cloudProcessor.h" />
-        <option value="$PROJECT_DIR$/src/Viewer.cpp" />
         <option value="$PROJECT_DIR$/src/NormalEstimator.cpp" />
         <option value="$PROJECT_DIR$/include/HeightEstimator.h" />
         <option value="$PROJECT_DIR$/src/HeightEstimator.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/PlaneProcessor.h" />
-        <option value="$PROJECT_DIR$/src/PlaneProcessor.cpp" />
         <option value="$PROJECT_DIR$/src/CylinderProcessor.cpp" />
         <option value="$PROJECT_DIR$/include/CylinderProcessor.h" />
         <option value="$PROJECT_DIR$/run.sh" />
+        <option value="$PROJECT_DIR$/src/PlaneProcessor.cpp" />
+        <option value="$PROJECT_DIR$/include/Viewer.h" />
+        <option value="$PROJECT_DIR$/src/Viewer.cpp" />
         <option value="$PROJECT_DIR$/treeFit.cpp" />
       </list>
     </option>
@@ -325,10 +352,10 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="25" />
-    <option name="width" value="1853" />
-    <option name="height" value="1175" />
+    <option name="x" value="71" />
+    <option name="y" value="-4" />
+    <option name="width" value="1849" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -341,7 +368,17 @@
           <expand>
             <path>
               <item name="treeFit" type="b2602c69:ProjectViewProjectNode" />
-              <item name="treeFitting" type="462c0819:PsiDirectoryNode" />
+              <item name="tree_fit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="treeFit" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tree_fit" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="treeFit" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tree_fit" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -514,6 +551,8 @@
       <workItem from="1534862416317" duration="3081000" />
       <workItem from="1535086507516" duration="1236000" />
       <workItem from="1535091701428" duration="4484000" />
+      <workItem from="1535123449700" duration="12262000" />
+      <workItem from="1535265192047" duration="12998000" />
     </task>
     <task id="LOCAL-00001" summary="backup before adding Tree class">
       <created>1534078387050</created>
@@ -554,12 +593,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="550789000" />
+    <option name="totallyTimeSpent" value="582747000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1175" extended-state="6" />
+    <frame x="71" y="-4" width="1295" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1455451" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10728583" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -570,7 +610,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.32845187" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.20574163" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.123839006" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32868218" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.3291866" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.2507177" />
@@ -635,13 +675,6 @@
     <entry file="file://$PROJECT_DIR$/include/Geometry.h" />
     <entry file="file://$PROJECT_DIR$/src/CylinderCluster.h" />
     <entry file="file://$PROJECT_DIR$/src/cloudProcessor.h" />
-    <entry file="file://$PROJECT_DIR$/include/Viewer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1116">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/include/pcl-1.8/pcl/segmentation/sac_segmentation.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -656,13 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Viewer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/NormalEstimator.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="864">
@@ -673,10 +699,47 @@
     <entry file="file://$PROJECT_DIR$/src/HeightEstimator.cpp" />
     <entry file="file://$PROJECT_DIR$/include/HeightEstimator.h" />
     <entry file="file://$PROJECT_DIR$/run.sh.save" />
-    <entry file="file://$PROJECT_DIR$/run.sh" />
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/pcl-1.8/pcl/visualization/impl/pcl_visualizer.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="472" column="35" selection-start-line="472" selection-start-column="35" selection-end-line="472" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Viewer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="77" column="1" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/Viewer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1116">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="e#167#205#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="103" selection-start-line="1" selection-start-column="103" selection-end-line="1" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1695">
+        <state relative-caret-position="2034">
           <caret line="113" selection-start-line="113" selection-end-line="113" />
           <folding>
             <element signature="e#113#147#0" expanded="true" />
@@ -686,7 +749,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CylinderProcessor.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
+        <state relative-caret-position="810">
           <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
           <folding>
             <element signature="e#188#1503#0" />
@@ -695,16 +758,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/NormalEstimator.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
+        <state relative-caret-position="144">
           <caret line="8" selection-start-line="8" selection-end-line="30" selection-end-column="46" />
           <folding>
             <element signature="e#188#226#0" expanded="true" />
@@ -714,29 +770,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="110" column="15" selection-start-line="110" selection-start-column="15" selection-end-line="110" selection-end-column="15" />
+        <state relative-caret-position="452">
+          <caret line="150" column="21" selection-start-line="150" selection-start-column="21" selection-end-line="150" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="91" column="20" selection-start-line="91" selection-start-column="20" selection-end-line="91" selection-end-column="20" />
+        <state relative-caret-position="556">
+          <caret line="90" column="43" selection-start-line="90" selection-start-column="43" selection-end-line="90" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/treeFit.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="626">
-          <caret line="355" column="14" selection-start-line="355" selection-start-column="14" selection-end-line="355" selection-end-column="14" />
+        <state relative-caret-position="1296">
+          <caret line="393" lean-forward="true" selection-start-line="393" selection-end-line="393" />
           <folding>
             <element signature="e#104#142#0" expanded="true" />
             <element signature="e#1032#1049#0" expanded="true" />
             <element signature="e#1840#2528#0" />
             <element signature="e#3380#4273#0" />
-            <element signature="e#13228#14962#0" />
-            <element signature="e#17677#18424#0" />
+            <element signature="e#4276#6174#0" />
+            <element signature="e#6252#9616#0" />
+            <element signature="e#7791#9403#0" />
+            <element signature="e#13193#15763#0" />
+            <element signature="e#21684#23418#0" />
           </folding>
         </state>
       </provider>

@@ -1,22 +1,22 @@
 Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_68113/fast"
-/usr/bin/make -f CMakeFiles/cmTC_68113.dir/build.make CMakeFiles/cmTC_68113.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_12c48/fast"
+/usr/bin/make -f CMakeFiles/cmTC_12c48.dir/build.make CMakeFiles/cmTC_12c48.dir/build
 make[1]: Entering directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_68113.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_68113.dir/CheckSymbolExists.c.o   -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_68113
-/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.3911.40/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_68113.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_68113.dir/CheckSymbolExists.c.o  -o cmTC_68113 
-CMakeFiles/cmTC_68113.dir/CheckSymbolExists.c.o: In function `main':
+Building C object CMakeFiles/cmTC_12c48.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_12c48.dir/CheckSymbolExists.c.o   -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_12c48
+/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.4129.51/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_12c48.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_12c48.dir/CheckSymbolExists.c.o  -o cmTC_12c48 
+CMakeFiles/cmTC_12c48.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_68113.dir/build.make:86: recipe for target 'cmTC_68113' failed
-make[1]: *** [cmTC_68113] Error 1
+CMakeFiles/cmTC_12c48.dir/build.make:86: recipe for target 'cmTC_12c48' failed
+make[1]: *** [cmTC_12c48] Error 1
 make[1]: Leaving directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
-Makefile:121: recipe for target 'cmTC_68113/fast' failed
-make: *** [cmTC_68113/fast] Error 2
+Makefile:121: recipe for target 'cmTC_12c48/fast' failed
+make: *** [cmTC_12c48/fast] Error 2
 
 File /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -36,20 +36,20 @@ int main(int argc, char** argv)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_02a77/fast"
-/usr/bin/make -f CMakeFiles/cmTC_02a77.dir/build.make CMakeFiles/cmTC_02a77.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_4194c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4194c.dir/build.make CMakeFiles/cmTC_4194c.dir/build
 make[1]: Entering directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_02a77.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_02a77.dir/CheckFunctionExists.c.o   -c /home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.3911.40/bin/cmake/linux/share/cmake-3.12/Modules/CheckFunctionExists.c
-Linking C executable cmTC_02a77
-/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.3911.40/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_02a77.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_02a77.dir/CheckFunctionExists.c.o  -o cmTC_02a77 -lpthreads 
+Building C object CMakeFiles/cmTC_4194c.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_4194c.dir/CheckFunctionExists.c.o   -c /home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.4129.51/bin/cmake/linux/share/cmake-3.12/Modules/CheckFunctionExists.c
+Linking C executable cmTC_4194c
+/home/teeramoo/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.4129.51/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4194c.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_4194c.dir/CheckFunctionExists.c.o  -o cmTC_4194c -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_02a77.dir/build.make:86: recipe for target 'cmTC_02a77' failed
-make[1]: *** [cmTC_02a77] Error 1
+CMakeFiles/cmTC_4194c.dir/build.make:86: recipe for target 'cmTC_4194c' failed
+make[1]: *** [cmTC_4194c] Error 1
 make[1]: Leaving directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/CMakeFiles/CMakeTmp'
-Makefile:121: recipe for target 'cmTC_02a77/fast' failed
-make: *** [cmTC_02a77/fast] Error 2
+Makefile:121: recipe for target 'cmTC_4194c/fast' failed
+make: *** [cmTC_4194c/fast] Error 2
 
 

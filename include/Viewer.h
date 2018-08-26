@@ -61,6 +61,7 @@ public:
 
     void addLineByCoefficient(pcl::ModelCoefficients &lineCoefficients, std::string lineName);
 
+
 private:
     boost::shared_ptr<pcl::visualization::PCLVisualizer> cloudViewer;
 

@@ -60,7 +60,7 @@ void PlaneProcessor::calculatePlaneVector() {
 
     double angle2vecs = calculateAngleBetweenVectors(planeVector, yAxis);
 
-    if(angle2vecs > 90.0) {
+    if(angle2vecs < 90.0) {
         planeVector = planeVector*-1;
     }
 

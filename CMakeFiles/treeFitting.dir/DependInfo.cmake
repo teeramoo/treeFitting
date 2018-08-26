@@ -38,7 +38,6 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "."
   "include"
   "src"
-  "/octave"
   "/usr/local/include"
   )
 

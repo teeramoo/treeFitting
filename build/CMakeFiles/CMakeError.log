@@ -1,24 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp
+Change Dir: /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_fec81/fast"
-/usr/bin/make -f CMakeFiles/cmTC_fec81.dir/build.make CMakeFiles/cmTC_fec81.dir/build
-make[1]: Entering directory '/home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_fec81.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTC_fec81.dir/CheckSymbolExists.c.o   -c /home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_fec81
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fec81.dir/link.txt --verbose=1
-/usr/bin/cc      -rdynamic CMakeFiles/cmTC_fec81.dir/CheckSymbolExists.c.o  -o cmTC_fec81 
-CMakeFiles/cmTC_fec81.dir/CheckSymbolExists.c.o: In function `main':
-CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+Run Build Command:"/usr/bin/make" "cmTC_0706b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0706b.dir/build.make CMakeFiles/cmTC_0706b.dir/build
+make[1]: Entering directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0706b.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_0706b.dir/CheckSymbolExists.c.o   -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_0706b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0706b.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_0706b.dir/CheckSymbolExists.c.o  -o cmTC_0706b -rdynamic 
+CMakeFiles/cmTC_0706b.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_fec81.dir/build.make:97: recipe for target 'cmTC_fec81' failed
-make[1]: *** [cmTC_fec81] Error 1
-make[1]: Leaving directory '/home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_fec81/fast' failed
-make: *** [cmTC_fec81/fast] Error 2
+CMakeFiles/cmTC_0706b.dir/build.make:97: recipe for target 'cmTC_0706b' failed
+make[1]: *** [cmTC_0706b] Error 1
+make[1]: Leaving directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_0706b/fast' failed
+make: *** [cmTC_0706b/fast] Error 2
 
-File /home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp
+Change Dir: /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_f3784/fast"
-/usr/bin/make -f CMakeFiles/cmTC_f3784.dir/build.make CMakeFiles/cmTC_f3784.dir/build
-make[1]: Entering directory '/home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_f3784.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_f3784.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
-Linking C executable cmTC_f3784
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f3784.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_f3784.dir/CheckFunctionExists.c.o  -o cmTC_f3784 -lpthreads 
-/usr/bin/x86_64-linux-gnu-ld: cannot find -lpthreads
+Run Build Command:"/usr/bin/make" "cmTC_65575/fast"
+/usr/bin/make -f CMakeFiles/cmTC_65575.dir/build.make CMakeFiles/cmTC_65575.dir/build
+make[1]: Entering directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_65575.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_65575.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_65575
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_65575.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_65575.dir/CheckFunctionExists.c.o  -o cmTC_65575 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_f3784.dir/build.make:97: recipe for target 'cmTC_f3784' failed
-make[1]: *** [cmTC_f3784] Error 1
-make[1]: Leaving directory '/home/teeramoo/Desktop/ThesisWork/treeFitting/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_f3784/fast' failed
-make: *** [cmTC_f3784/fast] Error 2
+CMakeFiles/cmTC_65575.dir/build.make:97: recipe for target 'cmTC_65575' failed
+make[1]: *** [cmTC_65575] Error 1
+make[1]: Leaving directory '/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_65575/fast' failed
+make: *** [cmTC_65575/fast] Error 2
 
 
