@@ -1015,6 +1015,7 @@ CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o: /usr/local/include/vtk-7.1/vtk
 CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o: /usr/local/include/vtk-7.1/vtkkwiml/int.h
 
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: ../include/PlaneProcessor.h
+CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: ../include/Viewer.h
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: ../src/PlaneProcessor.cpp
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: /usr/local/include/eigen3/Eigen/Cholesky
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o: /usr/local/include/eigen3/Eigen/Core

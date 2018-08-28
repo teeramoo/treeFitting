@@ -197,6 +197,8 @@ NormalEstimator.h
 /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp
 PlaneProcessor.h
 /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.h
+Viewer.h
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/Viewer.h
 
 /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/Viewer.cpp
 Viewer.h

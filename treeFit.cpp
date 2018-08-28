@@ -30,6 +30,7 @@
 #include <pcl/filters/model_outlier_removal.h>
 #include <pcl/filters/statistical_outlier_removal.h>
 #include <pcl/filters/project_inliers.h>
+#include <pcl/segmentation/extract_clusters.h>
 
 
 // cpp libraries
@@ -218,15 +219,34 @@ void removePointsRightSide(pcl::PointXYZRGB &firstKFPoint, pcl::PointXYZRGB &las
 
 }
 
+void calculatePlaneNormalVector(Eigen::Vector4d &planeEquation, Eigen::Vector3d &planeNormalVector){
 
-void projectPointsToPlane(Eigen::Vector4d &planeEquation,pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputCloud,
+    planeNormalVector[0] = planeEquation[0];
+    planeNormalVector[1] = planeEquation[1];
+    planeNormalVector[2] = planeEquation[2];
+
+    planeNormalVector.normalize();
+
+    Eigen::Vector3d yAxis(0.0 , 1.0 , 0.0);
+
+    double numerator = planeNormalVector.dot(yAxis);
+
+    double denominator = planeNormalVector.norm() * yAxis.norm();
+
+    double angle = acos(numerator/denominator) * 180 / M_PI; // return angle between two vectors in degrees
+
+    if(angle <= 90.0) {
+        planeNormalVector = planeNormalVector*-1;
+    }
+
+
+}
+
+void projectPointsToPlane(Eigen::Vector4d &planeEquation, Eigen::Vector3d &planeNormalVector, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputCloud,
                           pcl::PointCloud<pcl::PointXYZRGB>::Ptr &outputCloud){
 
 
     // Calculate a unit plane normal vector
-    Eigen::Vector3d planeNormalVector(planeEquation[0],
-                                      planeEquation[1],
-                                      planeEquation[2]);
 
     planeNormalVector.normalize();
 
@@ -272,15 +292,11 @@ void projectPointsToPlane(Eigen::Vector4d &planeEquation,pcl::PointCloud<pcl::Po
 
 }
 
-void projectPairPointIndexToPlane(Eigen::Vector4d &planeEquation,std::vector<std::pair<pcl::PointXYZRGB, int>> &vPairPointIndex,
+void projectPairPointIndexToPlane(Eigen::Vector4d &planeEquation, Eigen::Vector3d &planeNormalVector, std::vector<std::pair<pcl::PointXYZRGB, int>> &vPairPointIndex,
                                   std::vector<std::pair<pcl::PointXYZRGB, int>> &vProjectedPairPointIndex){
 
 
     // Calculate a unit plane normal vector
-    Eigen::Vector3d planeNormalVector(planeEquation[0],
-                                      planeEquation[1],
-                                      planeEquation[2]);
-
     planeNormalVector.normalize();
 
     if(planeNormalVector.norm() > 1.0) {
@@ -296,6 +312,7 @@ void projectPairPointIndexToPlane(Eigen::Vector4d &planeEquation,std::vector<std
         // and x = x1 + at , y = y1 + bt , z = z1 + ct are parametric equation of a 3D line
 
         pcl::PointXYZRGB tempPoint = vPairPointIndex[i].first;
+        int tempPointIndex = vPairPointIndex[i].second;
 
         double A = planeEquation[0];
         double B = planeEquation[1];
@@ -319,21 +336,25 @@ void projectPairPointIndexToPlane(Eigen::Vector4d &planeEquation,std::vector<std
         projectedPoint.y = y1 + b*t;
         projectedPoint.z = z1 + c*t;
 
-        vProjectedPairPointIndex.push_back(std::make_pair(projectedPoint,i));
+        vProjectedPairPointIndex.push_back(std::make_pair(projectedPoint, tempPointIndex));
 
+//        vProjectedPairPointIndex.push_back(std::make_pair(projectedPoint, i));
     }
 
 
 }
 
 
-void searchRadius2d(Eigen::Vector3d &planeNormalVector, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &projectedKeypoints,
+void searchRadius2d(Eigen::Vector4d &planeEquation, Eigen::Vector3d &planeNormalVector, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &projectedKeypoints,
                     std::vector<std::pair<pcl::PointXYZRGB,int>> &vProjectedPairPointIndex,
                     double &plantDistanceRow, double &plantDistanceColumn,
                     std::vector<std::pair<pcl::PointXYZRGB,int>> &vCleanedProjectedPairPointIndex) {
 
+    cout << "total number of pointcloud before search radius 2d is : " << vProjectedPairPointIndex.size() << endl;
+
     //verify search radius. pick the lowest one between row and column planting distance
     double searchRadius = plantDistanceRow * 0.5;
+
 
     for(size_t currentKP = 0; currentKP < projectedKeypoints->points.size(); currentKP++) {
 
@@ -354,6 +375,11 @@ void searchRadius2d(Eigen::Vector3d &planeNormalVector, pcl::PointCloud<pcl::Poi
 
         Eigen::Vector3d leftVector = planeNormalVector.cross(vecKPs);
         leftVector.normalize();
+
+        if(currentKP == 0) {
+            cout << "leftVector is : " << leftVector << endl;
+            cout << "vecKPs is : " << vecKPs << endl;
+        }
 
         //Assume data collector walks exactly at the middle of tree rows.
         //Shift the first KP to the left by plantDistanceRow * 0.5
@@ -394,11 +420,73 @@ void searchRadius2d(Eigen::Vector3d &planeNormalVector, pcl::PointCloud<pcl::Poi
 
     }
 
+    cout << "total number of point cloud after search radius 2d is : " << vCleanedProjectedPairPointIndex.size() << endl;
+
+}
+
+void extractClusterProjectedIndices(std::vector<pcl::PointIndices> &cluster_indices,  std::vector<std::pair<pcl::PointXYZRGB,int>> &vCleanedProjectedPairPointIndex,
+                                    std::vector<std::vector<int>> &vClusteredProjectedPointsIndices){
+
+
+
+    for(size_t clusterNumber = 0; clusterNumber < cluster_indices.size(); clusterNumber++) {
+
+
+        std::vector<int> clusterProjectedPointIndices;
+
+        for(size_t pointIndices = 0; pointIndices < cluster_indices[clusterNumber].indices.size(); pointIndices++) {
+
+            int indexNumber = cluster_indices[clusterNumber].indices[pointIndices];
+
+            //the corresponding pair
+            int point3dIndex = vCleanedProjectedPairPointIndex[indexNumber].second;
+            clusterProjectedPointIndices.push_back(point3dIndex);
+
+
+        }
+
+        vClusteredProjectedPointsIndices.push_back(clusterProjectedPointIndices);
+
+    }
+
+
+
+
+}
+
+void get3dPointFrom2dIndices(std::vector<std::vector<int>> &vClusteredProjectedPointsIndices, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &originalCloud ,
+                             std::vector<pcl::PointCloud<pcl::PointXYZRGB>::Ptr> &vPointClouds){
+
+
+    //Cluster
+    for(size_t clusterNumber = 0; clusterNumber < vClusteredProjectedPointsIndices.size(); clusterNumber++) {
+
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr tempPointCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+        //Extract points for each cluster
+        for(size_t pointNumber = 0; pointNumber < vClusteredProjectedPointsIndices[clusterNumber].size(); pointNumber++) {
+
+            int tempIndex = vClusteredProjectedPointsIndices[clusterNumber][pointNumber];
+
+            pcl::PointXYZRGB tempPoint = originalCloud->points[tempIndex];
+
+            tempPointCloud->points.push_back(tempPoint);
+
+        }
+
+        tempPointCloud->width = tempPointCloud->points.size();
+        tempPointCloud->height = 1;
+
+        vPointClouds.push_back(tempPointCloud);
+
+    }
+
+
 
 }
 
 void initialCloudClustering(Eigen::Vector4d &planeEquation, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputCloud,
-                            double &planeDistanceRow, double &planeDistanceColumn, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &keypoints,
+                            double &plantDistanceRow, double &plantDistanceColumn, pcl::PointCloud<pcl::PointXYZRGB>::Ptr &keypoints,
                             pcl::PointCloud<pcl::PointXYZRGB>::Ptr &outputCloud){
 
     std::vector<std::pair<pcl::PointXYZRGB, int>> vPairPointIndex;
@@ -412,15 +500,73 @@ void initialCloudClustering(Eigen::Vector4d &planeEquation, pcl::PointCloud<pcl:
 
     }
 
+    //calculate a plane normal vector
+    Eigen::Vector3d planeNormalVector;
+    calculatePlaneNormalVector(planeEquation, planeNormalVector);
+
+
     //project all keypoints to plane
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr projectedKeypoints (new pcl::PointCloud<pcl::PointXYZRGB>);
-    projectPointsToPlane(planeEquation, keypoints, projectedKeypoints);
+    projectPointsToPlane(planeEquation, planeNormalVector, keypoints, projectedKeypoints);
 
    //project vPairPointIndex to the plane
    std::vector<std::pair<pcl::PointXYZRGB,int>> vProjectedPairPointIndex;
-   projectPairPointIndexToPlane(planeEquation,vPairPointIndex,vProjectedPairPointIndex);
+   projectPairPointIndexToPlane(planeEquation, planeNormalVector, vPairPointIndex,vProjectedPairPointIndex);
 
     //search 2d radius including finding vector to the left of two keypoints
+    std::vector<std::pair<pcl::PointXYZRGB,int>> vCleanedProjectedPairPointIndex;
+
+    searchRadius2d(planeEquation, planeNormalVector, projectedKeypoints, vProjectedPairPointIndex,plantDistanceRow,plantDistanceColumn, vCleanedProjectedPairPointIndex);
+
+    //put cleaned points into a point cloud
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cleanedProjectedPointcloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+
+    for(int i = 0; i < vCleanedProjectedPairPointIndex.size(); i ++ ) {
+
+        pcl::PointXYZRGB tempProjectedCleanPoint = vCleanedProjectedPairPointIndex[i].first;
+        tempProjectedCleanPoint.r = 255;
+        tempProjectedCleanPoint.g = 0;
+        tempProjectedCleanPoint.b = 0;
+
+        cleanedProjectedPointcloud->points.push_back(tempProjectedCleanPoint);
+
+    }
+
+    cout << "total points in cleanedProjectedPointcloud : " << cleanedProjectedPointcloud->points.size() << endl;
+
+    //perform Euclidean clustering on the projected point cloud
+    pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZRGB>);
+    tree->setInputCloud (cleanedProjectedPointcloud);
+
+    std::vector<pcl::PointIndices> cluster_indices;
+    pcl::EuclideanClusterExtraction<pcl::PointXYZRGB> ec;
+    ec.setClusterTolerance (0.5); // 2cm
+    ec.setMinClusterSize (10);
+    ec.setMaxClusterSize (500);
+    ec.setSearchMethod (tree);
+    ec.setInputCloud (cleanedProjectedPointcloud);
+    ec.extract (cluster_indices);
+
+    cout << "there are " << cluster_indices.size() << " clusters in the input cloud." << endl;
+
+    //Extract indices from clusters of projected 2d points
+    std::vector<std::vector<int>> vClusteredProjectedPointsIndices;
+    extractClusterProjectedIndices(cluster_indices, vCleanedProjectedPairPointIndex, vClusteredProjectedPointsIndices);
+
+    //Extract 3D points from vClusteredProjectedPointsIndices
+    std::vector<pcl::PointCloud<pcl::PointXYZRGB>::Ptr> vPointClouds;
+    get3dPointFrom2dIndices(vClusteredProjectedPointsIndices, inputCloud, vPointClouds);
+
+    std::string viewClusters = "viewClusters";
+    Viewer viewClusteredCloud(viewClusters,viewClusters);
+
+
+    for(int clusterNum = 0; clusterNum < vPointClouds.size(); clusterNum++) {
+        std::string clouds = "clouds" + std::to_string(clusterNum) ;
+        viewClusteredCloud.addPointcloud(vPointClouds[clusterNum],clouds);
+
+    }
+    viewClusteredCloud.run();
 
 
 }
@@ -560,16 +706,21 @@ main (int argc, char** argv) {
 
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr projectedPoints(new pcl::PointCloud<pcl::PointXYZRGB>);
 
+    // cant use plane equation, must use normal vector instead
     Eigen::Vector4d planeEquation(myPlane.getPlaneCoefficient()->values[0],myPlane.getPlaneCoefficient()->values[1],
                                   myPlane.getPlaneCoefficient()->values[2],myPlane.getPlaneCoefficient()->values[3]);
 
-    projectPointsToPlane(planeEquation, inputProjectedPoints, projectedPoints);
+//    projectPointsToPlane(planeEquation, inputProjectedPoints, projectedPoints);
+
+    initialCloudClustering(planeEquation, inputProjectedPoints, plantDistanceRow, plantDistanceColumn,keypoint_ptr,projectedPoints);
 
     std::string afterName = "afterName";
     Viewer afterProjection(afterName,afterName);
     std::string aftProjection = "aftProjection";
     afterProjection.addPointcloud(projectedPoints,aftProjection);
     afterProjection.run();
+
+
 
     return -1;
 

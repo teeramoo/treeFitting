@@ -372,6 +372,8 @@ CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/search/
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/search/organized.h
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/search/pcl_search.h
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/search/search.h
+CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/segmentation/extract_clusters.h
+CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/segmentation/impl/extract_clusters.hpp
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/segmentation/impl/sac_segmentation.hpp
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/segmentation/sac_segmentation.h
 CMakeFiles/treeFitting.dir/treeFit.cpp.o: /usr/local/include/pcl-1.8/pcl/visualization/area_picking_event.h

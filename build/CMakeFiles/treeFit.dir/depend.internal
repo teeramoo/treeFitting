@@ -1016,6 +1016,7 @@ CMakeFiles/treeFit.dir/src/NormalEstimator.cpp.o
  /usr/local/include/vtk-7.1/vtkkwiml/int.h
 CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o
  ../include/PlaneProcessor.h
+ ../include/Viewer.h
  /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/src/PlaneProcessor.cpp
  /usr/local/include/eigen3/Eigen/Cholesky
  /usr/local/include/eigen3/Eigen/Core

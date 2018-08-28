@@ -235,6 +235,8 @@ pcl/filters/statistical_outlier_removal.h
 -
 pcl/filters/project_inliers.h
 -
+pcl/segmentation/extract_clusters.h
+-
 chrono
 -
 ctime
@@ -2812,6 +2814,18 @@ pcl/common/concatenate.h
 pcl/common/copy_point.h
 -
 pcl/search/impl/search.hpp
+-
+
+/usr/local/include/pcl-1.8/pcl/segmentation/extract_clusters.h
+pcl/pcl_base.h
+-
+pcl/search/pcl_search.h
+-
+pcl/segmentation/impl/extract_clusters.hpp
+-
+
+/usr/local/include/pcl-1.8/pcl/segmentation/impl/extract_clusters.hpp
+pcl/segmentation/extract_clusters.h
 -
 
 /usr/local/include/pcl-1.8/pcl/segmentation/impl/sac_segmentation.hpp

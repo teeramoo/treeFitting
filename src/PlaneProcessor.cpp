@@ -3,6 +3,7 @@
 //
 
 #include "PlaneProcessor.h"
+#include "Viewer.h"
 
 PlaneProcessor::~PlaneProcessor() {
  //   cout << "PlaneProcessor has been destroyed." << endl;
@@ -60,10 +61,13 @@ void PlaneProcessor::calculatePlaneVector() {
 
     double angle2vecs = calculateAngleBetweenVectors(planeVector, yAxis);
 
-    if(angle2vecs < 90.0) {
+    cout << "angle between y-axis and normal plane vector is : " << angle2vecs << endl;
+
+    if(angle2vecs <= 90.0) {
         planeVector = planeVector*-1;
     }
 
+    cout << "planeVector after angle calculation : " << planeVector << endl;
 
     setPlaneVector(planeVector);
 
