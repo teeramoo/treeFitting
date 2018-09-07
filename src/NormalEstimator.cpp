@@ -12,7 +12,7 @@ NormalEstimator::NormalEstimator(pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputPoi
     _ne.setSearchMethod (tree);
     pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal>);
     _ne.setRadiusSearch (searchRadius);
-//    _ne.setKSearch(100);
+//    _ne.setKSearch(10);
     setEstimator(_ne);
     setInputPointCloud(inputPointCloud);
 

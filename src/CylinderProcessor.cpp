@@ -17,9 +17,9 @@ CylinderProcessor::CylinderProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inp
     cylinderSegmenter.setEpsAngle(epsAngle);
     cylinderSegmenter.setMethodType (pcl::SAC_RANSAC);
     cylinderSegmenter.setNormalDistanceWeight (0.1); // 0.0
-    cylinderSegmenter.setMaxIterations (50000);
-    cylinderSegmenter.setDistanceThreshold (0.6); //0.2
-    cylinderSegmenter.setRadiusLimits (0.01, 0.1);
+    cylinderSegmenter.setMaxIterations (10000);
+    cylinderSegmenter.setDistanceThreshold (0.05); //0.2
+    cylinderSegmenter.setRadiusLimits (0.0, 0.1);
     cylinderSegmenter.setInputCloud (inputPointCloud);
 
     pcl::PointIndices::Ptr inliers_cylinder (new pcl::PointIndices);

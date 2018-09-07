@@ -1,5 +1,0 @@
-#./treeFitting -r ../scaled_point_cloud.pcd ../scaled_keyframe.pcd 2.0 10.0 
-
-./treeFitting -a ../scaled_point_cloudAITfield.pcd ../scaled_keyrameAITfield.pcd 1.5 10.0
-
-./treeFitting ../

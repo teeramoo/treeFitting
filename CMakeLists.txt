@@ -10,7 +10,7 @@ IF(PCL_FOUND)
 	message(STATUS "found PCL at ${PCL_LIBRARY_DIRS}")
 ENDIF(PCL_FOUND)
 
-
+find_package(OpenCV 3.2 REQUIRED)
 
 include_directories(${PCL_INCLUDE_DIRS}
 	${PROJECT_SOURCE_DIR}
@@ -41,7 +41,7 @@ set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
 #add_executable (treeFit treeFit.cpp src/planeSegmentation.cpp src/planeSegmentation.h)
 add_executable (treeFitting treeFit.cpp)
 
-target_link_libraries(treeFitting ${PROJECT_NAME} ${PCL_LIBRARIES} ${OCTAVE_LIBRARIES})
+target_link_libraries(treeFitting ${PROJECT_NAME} ${PCL_LIBRARIES} ${OCTAVE_LIBRARIES} ${OpenCV_LIBS})
 
 
 

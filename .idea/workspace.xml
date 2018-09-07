@@ -12,19 +12,82 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e0936664-212d-4cba-b8ee-0e0df8d28d4e" name="Default" comment="backup before fixing initial search">
+    <list default="true" id="e0936664-212d-4cba-b8ee-0e0df8d28d4e" name="Default" comment="revamp the code. Add Euclidean clustering to cluster groups of points that might represent tree trunks.">
+      <change afterPath="$PROJECT_DIR$/treeFitEuclideanClustering.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/PlaneProcessor.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.run.sh.swp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CompilerIdC/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.12.0/CompilerIdCXX/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeError.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/clion-environment.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/clion-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/feature_tests.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/feature_tests.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/feature_tests.cxx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFit.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/treeFitting.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projected_cleanPointCloud.pcd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projected_pointcloud_without_plane.pcd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeError.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeError.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFit.dir/src/CylinderProcessor.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/build.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/depend.internal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/link.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/treeFitting.dir/treeFit.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libtreeFit.so" beforeDir="false" afterPath="$PROJECT_DIR$/build/libtreeFit.so" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/treeFitting" beforeDir="false" afterPath="$PROJECT_DIR$/build/treeFitting" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlaneProcessor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlaneProcessor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farm1left.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farm1right.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farm2left.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farm2right.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farm3left.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/farm3right.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/CylinderProcessor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/CylinderProcessor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/real_distance_Downward_scaled_point_cloud.pcd" beforeDir="false" afterPath="$PROJECT_DIR$/real_distance_Downward_scaled_point_cloud.pcd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/real_distance_Scaled_keyframe.pcd" beforeDir="false" afterPath="$PROJECT_DIR$/real_distance_Scaled_keyframe.pcd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/real_distance_Upward_scaled_poincloud.pcd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh.save" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CylinderProcessor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/CylinderProcessor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NormalEstimator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/NormalEstimator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treeFit.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/treeFit.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treeFit.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/treeFit.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/CMakeFiles/" />
@@ -53,51 +116,57 @@
     <session id="340708748">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
-          <entry key="project.open.time.13" value="3" />
-          <entry key="project.open.time.14" value="4" />
+          <entry key="project.open.time.10" value="1" />
+          <entry key="project.open.time.11" value="3" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.13" value="5" />
+          <entry key="project.open.time.14" value="5" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="2" />
           <entry key="project.open.time.18" value="1" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="4" />
-          <entry key="h" value="5" />
+          <entry key="cpp" value="6" />
+          <entry key="h" value="6" />
           <entry key="hpp" value="1" />
+          <entry key="pcd" value="1" />
           <entry key="save" value="1" />
           <entry key="sh" value="2" />
-          <entry key="txt" value="1" />
+          <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="93" />
-          <entry key="CMakeLists.txt" value="4" />
-          <entry key="ObjectiveC" value="24817" />
-          <entry key="PLAIN_TEXT" value="57" />
+          <entry key="CMakeLists.txt" value="42" />
+          <entry key="ObjectiveC" value="28124" />
+          <entry key="PLAIN_TEXT" value="199" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="24501" />
-          <entry key="h" value="316" />
+          <entry key="cpp" value="27806" />
+          <entry key="h" value="318" />
           <entry key="sh" value="93" />
-          <entry key="txt" value="61" />
+          <entry key="txt" value="241" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Bash" value="2" />
-          <entry key="CMakeLists.txt" value="1" />
-          <entry key="ObjectiveC" value="10" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="CMakeLists.txt" value="2" />
+          <entry key="ObjectiveC" value="13" />
+          <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.cidr.testingFrameworks.usages" />
@@ -127,36 +196,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/treeFit.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="652">
-              <caret line="569" lean-forward="true" selection-start-line="569" selection-end-line="569" />
+            <state relative-caret-position="232">
+              <caret line="264" selection-start-line="264" selection-end-line="264" />
               <folding>
                 <element signature="e#104#142#0" expanded="true" />
-                <element signature="e#1032#1049#0" expanded="true" />
-                <element signature="e#1840#2528#0" />
-                <element signature="e#3380#4273#0" />
-                <element signature="e#4276#6174#0" />
-                <element signature="e#6177#7789#0" />
-                <element signature="e#13117#13151#0" />
-                <element signature="e#19813#22383#0" />
-                <element signature="e#26564#28298#0" />
-                <element signature="e#31013#31760#0" />
-                <element signature="e#33113#33405#0" />
-                <element signature="e#33406#33904#0" />
-                <element signature="e#36629#37446#0" />
-                <element signature="e#38590#39533#0" />
-                <element signature="e#39959#41004#0" />
+                <element signature="e#1918#2606#0" />
+                <element signature="e#28844#31695#0" />
+                <element signature="e#31712#34282#0" />
+                <element signature="e#38463#40197#0" />
+                <element signature="e#48528#49345#0" />
+                <element signature="e#50489#51432#0" />
+                <element signature="e#56549#56754#0" />
+                <element signature="e#56756#56909#0" />
+                <element signature="e#56911#57396#0" />
+                <element signature="e#57398#58291#0" />
+                <element signature="e#58294#60192#0" />
+                <element signature="e#60194#60826#0" />
+                <element signature="e#60828#62308#0" />
+                <element signature="e#62310#64012#0" />
+                <element signature="e#64015#67237#0" />
+                <element signature="e#67239#68157#0" />
+                <element signature="e#68159#69402#0" />
+                <element signature="e#69404#74100#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/treeFitEuclideanClustering.cpp">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
+            <state relative-caret-position="1206">
               <caret line="67" column="5" selection-start-line="64" selection-end-line="67" selection-end-column="5" />
               <folding>
                 <element signature="e#44#71#0" expanded="true" />
@@ -196,47 +274,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2034">
-              <caret line="113" selection-start-line="113" selection-end-line="113" />
-              <folding>
-                <element signature="e#113#147#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CylinderProcessor.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+            <state relative-caret-position="594">
+              <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
               <folding>
-                <element signature="e#188#1503#0" />
                 <element signature="e#1505#1695#0" />
+                <element signature="e#1697#4067#0" />
+                <element signature="e#6410#8024#0" />
+                <element signature="e#8027#9124#0" />
+                <element signature="e#9126#9294#0" />
+                <element signature="e#9296#9615#0" />
+                <element signature="e#9618#10042#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
+        <entry file="file://$PROJECT_DIR$/src/NormalEstimator.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1620">
-              <caret line="90" column="43" selection-start-line="90" selection-start-column="43" selection-end-line="90" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/NormalEstimator.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" selection-start-line="8" selection-end-line="30" selection-end-column="46" />
-              <folding>
-                <element signature="e#188#226#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="252">
+              <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -301,17 +360,17 @@
         <option value="$PROJECT_DIR$/src/CylinderSegment.cpp" />
         <option value="$PROJECT_DIR$/src/CylinderCluster.h" />
         <option value="$PROJECT_DIR$/src/cloudProcessor.h" />
-        <option value="$PROJECT_DIR$/src/NormalEstimator.cpp" />
         <option value="$PROJECT_DIR$/include/HeightEstimator.h" />
         <option value="$PROJECT_DIR$/src/HeightEstimator.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/PlaneProcessor.h" />
-        <option value="$PROJECT_DIR$/src/CylinderProcessor.cpp" />
-        <option value="$PROJECT_DIR$/include/CylinderProcessor.h" />
         <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/include/Viewer.h" />
         <option value="$PROJECT_DIR$/src/Viewer.cpp" />
         <option value="$PROJECT_DIR$/src/PlaneProcessor.cpp" />
+        <option value="$PROJECT_DIR$/include/CylinderProcessor.h" />
+        <option value="$PROJECT_DIR$/src/CylinderProcessor.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/NormalEstimator.cpp" />
         <option value="$PROJECT_DIR$/treeFit.cpp" />
       </list>
     </option>
@@ -324,10 +383,10 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1437" />
-    <option name="y" value="-4" />
-    <option name="width" value="1849" />
-    <option name="height" value="1084" />
+    <option name="x" value="341" />
+    <option name="y" value="89" />
+    <option name="width" value="1293" />
+    <option name="height" value="452" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -335,6 +394,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -356,7 +416,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -366,11 +425,11 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/include" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/include" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/include" />
     </key>
   </component>
@@ -525,7 +584,18 @@
       <workItem from="1535091701428" duration="4484000" />
       <workItem from="1535123449700" duration="12262000" />
       <workItem from="1535265192047" duration="12998000" />
-      <workItem from="1535306210942" duration="30018000" />
+      <workItem from="1535306210942" duration="30269000" />
+      <workItem from="1535508511281" duration="5967000" />
+      <workItem from="1535536258482" duration="8629000" />
+      <workItem from="1535613171736" duration="6146000" />
+      <workItem from="1535784381369" duration="599000" />
+      <workItem from="1535868711023" duration="1200000" />
+      <workItem from="1536037504153" duration="1407000" />
+      <workItem from="1536111696043" duration="599000" />
+      <workItem from="1536139239030" duration="24000" />
+      <workItem from="1536139397756" duration="20000" />
+      <workItem from="1536257506556" duration="7328000" />
+      <workItem from="1536310697843" duration="2373000" />
     </task>
     <task id="LOCAL-00001" summary="backup before adding Tree class">
       <created>1534078387050</created>
@@ -562,17 +632,23 @@
       <option name="project" value="LOCAL" />
       <updated>1534868320413</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="revamp the code. Add Euclidean clustering to cluster groups of points that might represent tree trunks.">
+      <created>1535483846206</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1535483846206</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="612765000" />
+    <option name="totallyTimeSpent" value="647308000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1437" y="-4" width="1849" height="1084" extended-state="6" />
-    <editor active="true" />
+    <frame x="70" y="-11" width="1851" height="1092" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.07542984" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.087077096" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -625,7 +701,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="backup before adding Tree class" />
     <MESSAGE value="backup before fixing initial search" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup before fixing initial search" />
+    <MESSAGE value="revamp the code. Add Euclidean clustering to cluster groups of points that might represent tree trunks." />
+    <option name="LAST_COMMIT_MESSAGE" value="revamp the code. Add Euclidean clustering to cluster groups of points that might represent tree trunks." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///usr/local/include/pcl-1.8/pcl/visualization/pcl_visualizer.h" />
@@ -648,13 +725,6 @@
     <entry file="file://$PROJECT_DIR$/include/Geometry.h" />
     <entry file="file://$PROJECT_DIR$/src/CylinderCluster.h" />
     <entry file="file://$PROJECT_DIR$/src/cloudProcessor.h" />
-    <entry file="file:///usr/local/include/pcl-1.8/pcl/segmentation/sac_segmentation.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="247" column="31" selection-start-line="247" selection-start-column="21" selection-end-line="247" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/treeFit.cpp.backup">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -662,27 +732,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NormalEstimator.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="864">
-          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/HeightEstimator.cpp" />
     <entry file="file://$PROJECT_DIR$/include/HeightEstimator.h" />
     <entry file="file://$PROJECT_DIR$/run.sh.save" />
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/include/pcl-1.8/pcl/visualization/impl/pcl_visualizer.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="472" column="35" selection-start-line="472" selection-start-column="35" selection-end-line="472" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/eigen3/Eigen/src/Core/Matrix.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="202" column="24" selection-start-line="202" selection-start-column="24" selection-end-line="202" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/NormalEstimator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" selection-start-line="8" selection-end-line="30" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/pcl-1.8/pcl/segmentation/sac_segmentation.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="222" column="6" selection-start-line="222" selection-start-column="6" selection-end-line="222" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_distance_Downward_scaled_point_cloud.pcd">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-482">
+          <caret line="57" column="6" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1206">
+          <caret line="67" column="5" selection-start-line="64" selection-end-line="67" selection-end-column="5" />
+          <folding>
+            <element signature="e#44#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -710,84 +821,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/CylinderProcessor.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2034">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
-          <folding>
-            <element signature="e#113#147#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CylinderProcessor.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+        <state relative-caret-position="594">
+          <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
           <folding>
-            <element signature="e#188#1503#0" />
             <element signature="e#1505#1695#0" />
+            <element signature="e#1697#4067#0" />
+            <element signature="e#6410#8024#0" />
+            <element signature="e#8027#9124#0" />
+            <element signature="e#9126#9294#0" />
+            <element signature="e#9296#9615#0" />
+            <element signature="e#9618#10042#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/PlaneProcessor.h">
+    <entry file="file://$PROJECT_DIR$/src/NormalEstimator.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="90" column="43" selection-start-line="90" selection-start-column="43" selection-end-line="90" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/NormalEstimator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" selection-start-line="8" selection-end-line="30" selection-end-column="46" />
-          <folding>
-            <element signature="e#188#226#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/eigen3/Eigen/src/Core/Matrix.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="202" column="24" selection-start-line="202" selection-start-column="24" selection-end-line="202" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/PlaneProcessor.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="67" column="5" selection-start-line="64" selection-end-line="67" selection-end-column="5" />
-          <folding>
-            <element signature="e#44#71#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="252">
+          <caret line="14" column="2" selection-start-line="14" selection-start-column="2" selection-end-line="14" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/treeFit.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="652">
-          <caret line="569" lean-forward="true" selection-start-line="569" selection-end-line="569" />
+        <state relative-caret-position="232">
+          <caret line="264" selection-start-line="264" selection-end-line="264" />
           <folding>
             <element signature="e#104#142#0" expanded="true" />
-            <element signature="e#1032#1049#0" expanded="true" />
-            <element signature="e#1840#2528#0" />
-            <element signature="e#3380#4273#0" />
-            <element signature="e#4276#6174#0" />
-            <element signature="e#6177#7789#0" />
-            <element signature="e#13117#13151#0" />
-            <element signature="e#19813#22383#0" />
-            <element signature="e#26564#28298#0" />
-            <element signature="e#31013#31760#0" />
-            <element signature="e#33113#33405#0" />
-            <element signature="e#33406#33904#0" />
-            <element signature="e#36629#37446#0" />
-            <element signature="e#38590#39533#0" />
-            <element signature="e#39959#41004#0" />
+            <element signature="e#1918#2606#0" />
+            <element signature="e#28844#31695#0" />
+            <element signature="e#31712#34282#0" />
+            <element signature="e#38463#40197#0" />
+            <element signature="e#48528#49345#0" />
+            <element signature="e#50489#51432#0" />
+            <element signature="e#56549#56754#0" />
+            <element signature="e#56756#56909#0" />
+            <element signature="e#56911#57396#0" />
+            <element signature="e#57398#58291#0" />
+            <element signature="e#58294#60192#0" />
+            <element signature="e#60194#60826#0" />
+            <element signature="e#60828#62308#0" />
+            <element signature="e#62310#64012#0" />
+            <element signature="e#64015#67237#0" />
+            <element signature="e#67239#68157#0" />
+            <element signature="e#68159#69402#0" />
+            <element signature="e#69404#74100#0" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/treeFitEuclideanClustering.cpp">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

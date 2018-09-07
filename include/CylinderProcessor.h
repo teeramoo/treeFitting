@@ -102,6 +102,7 @@ public:
 
     // Instantiator for cylinder segmentation
     CylinderProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputPointCloud, Eigen::Vector3f &normalVector, double &epsAngle, bool &bOptimization);
+    CylinderProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inputPointCloud, Eigen::Vector3d &normalVector, double &epsAngle, bool &bOptimization);
 
     // Instatiator for cylinder refinement
     CylinderProcessor(double &distanceLimit, enum CylinderProcessor::refineOptions refineOption);
