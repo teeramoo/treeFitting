@@ -186,7 +186,7 @@ pcl/segmentation/sac_segmentation.h
 string
 -
 
-/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit.cpp
+/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit_cylindersearch.cpp
 boost/thread/thread.hpp
 -
 pcl/common/common_headers.h
@@ -234,8 +234,6 @@ pcl/filters/model_outlier_removal.h
 pcl/filters/statistical_outlier_removal.h
 -
 pcl/filters/project_inliers.h
--
-pcl/segmentation/extract_clusters.h
 -
 chrono
 -
@@ -4112,18 +4110,6 @@ pcl/common/concatenate.h
 pcl/common/copy_point.h
 -
 pcl/search/impl/search.hpp
--
-
-/usr/local/include/pcl-1.8/pcl/segmentation/extract_clusters.h
-pcl/pcl_base.h
--
-pcl/search/pcl_search.h
--
-pcl/segmentation/impl/extract_clusters.hpp
--
-
-/usr/local/include/pcl-1.8/pcl/segmentation/impl/extract_clusters.hpp
-pcl/segmentation/extract_clusters.h
 -
 
 /usr/local/include/pcl-1.8/pcl/segmentation/impl/sac_segmentation.hpp

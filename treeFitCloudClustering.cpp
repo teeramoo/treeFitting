@@ -263,7 +263,7 @@ main (int argc, char** argv) {
                                   myPlane.getPlaneCoefficient()->values[2],myPlane.getPlaneCoefficient()->values[3]);
 
 
-    cloudClustering(planeEquation, inputProjectedPoints, plantDistanceRow, plantDistanceColumn,keypoint_ptr, vClusteredPointCloud);
+    cloudClustering(planeEquation, inputProjectedPoints, plantDistanceRow, plantDistanceColumn, keypoint_ptr, vClusteredPointCloud);
 
     std::string afterName = "afterName";
     Viewer afterProjection(afterName,afterName);

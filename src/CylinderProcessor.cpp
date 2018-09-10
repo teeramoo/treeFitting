@@ -16,10 +16,10 @@ CylinderProcessor::CylinderProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inp
     cylinderSegmenter.setAxis(normalVector);
     cylinderSegmenter.setEpsAngle(epsAngle);
     cylinderSegmenter.setMethodType (pcl::SAC_RANSAC);
-    cylinderSegmenter.setNormalDistanceWeight (0.1); // 0.0
+    cylinderSegmenter.setNormalDistanceWeight (0.5); // 0.0
     cylinderSegmenter.setMaxIterations (10000);
-    cylinderSegmenter.setDistanceThreshold (0.05); //0.2
-    cylinderSegmenter.setRadiusLimits (0.0, 0.1);
+    cylinderSegmenter.setDistanceThreshold (1.0); //0.2
+    cylinderSegmenter.setRadiusLimits (0.01, 0.15);
     cylinderSegmenter.setInputCloud (inputPointCloud);
 
     pcl::PointIndices::Ptr inliers_cylinder (new pcl::PointIndices);
@@ -30,7 +30,8 @@ CylinderProcessor::CylinderProcessor(pcl::PointCloud<pcl::PointXYZRGB>::Ptr &inp
     setCylinderCoefficient(coefficients_cylinder);
     setCylinderPointCloud_ptr(cylinderPointCloud_ptr);
 
-    NormalEstimator normalEstimator(inputPointCloud,1.0);
+    int Ksearch = inputPointCloud->points.size();
+    NormalEstimator normalEstimator(inputPointCloud, Ksearch);
     normalEstimator.calculate();
     cylinderSegmenter.setInputNormals (normalEstimator.getCloudNormal());
 }
@@ -142,7 +143,12 @@ void CylinderProcessor::segment(pcl::PointXYZRGB &refKeyframe, bool &bCheckDista
     cylinderSegmenter.segment(*cylinderInliers,*cylinderCoefficients);
 //    cout << "done segmenting a cylinder" << endl;
 
-    if(cylinderCoefficients->values.size() == 0 or cylinderInliers->indices.size() < 20 ) {
+    cout << "cylinderInliers->indices : " << cylinderInliers->indices.size() << endl;
+    cout << "cylinderCoefficients : " << *cylinderCoefficients << endl;
+
+
+    if(cylinderCoefficients->values.empty() or cylinderInliers->indices.size() < 20 ) {
+ //   if(cylinderCoefficients->values.empty() ) {
 
         cylinderCoefficients->header.frame_id = "SKIP";
         cylinderPointcloud_ptr = NULL;

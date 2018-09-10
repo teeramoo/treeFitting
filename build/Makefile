@@ -244,32 +244,32 @@ src/Viewer.cpp.s:
 	$(MAKE) -f CMakeFiles/treeFit.dir/build.make CMakeFiles/treeFit.dir/src/Viewer.cpp.s
 .PHONY : src/Viewer.cpp.s
 
-treeFit.o: treeFit.cpp.o
+treeFit_cylindersearch.o: treeFit_cylindersearch.cpp.o
 
-.PHONY : treeFit.o
+.PHONY : treeFit_cylindersearch.o
 
 # target to build an object file
-treeFit.cpp.o:
-	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit.cpp.o
-.PHONY : treeFit.cpp.o
+treeFit_cylindersearch.cpp.o:
+	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o
+.PHONY : treeFit_cylindersearch.cpp.o
 
-treeFit.i: treeFit.cpp.i
+treeFit_cylindersearch.i: treeFit_cylindersearch.cpp.i
 
-.PHONY : treeFit.i
+.PHONY : treeFit_cylindersearch.i
 
 # target to preprocess a source file
-treeFit.cpp.i:
-	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit.cpp.i
-.PHONY : treeFit.cpp.i
+treeFit_cylindersearch.cpp.i:
+	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.i
+.PHONY : treeFit_cylindersearch.cpp.i
 
-treeFit.s: treeFit.cpp.s
+treeFit_cylindersearch.s: treeFit_cylindersearch.cpp.s
 
-.PHONY : treeFit.s
+.PHONY : treeFit_cylindersearch.s
 
 # target to generate assembly for a file
-treeFit.cpp.s:
-	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit.cpp.s
-.PHONY : treeFit.cpp.s
+treeFit_cylindersearch.cpp.s:
+	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.s
+.PHONY : treeFit_cylindersearch.cpp.s
 
 # Help Target
 help:
@@ -293,9 +293,9 @@ help:
 	@echo "... src/Viewer.o"
 	@echo "... src/Viewer.i"
 	@echo "... src/Viewer.s"
-	@echo "... treeFit.o"
-	@echo "... treeFit.i"
-	@echo "... treeFit.s"
+	@echo "... treeFit_cylindersearch.o"
+	@echo "... treeFit_cylindersearch.i"
+	@echo "... treeFit_cylindersearch.s"
 .PHONY : help
 
 

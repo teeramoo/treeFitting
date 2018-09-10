@@ -288,7 +288,20 @@ main (int argc, char** argv) {
 
     for(int clusterNumber = 0; clusterNumber < vClusteredPointCloud.size(); clusterNumber++) {
 
-        CylinderProcessor tempCylinder(vClusteredPointCloud[clusterNumber], refCylinderAxis, epsAngleS, bCylinderOptimization);
+        pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
+        // Create the filtering object
+        pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor;
+        sor.setInputCloud (vClusteredPointCloud[clusterNumber]);
+        sor.setMeanK (20);
+        sor.setStddevMulThresh (1.0);
+        sor.filter (*cloud_filtered);
+
+        cout << "points before filter : " << vClusteredPointCloud[clusterNumber]->points.size() << endl;
+        cout << "points after filter : " << cloud_filtered->points.size() << endl;
+
+
+//        CylinderProcessor tempCylinder(vClusteredPointCloud[clusterNumber], refCylinderAxis, epsAngleS, bCylinderOptimization);
+        CylinderProcessor tempCylinder(cloud_filtered, refCylinderAxis, epsAngleS, bCylinderOptimization);
         tempCylinder.segment();
 
         Tree tempTree;
@@ -314,6 +327,11 @@ main (int argc, char** argv) {
 
             std::string pointcloudName = "pcName" + std::to_string(clusterNumber);
             treeViewer.addPointcloud(vClusteredPointCloud[clusterNumber], pointcloudName);
+
+            cout << "radius is : " << tempTree.radius << endl;
+            cout << "circumference is : " << tempTree.radius * 2 * M_PI << endl;
+
+
         }
 
         vTrees.push_back(tempTree);

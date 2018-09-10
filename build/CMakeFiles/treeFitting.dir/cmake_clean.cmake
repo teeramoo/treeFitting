@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/treeFitting.dir/treeFit.cpp.o"
+  "CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o"
   "treeFitting.pdb"
   "treeFitting"
 )

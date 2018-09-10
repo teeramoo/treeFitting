@@ -39,7 +39,7 @@ add_definitions(${PCL_DEFINITIONS})
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
 
 #add_executable (treeFit treeFit.cpp src/planeSegmentation.cpp src/planeSegmentation.h)
-add_executable (treeFitting treeFit.cpp)
+add_executable (treeFitting treeFit_cylindersearch.cpp)
 
 target_link_libraries(treeFitting ${PROJECT_NAME} ${PCL_LIBRARIES} ${OCTAVE_LIBRARIES} ${OpenCV_LIBS})
 

@@ -57,38 +57,38 @@ include CMakeFiles/treeFitting.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/treeFitting.dir/flags.make
 
-CMakeFiles/treeFitting.dir/treeFit.cpp.o: CMakeFiles/treeFitting.dir/flags.make
-CMakeFiles/treeFitting.dir/treeFit.cpp.o: ../treeFit.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/treeFitting.dir/treeFit.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFitting.dir/treeFit.cpp.o -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit.cpp
+CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o: CMakeFiles/treeFitting.dir/flags.make
+CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o: ../treeFit_cylindersearch.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o -c /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit_cylindersearch.cpp
 
-CMakeFiles/treeFitting.dir/treeFit.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFitting.dir/treeFit.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit.cpp > CMakeFiles/treeFitting.dir/treeFit.cpp.i
+CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit_cylindersearch.cpp > CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.i
 
-CMakeFiles/treeFitting.dir/treeFit.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFitting.dir/treeFit.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit.cpp -o CMakeFiles/treeFitting.dir/treeFit.cpp.s
+CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/teeramoo/Desktop/Thesis_work/Point_cloud_segmentation/tree_fit/treeFit_cylindersearch.cpp -o CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.s
 
-CMakeFiles/treeFitting.dir/treeFit.cpp.o.requires:
+CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.requires:
 
-.PHONY : CMakeFiles/treeFitting.dir/treeFit.cpp.o.requires
+.PHONY : CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.requires
 
-CMakeFiles/treeFitting.dir/treeFit.cpp.o.provides: CMakeFiles/treeFitting.dir/treeFit.cpp.o.requires
-	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit.cpp.o.provides.build
-.PHONY : CMakeFiles/treeFitting.dir/treeFit.cpp.o.provides
+CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.provides: CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.requires
+	$(MAKE) -f CMakeFiles/treeFitting.dir/build.make CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.provides.build
+.PHONY : CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.provides
 
-CMakeFiles/treeFitting.dir/treeFit.cpp.o.provides.build: CMakeFiles/treeFitting.dir/treeFit.cpp.o
+CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.provides.build: CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o
 
 
 # Object files for target treeFitting
 treeFitting_OBJECTS = \
-"CMakeFiles/treeFitting.dir/treeFit.cpp.o"
+"CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o"
 
 # External object files for target treeFitting
 treeFitting_EXTERNAL_OBJECTS =
 
-treeFitting: CMakeFiles/treeFitting.dir/treeFit.cpp.o
+treeFitting: CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o
 treeFitting: CMakeFiles/treeFitting.dir/build.make
 treeFitting: libtreeFit.so
 treeFitting: /usr/lib/x86_64-linux-gnu/libboost_system.so
@@ -325,7 +325,7 @@ CMakeFiles/treeFitting.dir/build: treeFitting
 
 .PHONY : CMakeFiles/treeFitting.dir/build
 
-CMakeFiles/treeFitting.dir/requires: CMakeFiles/treeFitting.dir/treeFit.cpp.o.requires
+CMakeFiles/treeFitting.dir/requires: CMakeFiles/treeFitting.dir/treeFit_cylindersearch.cpp.o.requires
 
 .PHONY : CMakeFiles/treeFitting.dir/requires
 

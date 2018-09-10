@@ -35,6 +35,7 @@ class NormalEstimator {
 public:
     NormalEstimator();
     NormalEstimator(pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputPointClod, double searchRadius);
+    NormalEstimator(pcl::PointCloud<pcl::PointXYZRGB>::Ptr inputPointClod, int &Ksearch);
 
     ~NormalEstimator();
 
